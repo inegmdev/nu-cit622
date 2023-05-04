@@ -1,13 +1,15 @@
 #pragma once
 
-#include <string> // For: std::wstring
-#include <Windows.h> // For: DWORD, HANDLE, PVOID, ULONG, PULONG
-#include <winternl.h> // For: PPEB
+#include <string>     // For: std::wstring
+#include <Windows.h>  // For: DWORD, HANDLE, PVOID, ULONG, PULONG
+#include <winternl.h> // For: PROCESS_BASIC_INFORMATION
+#include "Errors.h"   // For: StdError
 
 class ProcessInfo {
 public:
-	static DWORD getPidByName(const std::wstring& processName);
-	static PPEB getPbiByPid(const DWORD processId);
+	static DWORD getPidByName(_In_ const std::wstring& processName);
+	static StdError getPbiByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi);
+	static VOID printProcessPbi(_In_ PPROCESS_BASIC_INFORMATION pPbi);
 };
 
 // Types
