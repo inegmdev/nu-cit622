@@ -31,7 +31,7 @@ DWORD ProcessInfo::getPidByName(_In_ const wstring& processExecName) {
 	return NULL;
 }
 
-StdError ProcessInfo::getPbiByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi) {
+StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
 	// OpenProcess
 	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, processId);
 	if (hProcess == NULL) {
@@ -55,12 +55,20 @@ StdError ProcessInfo::getPbiByPid(_In_ const DWORD processId, _Out_ PPROCESS_BAS
 		FreeLibrary(hNtDll);
 		return ERROR_GEN_FAILURE;
 	}
+	SIZE_T _bytesRead = 0;
+	BOOL boolStatus = ReadProcessMemory(hProcess, pPbi->PebBaseAddress, pPeb, sizeof(PEB), &_bytesRead);
+	if (boolStatus == TRUE && _bytesRead != 0) {
+		cout << "[ERROR] Failed to read the PEB structure." << endl;
+		FreeLibrary(hNtDll);
+		return ERROR_GEN_FAILURE;
+	}
+
 	// Free the loaded library
 	FreeLibrary(hNtDll);
 	return ERROR_SUCCESS;
 }
 
-VOID ProcessInfo::printProcessPbi(_In_ PPROCESS_BASIC_INFORMATION pPbi) {
+VOID ProcessInfo::printProcessPbiAndPeb(_In_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
 	TextTable t('-', '|', '+');
 
 	t.add("UniqueProcessId: ");

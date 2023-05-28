@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 	// Get the process ID from name
-	DWORD dwProcessNum = ProcessInfo::getPidByName(L"Notepad.exe");
+	DWORD dwProcessNum = ProcessInfo::getPidByName(L"notepad.exe");
 	
 	// Check if the process is enabled or not.
 	if (dwProcessNum == 0) {
@@ -21,11 +21,14 @@ int main() {
 
 	// Get the PBI information
 	PROCESS_BASIC_INFORMATION pbi = { 0 };
-	StdError stdReturn = ProcessInfo::getPbiByPid(dwProcessNum, &pbi);
+	PEB peb = { 0 };
+
+	StdError stdReturn = ProcessInfo::getPbiAndPebByPid(dwProcessNum, &pbi, &peb);
 	if (stdReturn != ERROR_SUCCESS) {
 		cout << "[ERROR] Failed while getting the PBI for the PID:" << dwProcessNum << "." << endl;
 	}
-		// Print the process PBI information in table format
-	ProcessInfo::printProcessPbi(&pbi);
+	
+	// Print the process PBI information in table format
+	ProcessInfo::printProcessPbiAndPeb(&pbi, &peb);
 	return 0;
 }

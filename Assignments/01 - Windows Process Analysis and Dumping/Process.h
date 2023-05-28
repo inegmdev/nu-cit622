@@ -8,8 +8,8 @@
 class ProcessInfo {
 public:
 	static DWORD getPidByName(_In_ const std::wstring& processName);
-	static StdError getPbiByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi);
-	static VOID printProcessPbi(_In_ PPROCESS_BASIC_INFORMATION pPbi);
+	static StdError getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi, _Out_ PPEB pPeb);
+	static VOID printProcessPbiAndPeb(_In_ PPROCESS_BASIC_INFORMATION pPbi, _In_ PPEB pPeb);
 };
 
 // Types
