@@ -6,6 +6,15 @@
 #include <tlhelp32.h>  // For: CreateToolhelp32Snapshot, TH32CS_SNAPPROCESS, PROCESSENTRY32, Process32First, Process32Next
 #include "TextTable.h"
 
+#define CHECK_ReadProcessMemory_STATUS() do { \
+		if (boolStatus == 0 && _bytesRead == 0) { \
+			cout << "[ERROR] Failed to read process memory." << endl; \
+			/* Get some more infromation about what happened */ \
+			/* GetLastError */ \
+			FreeLibrary(hNtDll); \
+			return ERROR_GEN_FAILURE; \
+		} \
+	} while (0)
 
 using namespace std;
 
@@ -31,7 +40,12 @@ DWORD ProcessInfo::getPidByName(_In_ const wstring& processExecName) {
 	return NULL;
 }
 
-StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
+StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo) {
+	// Faster access local aliases
+	PPROCESS_BASIC_INFORMATION pPbi = &(pProcAllInfo->pbi);
+	PPEB pPeb = &(pProcAllInfo->peb);
+	PPEB_LDR_DATA pLdr = &(pProcAllInfo->ldr);
+
 	// OpenProcess
 	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
 	if (hProcess == NULL) {
@@ -57,21 +71,24 @@ StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCE
 	}
 	SIZE_T _bytesRead = 0;
 	BOOL boolStatus = ReadProcessMemory(hProcess, pPbi->PebBaseAddress, pPeb, sizeof(PEB), &_bytesRead);
-	if (boolStatus == 0 && _bytesRead == 0) {
-		cout << "[ERROR] Failed to read the PEB structure." << endl;
-		// Get some more infromation about what happened
-		// GetLastError
-		FreeLibrary(hNtDll);
-		return ERROR_GEN_FAILURE;
-	}
+	CHECK_ReadProcessMemory_STATUS();
+
+	_bytesRead = 0;
+	boolStatus = ReadProcessMemory(hProcess, pPeb->Ldr, pLdr, sizeof(PEB_LDR_DATA), &_bytesRead);
+	CHECK_ReadProcessMemory_STATUS();
 
 	// Free the loaded library
 	FreeLibrary(hNtDll);
 	return ERROR_SUCCESS;
 }
 
-VOID ProcessInfo::printProcessPbiAndPeb(_In_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
-	TextTable pbiTable('-', '|', '+');
+VOID ProcessInfo::printProcessPbiAndPeb(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
+	// Aliases for faster access
+	PPROCESS_BASIC_INFORMATION pPbi = &(pProcAllInfo->pbi);
+	PPEB pPeb = &(pProcAllInfo->peb);
+	PPEB_LDR_DATA pLdr = &(pProcAllInfo->ldr);
+
+	TextTable pbiTable(' ', ' ', ' ');
 
 	pbiTable.add("UniqueProcessId: ");
 	pbiTable.add(to_string( pPbi->UniqueProcessId ));
@@ -86,20 +103,41 @@ VOID ProcessInfo::printProcessPbiAndPeb(_In_ PPROCESS_BASIC_INFORMATION pPbi, PP
 	std::cout << "PBI information for process" << std::endl;
 	std::cout << pbiTable << std::endl;
 
-	TextTable pebTable('-', '|', '+');
+	TextTable pebTable(' ', ' ', ' ');
 
 	pebTable.add("BeingDebugged: ");
 	pebTable.add(to_string(pPeb->BeingDebugged));
 	pebTable.endOfRow();
 
-	pebTable.add("LDR: ");
+	pebTable.add("Ldr: ");
 	ss.str("");
 	ss << "0x" << std::hex << pPeb->Ldr;
 	pebTable.add(ss.str());
 	pebTable.endOfRow();
 
+	pebTable.add("ProcessParameters: ");
+	ss.str("");
+	ss << "0x" << std::hex << pPeb->ProcessParameters;
+	pebTable.add(ss.str());
+	pebTable.endOfRow();
+
+	pebTable.add("SessionId: ");
+	pebTable.add(to_string(pPeb->SessionId));
+	pebTable.endOfRow();
 
 	std::cout << "PEB information for process" << std::endl;
 	std::cout << pebTable << std::endl;
+
+	TextTable pebLdrDataTabel(' ', ' ', ' ');
+
+	pebLdrDataTabel.add("InMemoryOrderModuleList (Flink): ");
+	ss.str("");
+	ss << "0x" << std::hex << pLdr->InMemoryOrderModuleList.Flink;
+	pebLdrDataTabel.add(ss.str());
+	pebLdrDataTabel.endOfRow();
+
+	std::cout << "PEB LDR info" << std::endl;
+	std::cout << pebLdrDataTabel << std::endl;
+
 
 }

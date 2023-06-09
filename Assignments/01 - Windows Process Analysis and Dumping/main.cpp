@@ -20,15 +20,14 @@ int main() {
 	cout << endl;
 
 	// Get the PBI information
-	PROCESS_BASIC_INFORMATION pbi = { 0 };
-	PEB peb = { 0 };
+	ProcessInfo_tstrAllInfo procAllInfo = { 0 };
 
-	StdError stdReturn = ProcessInfo::getPbiAndPebByPid(dwProcessNum, &pbi, &peb);
+	StdError stdReturn = ProcessInfo::getPbiAndPebByPid(dwProcessNum, &procAllInfo);
 	if (stdReturn != ERROR_SUCCESS) {
 		cout << "[ERROR] Failed while getting the PBI for the PID:" << dwProcessNum << "." << endl;
 	}
 	
 	// Print the process PBI information in table format
-	ProcessInfo::printProcessPbiAndPeb(&pbi, &peb);
+	ProcessInfo::printProcessPbiAndPeb(&procAllInfo);
 	return 0;
 }
