@@ -40,7 +40,7 @@ DWORD ProcessInfo::getPidByName(_In_ const wstring& processExecName) {
 	return NULL;
 }
 
-StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo) {
+StdError ProcessInfo::getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo) {
 	// Faster access local aliases
 	PPROCESS_BASIC_INFORMATION pPbi = &(pProcAllInfo->pbi);
 	PPEB pPeb = &(pProcAllInfo->peb);
@@ -82,7 +82,7 @@ StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, ProcessInfo_
 	return ERROR_SUCCESS;
 }
 
-VOID ProcessInfo::printProcessPbiAndPeb(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
+VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 	// Aliases for faster access
 	PPROCESS_BASIC_INFORMATION pPbi = &(pProcAllInfo->pbi);
 	PPEB pPeb = &(pProcAllInfo->peb);

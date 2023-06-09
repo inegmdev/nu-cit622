@@ -32,8 +32,8 @@ typedef NTSTATUS(NTAPI* tpfNtQueryInformationProcess) (
 class ProcessInfo {
 public:
 	static DWORD getPidByName(_In_ const std::wstring& processName);
-	static StdError getPbiAndPebByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo);
-	static VOID printProcessPbiAndPeb(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo);
+	static StdError getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo);
+	static VOID printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo);
 };
 
 
