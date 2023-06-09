@@ -33,7 +33,7 @@ DWORD ProcessInfo::getPidByName(_In_ const wstring& processExecName) {
 
 StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
 	// OpenProcess
-	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, processId);
+	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
 	if (hProcess == NULL) {
 		cout << "[ERROR] Failed to open process (" << processId << "). Error: " << GetLastError() << endl;
 		return ERROR_GEN_FAILURE;
@@ -57,8 +57,10 @@ StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCE
 	}
 	SIZE_T _bytesRead = 0;
 	BOOL boolStatus = ReadProcessMemory(hProcess, pPbi->PebBaseAddress, pPeb, sizeof(PEB), &_bytesRead);
-	if (boolStatus == TRUE && _bytesRead != 0) {
+	if (boolStatus == 0 && _bytesRead == 0) {
 		cout << "[ERROR] Failed to read the PEB structure." << endl;
+		// Get some more infromation about what happened
+		// GetLastError
 		FreeLibrary(hNtDll);
 		return ERROR_GEN_FAILURE;
 	}
@@ -69,18 +71,35 @@ StdError ProcessInfo::getPbiAndPebByPid(_In_ const DWORD processId, _Out_ PPROCE
 }
 
 VOID ProcessInfo::printProcessPbiAndPeb(_In_ PPROCESS_BASIC_INFORMATION pPbi, PPEB pPeb) {
-	TextTable t('-', '|', '+');
+	TextTable pbiTable('-', '|', '+');
 
-	t.add("UniqueProcessId: ");
-	t.add(to_string( pPbi->UniqueProcessId ));
-	t.endOfRow();
+	pbiTable.add("UniqueProcessId: ");
+	pbiTable.add(to_string( pPbi->UniqueProcessId ));
+	pbiTable.endOfRow();
 
-	t.add("PebBaseAddress: ");
+	pbiTable.add("PebBaseAddress: ");
 	std::stringstream ss;
 	ss << "0x" << std::hex << pPbi->PebBaseAddress;
-	t.add( ss.str() );
-	t.endOfRow();
+	pbiTable.add( ss.str() );
+	pbiTable.endOfRow();
 
 	std::cout << "PBI information for process" << std::endl;
-	std::cout << t << std::endl;
+	std::cout << pbiTable << std::endl;
+
+	TextTable pebTable('-', '|', '+');
+
+	pebTable.add("BeingDebugged: ");
+	pebTable.add(to_string(pPeb->BeingDebugged));
+	pebTable.endOfRow();
+
+	pebTable.add("LDR: ");
+	ss.str("");
+	ss << "0x" << std::hex << pPeb->Ldr;
+	pebTable.add(ss.str());
+	pebTable.endOfRow();
+
+
+	std::cout << "PEB information for process" << std::endl;
+	std::cout << pebTable << std::endl;
+
 }
