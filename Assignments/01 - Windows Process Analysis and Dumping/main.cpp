@@ -25,6 +25,7 @@ int main() {
 	StdError stdReturn = ProcessInfo::getProcInfoByPid(dwProcessNum, &procAllInfo);
 	if (stdReturn != ERROR_SUCCESS) {
 		cout << "[ERROR] Failed while getting the PBI for the PID:" << dwProcessNum << "." << endl;
+		return ERROR_GEN_FAILURE;
 	}
 	
 	// Print the process PBI information in table format

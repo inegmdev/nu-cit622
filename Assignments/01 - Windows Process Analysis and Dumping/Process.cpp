@@ -1,4 +1,4 @@
-#include "Process.h"
+﻿#include "Process.h"
 
 #include <iostream>
 #include <string>
@@ -7,7 +7,7 @@
 #include "TextTable.h"
 
 #define CHECK_ReadProcessMemory_STATUS() do { \
-		if (boolStatus == 0 && _bytesRead == 0) { \
+		if (boolStatus == 0 && bytesRead == 0) { \
 			cout << "[ERROR] Failed to read process memory." << endl; \
 			/* Get some more infromation about what happened */ \
 			/* GetLastError */ \
@@ -69,13 +69,56 @@ StdError ProcessInfo::getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_t
 		FreeLibrary(hNtDll);
 		return ERROR_GEN_FAILURE;
 	}
-	SIZE_T _bytesRead = 0;
-	BOOL boolStatus = ReadProcessMemory(hProcess, pPbi->PebBaseAddress, pPeb, sizeof(PEB), &_bytesRead);
+	SIZE_T bytesRead = 0;
+	BOOL boolStatus = ReadProcessMemory(hProcess, pPbi->PebBaseAddress, pPeb, sizeof(PEB), &bytesRead);
 	CHECK_ReadProcessMemory_STATUS();
 
-	_bytesRead = 0;
-	boolStatus = ReadProcessMemory(hProcess, pPeb->Ldr, pLdr, sizeof(PEB_LDR_DATA), &_bytesRead);
+	bytesRead = 0;
+	boolStatus = ReadProcessMemory(hProcess, pPeb->Ldr, pLdr, sizeof(PEB_LDR_DATA), &bytesRead);
 	CHECK_ReadProcessMemory_STATUS();
+
+	/* Traversing the LDR */
+	LDR_DATA_TABLE_ENTRY module = { 0 };
+	uint16_t currentModuleIndex = 0;
+	// First link to the first LIST_ENTRY
+	LIST_ENTRY* head = pLdr->InMemoryOrderModuleList.Flink;
+	LIST_ENTRY* current = head;
+	
+#if (PROCESS_INFO_DEBUG == ON)
+	cout << "[DEBUG] head = 0x" << std::hex << head << endl;
+	cout << "[DEBUG] current = 0x" << std::hex << current << endl;
+#endif
+	
+	do {
+		// Fetch the module data from the process memory
+		boolStatus = ReadProcessMemory(
+			hProcess, CONTAINING_RECORD(current, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks),
+			&module, sizeof(LDR_DATA_TABLE_ENTRY), &bytesRead
+		);
+		CHECK_ReadProcessMemory_STATUS();
+
+		// Fetching data for the module
+		// 1. Module Name
+		boolStatus = ReadProcessMemory(
+			hProcess, module.FullDllName.Buffer,
+			&(pProcAllInfo->ldrData.entries[currentModuleIndex].moduleName),
+			module.FullDllName.Length, &bytesRead);
+		pProcAllInfo->ldrData.entries[currentModuleIndex].moduleName[module.FullDllName.Length / sizeof(WCHAR)] = L'\0';
+		CHECK_ReadProcessMemory_STATUS();
+
+		if (module.FullDllName.Length > 0) {
+			// If the full dll name is not empty, update the num of scanned modules so far
+			currentModuleIndex += 1;
+			pProcAllInfo->ldrData.numEntries = currentModuleIndex;
+		}
+
+		// Update current to next module
+		current = module.InMemoryOrderLinks.Flink;
+#if (PROCESS_INFO_DEBUG == ON)
+		cout << "[DEBUG] next current = 0x" << std::hex << current << endl;
+#endif
+
+	} while (current != head);
 
 	// Free the loaded library
 	FreeLibrary(hNtDll);
@@ -86,9 +129,13 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 	// Aliases for faster access
 	PPROCESS_BASIC_INFORMATION pPbi = &(pProcAllInfo->pbi);
 	PPEB pPeb = &(pProcAllInfo->peb);
-	PPEB_LDR_DATA pLdr = &(pProcAllInfo->ldr);
+	ProcessInfo_tpstrLoaderData ldrData = &(pProcAllInfo->ldrData);
 
-	TextTable pbiTable(' ', ' ', ' ');
+	/*
+		PBI (Process Basic Info) Structure
+	*/
+
+	TextTable pbiTable(' ');
 
 	pbiTable.add("UniqueProcessId: ");
 	pbiTable.add(to_string( pPbi->UniqueProcessId ));
@@ -103,8 +150,11 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 	std::cout << "PBI information for process" << std::endl;
 	std::cout << pbiTable << std::endl;
 
-	TextTable pebTable(' ', ' ', ' ');
-
+	/*
+		PEB (Process Environment Block) Structure
+	*/
+	
+	TextTable pebTable(' ');
 	pebTable.add("BeingDebugged: ");
 	pebTable.add(to_string(pPeb->BeingDebugged));
 	pebTable.endOfRow();
@@ -128,16 +178,24 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 	std::cout << "PEB information for process" << std::endl;
 	std::cout << pebTable << std::endl;
 
-	TextTable pebLdrDataTabel(' ', ' ', ' ');
+	/*
+		Loader Data Print
+	*/
+	TextTable ldrDataTable(' ');
 
-	pebLdrDataTabel.add("InMemoryOrderModuleList (Flink): ");
-	ss.str("");
-	ss << "0x" << std::hex << pLdr->InMemoryOrderModuleList.Flink;
-	pebLdrDataTabel.add(ss.str());
-	pebLdrDataTabel.endOfRow();
+	for (int i = 0; i < ldrData->numEntries; i++) {
+		ss.str("");
+		ss << "Module (" << std::dec <<  i << ")";
+		ldrDataTable.add(ss.str());
+		std::string _str(
+			std::begin(ldrData->entries[i].moduleName),
+			std::end(ldrData->entries[i].moduleName) - 1);
+		ldrDataTable.add(_str);
+		ldrDataTable.endOfRow();
+	}
 
-	std::cout << "PEB LDR info" << std::endl;
-	std::cout << pebLdrDataTabel << std::endl;
+	std::cout << "PEB/Loader info: " << "(" << std::dec << ldrData->numEntries << ") modules has been detected." << std::endl;
+	std::cout << ldrDataTable << std::endl;
 
 
 }
