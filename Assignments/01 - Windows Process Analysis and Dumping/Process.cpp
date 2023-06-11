@@ -105,6 +105,12 @@ StdError ProcessInfo::getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_t
 			module.FullDllName.Length, &bytesRead);
 		pProcAllInfo->ldrData.entries[currentModuleIndex].moduleName[module.FullDllName.Length / sizeof(WCHAR)] = L'\0';
 		CHECK_ReadProcessMemory_STATUS();
+		// 2. Module/Dll base address
+		pProcAllInfo->ldrData.entries[currentModuleIndex].moduleBaseAddr = module.DllBase;
+		// 3. Checksum of the dll
+		pProcAllInfo->ldrData.entries[currentModuleIndex].moduleCheckSum = module.CheckSum;
+		// 4. Module timestamp
+		pProcAllInfo->ldrData.entries[currentModuleIndex].moduleTimeDateStamp = module.TimeDateStamp;
 
 		if (module.FullDllName.Length > 0) {
 			// If the full dll name is not empty, update the num of scanned modules so far
@@ -185,12 +191,30 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 
 	for (int i = 0; i < ldrData->numEntries; i++) {
 		ss.str("");
-		ss << "Module (" << std::dec <<  i << ")";
+		ss << "Module (" << std::dec <<  i << ") -> ";
 		ldrDataTable.add(ss.str());
 		std::string _str(
 			std::begin(ldrData->entries[i].moduleName),
 			std::end(ldrData->entries[i].moduleName) - 1);
 		ldrDataTable.add(_str);
+		ldrDataTable.endOfRow();
+		
+		ldrDataTable.add("");
+		ss.str("");
+		ss << "Baseaddress = 0x" << std::hex << ldrData->entries[i].moduleBaseAddr;
+		ldrDataTable.add(ss.str());
+		ldrDataTable.endOfRow();
+
+		ldrDataTable.add("");
+		ss.str("");
+		ss << "Checksum = 0x" << std::hex << ldrData->entries[i].moduleCheckSum;
+		ldrDataTable.add(ss.str());
+		ldrDataTable.endOfRow();
+
+		ldrDataTable.add("");
+		ss.str("");
+		ss << "TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp;
+		ldrDataTable.add(ss.str());
 		ldrDataTable.endOfRow();
 	}
 

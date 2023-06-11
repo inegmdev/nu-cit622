@@ -22,6 +22,9 @@
 /* Process Info : Entry of loader data */
 typedef struct {
 	WCHAR moduleName[MAX_PATH];
+	PVOID moduleBaseAddr;
+	ULONG moduleCheckSum;
+	ULONG moduleTimeDateStamp;
 } ProcessInfo_tstrLoaderDataEntry;
 
 /* Process Info : Loader data info */
