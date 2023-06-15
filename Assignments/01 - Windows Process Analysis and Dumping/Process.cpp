@@ -126,8 +126,12 @@ StdError ProcessInfo::getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_t
 
 	} while (current != head);
 
-	// Free the loaded library
+	/*
+		Clean up
+	*/
+	// Free loaded handles and modules
 	FreeLibrary(hNtDll);
+	CloseHandle(hProcess);
 	return ERROR_SUCCESS;
 }
 
