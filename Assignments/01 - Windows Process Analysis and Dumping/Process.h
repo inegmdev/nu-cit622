@@ -69,6 +69,7 @@ public:
 	static DWORD getPidByName(_In_ const std::wstring& processName);
 	static StdError getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo);
 	static VOID printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo);
+	static VOID printProcHeaders(_In_ const DWORD processId);
 	static VOID dumpProcessByPid(DWORD processId);
 };
 
