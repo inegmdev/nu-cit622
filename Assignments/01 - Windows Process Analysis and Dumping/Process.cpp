@@ -364,9 +364,14 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
     /*
         Loader Data Print
     */
+#define ENABLE_USE_TEXTTABLE 0 
+#if ENABLE_USE_TEXTTABLE 
     TextTable ldrDataTable(' ');
-
+#else
+    std::cout << "PEB/Loader info: " << "(" << std::dec << ldrData->numEntries << ") modules has been detected." << std::endl;
+#endif
     for (int i = 0; i < ldrData->numEntries; i++) {
+#if ENABLE_USE_TEXTTABLE 
         ss.str("");
         ss << "Module (" << std::dec <<  i << ") -> ";
         ldrDataTable.add(ss.str());
@@ -393,11 +398,20 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
         ss << "TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp;
         ldrDataTable.add(ss.str());
         ldrDataTable.endOfRow();
+#else
+        std::cout << "Module (" << std::dec << i << ") -> " << ldrData->entries[i].moduleName << std::endl;
+        std::cout << "  Baseaddress = 0x" << std::hex << ldrData->entries[i].moduleBaseAddr
+            << ", Checksum = 0x" << std::hex << ldrData->entries[i].moduleCheckSum
+            << ", TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp
+            << std::endl;
+#endif
     }
-
+    
+#if ENABLE_USE_TEXTTABLE
     std::cout << "PEB/Loader info: " << "(" << std::dec << ldrData->numEntries << ") modules has been detected." << std::endl;
     std::cout << ldrDataTable << std::endl;
-
+#endif
+    std::cout << std::endl;
 
 }
 
