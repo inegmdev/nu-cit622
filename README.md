@@ -27,7 +27,7 @@ Develop Windows process memeory parser that opens a running process i.e. `notepa
  - [x] Print the basic information of `notepad.exe` process from the **PEB** data structure.
  - [x] Parse the `notepad.exe` Portable Executable (PE) Header in memory and extract:
      - [x] NT and DOS headers.
-     - [ ] Exported/import functions.
+     - [x] Exported/import functions.
     Research the following data structure that contains this information such as `PIMAGE_NT_HEADERS`, `PIMAGE_EXPORT_DIRECTORY`, and `PIMAGE_DOS_HEADER`.
  - [x] Use the **PEB** to find the base address of the loaded "kernel32.dll" and all other DLLs loaded by `notepad.exe`. You need to iterate through data structures internal to the Windows loader such as `PTEB`, `PLIST_ENTRY`, `PEB_LDR_DATA` and `LDR_DATA_TABLE_ENTRY`.
  - [ ] Bonus: Dump the `notepad.exe` from memory to a file on desk.

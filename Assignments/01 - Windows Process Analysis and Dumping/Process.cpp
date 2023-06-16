@@ -10,6 +10,8 @@
 #include <wchar.h> // For: wcscpy_s, wcscat_s
 #include <codecvt> // For: converting wchar_t to string
 
+#include <DbgHelp.h> // For: ImageDirectoryEntryToData
+
 #define CHECK_ReadProcessMemory_STATUS() do { \
         if (boolStatus == 0 && bytesRead == 0) { \
             cout << "[ERROR] Failed to read process memory." << endl; \
@@ -399,12 +401,6 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
 
 }
 
-#if 1
-
-// #include <iostream>
-// #include <Windows.h>
-// #include <Psapi.h>
-
 // Function to dump the DOS header of a module
 void DumpDosHeader(const IMAGE_DOS_HEADER* dosHeader)
 {
@@ -447,7 +443,7 @@ void DumpDosHeader(const IMAGE_DOS_HEADER* dosHeader)
 
 
 // Function to dump the NT header of a module
-static void DumpNtHeader(const IMAGE_NT_HEADERS* ntHeader)
+static void vidPrintNtHeader(const IMAGE_NT_HEADERS* ntHeader)
 {
     std::cout << "NT Header:" << std::endl;
     std::cout << std::hex;
@@ -696,7 +692,7 @@ VOID ProcessInfo::printProcHeaders(_In_ const DWORD processId) {
     const PIMAGE_NT_HEADERS ntHeaderAddr = reinterpret_cast<const PIMAGE_NT_HEADERS>(
         reinterpret_cast<const PBYTE>(hModule) + reinterpret_cast<const PIMAGE_DOS_HEADER>(hModule)->e_lfanew
     );
-    DumpNtHeader(ntHeaderAddr);
+    vidPrintNtHeader(ntHeaderAddr);
     //DumpExportedFunctions(hProcess, hModule);
     //DumpImportedFunctions(hProcess, hModule);
 
@@ -704,4 +700,157 @@ VOID ProcessInfo::printProcHeaders(_In_ const DWORD processId) {
     return;
 }
 
+static VOID vidPrintImportList(const HMODULE hModule)
+{
+    // Get the base address of the PE image
+    PIMAGE_DOS_HEADER pDosHeader = 
+        reinterpret_cast<PIMAGE_DOS_HEADER>(hModule);
+    PIMAGE_NT_HEADERS pNtHeaders = 
+        reinterpret_cast<PIMAGE_NT_HEADERS>(
+            reinterpret_cast<PBYTE>(hModule) + pDosHeader->e_lfanew
+        );
+    
+
+    // Retrieve the pointer to the import directory entry
+    IMAGE_DATA_DIRECTORY importDataDir = 
+        pNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
+    PIMAGE_IMPORT_DESCRIPTOR pImportDescriptor = 
+        reinterpret_cast<PIMAGE_IMPORT_DESCRIPTOR>(
+            reinterpret_cast<const PBYTE>(hModule) 
+            + importDataDir.VirtualAddress
+            );
+
+
+    // Iterate through the import descriptors until the end of the list (NULL entry)
+    while (
+        pImportDescriptor != nullptr && 
+        pImportDescriptor->OriginalFirstThunk != 0
+        )
+    { 
+        // Get the module name
+        LPCSTR moduleName = 
+            reinterpret_cast<LPCSTR>(
+                reinterpret_cast<const PBYTE>(hModule)
+                + pImportDescriptor->Name
+            );
+        
+        std::cout << "    Module Name: (" << moduleName << ")" << std::endl;
+
+        // Iterate through the imported functions
+        PIMAGE_THUNK_DATA pThunk = 
+            reinterpret_cast<PIMAGE_THUNK_DATA>(
+                reinterpret_cast<const PBYTE>(hModule)
+                + pImportDescriptor->OriginalFirstThunk
+            );
+        while (pThunk->u1.AddressOfData != 0)
+        {
+            // Check if it's an ordinal import or named import
+            if (IMAGE_SNAP_BY_ORDINAL(pThunk->u1.Ordinal))
+            {
+                // Ordinal import
+                WORD ordinal = IMAGE_ORDINAL(pThunk->u1.Ordinal);
+                std::cout << "      Ordinal: " << ordinal << std::endl;
+            }
+            else
+            {
+                // Named import
+                PIMAGE_IMPORT_BY_NAME pImportByName = 
+                    reinterpret_cast<PIMAGE_IMPORT_BY_NAME>(
+                        reinterpret_cast<const PBYTE>(hModule)
+                        + pThunk->u1.AddressOfData
+                    );
+                LPCSTR functionName = 
+                    reinterpret_cast<LPCSTR>(pImportByName->Name);
+                std::cout << "      Func : " << functionName
+                    << std::endl;
+            }
+
+            // Move to the next imported function
+            pThunk++;
+        }
+
+        // Move to the next import descriptor
+        pImportDescriptor++;
+    }
+    std::cout << std::endl;
+}
+
+static VOID vidPrintExportList(const HMODULE hModule) {
+
+}
+
+
+VOID ProcessInfo::vidPrintProcExportsImports(_In_ const DWORD dwProcessId) {
+#if 0 
+    BOOL bRet = 0;
+
+    // Open the process
+    HANDLE hProcess = OpenProcess(
+        PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+        FALSE, dwProcessId
+    );
+    CHECK_COND_AND_RET_IF_ERR(
+        hProcess != NULL, "Failed to open the process" << dwProcessId,
+        );
+    
+    // Enumerate over all the modules in the image
+    HMODULE* hModules = nullptr;
+    DWORD cbNeeded = 0;
+
+    bRet = EnumProcessModulesEx(
+        hProcess, nullptr, 0, &cbNeeded, LIST_MODULES_ALL
+    );
+    CHECK_COND_AND_RET_IF_ERR(
+        bRet != 0 && cbNeeded != 0,
+        "Failed to enumerate the modules.",
+    );
+
+    // Alocate memory for the module handles
+    hModules = new HMODULE[cbNeeded / sizeof(HMODULE)];
+    bRet = EnumProcessModulesEx(
+        hProcess, hModules, cbNeeded, &cbNeeded, LIST_MODULES_ALL
+    );
+    if (!(bRet != 0 && cbNeeded != 0)) {
+        std::cout << 
+        "[ERROR] Failed to enumerate the modules. System error code ("
+        << GetLastError() << ")" << std::endl;
+        delete[] hModules;
+        CloseHandle(hProcess);
+        return;
+    }
+
+    DWORD numModules = cbNeeded / sizeof(HMODULE);
+
+    std::cout << std::dec;
+    std::cout << std::endl;    
+    std::cout << "List Modules: " << numModules << std::endl ;
+
+    // For each module print the imports and exports
+    for (int i=0; i<numModules; i++) {
+        std::cout << 
+        "  Module#" << i << ": (0x" << std::hex << hModules[i] << ")" 
+        << std::endl;
+
+        // Print the import list
+        vidPrintImportList(hModules[i]);
+
+        // Print the export list
+        vidPrintExportList(hModules[i]);
+
+        std::cout << std::endl;
+
+    }
+#else
+    // Get the current module handle
+    HMODULE hModule = GetModuleHandle(nullptr);
+    if (hModule == nullptr)
+    {
+        std::cout << "[ERROR] Failed to get the module handle. Error code: " << GetLastError() << std::endl;
+        return;
+    }
+    // Print the import list
+    std::cout << "Import list:" << std::endl;
+    vidPrintImportList(hModule);
+
 #endif
+}

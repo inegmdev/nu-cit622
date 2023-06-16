@@ -31,6 +31,9 @@ int main() {
 
 	// Print the process header informations
 	ProcessInfo::printProcHeaders(dwProcessId);
+	
+	// Print the process header informations
+	ProcessInfo::vidPrintProcExportsImports(dwProcessId);
 
 	// Print the process PBI information in table format
 	ProcessInfo::printProcInfo(&procAllInfo);
