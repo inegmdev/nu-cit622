@@ -1,0 +1,659 @@
+Process ID: 14704
+
+DOS Header:
+  Magic Number: 0x5a4d
+  Bytes on Last Page: 144
+  Pages in File: 3
+  Relocations: 0
+  Header Size (in paragraphs): 4
+  Minimum Extra Paragraphs: 0x0
+  Maximum Extra Paragraphs: 0xffff
+  Initial SS Value: 0x0
+  Initial SP Value: 0xb8
+  Checksum: 0x0
+  Initial IP Value: 0x0
+  Initial CS Value: 0x0
+  File Address of Relocation Table: 0x40
+  Overlay Number: 0x0
+  Reserved Words: 0x0 0x0 0x0 0x0 
+  OEM Identifier: 0x0
+  OEM Information: 0x0
+  Reserved Words: 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 
+  File Address of New Exe Header: 0xe8
+
+NT Header:
+  Signature: 0x4550
+
+NT->FILE Header:
+  Machine:               0x8664
+  NumberOfSections:      0xa
+  TimeDateStamp:         0x648ccbe0
+  PointerToSymbolTable:  0x0
+  NumberOfSymbols:       0x0
+  SizeOfOptionalHeader:  0xf0
+  Characteristics:       0x22
+
+NT->OPTIONAL Header:
+  Magic:                        0x20b
+  MajorLinkerVersion:           0xe
+  MinorLinkerVersion:           0x24
+  SizeOfCode:                   0x2ce00
+  SizeOfInitializedData:        0x18200
+  SizeOfUninitializedData:      0x0
+  AddressOfEntryPoint:          0x15b77
+  BaseOfCode:                   0x1000
+  ImageBase:                    0x7ff6470f0000
+  SectionAlignment:             0x1000
+  FileAlignment:                0x200
+  MajorOperatingSystemVersion:  0x6
+  MinorOperatingSystemVersion:  0x0
+  MajorImageVersion:            0x0
+  MinorImageVersion:            0x0
+  MajorSubsystemVersion:        0x6
+  MinorSubsystemVersion:        0x0
+  Win32VersionValue:            0x0
+  SizeOfImage:                  0x60000
+  SizeOfHeaders:                0x400
+  CheckSum:                     0x0
+  Subsystem:                    0x3
+  DllCharacteristics:           0x8160
+  SizeOfStackReserve:           0x100000
+  SizeOfStackCommit:            0x1000
+  SizeOfHeapReserve:            0x100000
+  SizeOfHeapCommit:             0x1000
+  LoaderFlags:                  0x0
+  NumberOfRvaAndSizes:          0x10
+
+Import list:
+    Module Name: (PSAPI.DLL)
+      Func : GetModuleInformation
+    Module Name: (KERNEL32.dll)
+      Func : GetFileAttributesW
+      Func : WriteFile
+      Func : CloseHandle
+      Func : GetLastError
+      Func : GetCurrentProcess
+      Func : OpenProcess
+      Func : ReadProcessMemory
+      Func : CreateFileW
+      Func : FreeLibrary
+      Func : GetModuleHandleW
+      Func : GetProcAddress
+      Func : LoadLibraryW
+      Func : CreateToolhelp32Snapshot
+      Func : Process32FirstW
+      Func : Process32NextW
+      Func : IsDebuggerPresent
+      Func : CreateDirectoryW
+      Func : GetProcessHeap
+      Func : IsWow64Process
+      Func : VirtualQuery
+      Func : RaiseException
+      Func : MultiByteToWideChar
+      Func : WideCharToMultiByte
+      Func : RtlCaptureContext
+      Func : RtlLookupFunctionEntry
+      Func : RtlVirtualUnwind
+      Func : UnhandledExceptionFilter
+      Func : SetUnhandledExceptionFilter
+      Func : TerminateProcess
+      Func : IsProcessorFeaturePresent
+      Func : QueryPerformanceCounter
+      Func : GetCurrentProcessId
+      Func : GetSystemTimeAsFileTime
+      Func : InitializeSListHead
+      Func : GetStartupInfoW
+      Func : HeapAlloc
+      Func : HeapFree
+      Func : GetCurrentThreadId
+    Module Name: (ADVAPI32.dll)
+      Func : AdjustTokenPrivileges
+      Func : OpenProcessToken
+      Func : LookupPrivilegeValueW
+    Module Name: (MSVCP140D.dll)
+      Func : ?_Init@locale@std@@CAPEAV_Locimp@12@_N@Z
+      Func : ?in@?$codecvt@_WDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEA_W3AEAPEA_W@Z
+      Func : ??0?$codecvt@_WDU_Mbstatet@@@std@@QEAA@_K@Z
+      Func : ??1?$codecvt@_WDU_Mbstatet@@@std@@MEAA@XZ
+      Func : ?good@ios_base@std@@QEBA_NXZ
+      Func : ?flags@ios_base@std@@QEBAHXZ
+      Func : ?width@ios_base@std@@QEBA_JXZ
+      Func : ?width@ios_base@std@@QEAA_J_J@Z
+      Func : ?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHD@Z
+      Func : ?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAA_JPEBD_J@Z
+      Func : ?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z
+      Func : ?tie@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBAPEAV?$basic_ostream@DU?$char_traits@D@std@@@2@XZ
+      Func : ?rdbuf@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBAPEAV?$basic_streambuf@DU?$char_traits@D@std@@@2@XZ
+      Func : ?fill@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADXZ
+      Func : ?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADD@Z
+      Func : ?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAXXZ
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@K@Z
+      Func : ?_New_Locimp@_Locimp@locale@std@@CAPEAV123@AEBV123@@Z
+      Func : ?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@XZ
+      Func : ?_Incref@facet@locale@std@@UEAAXXZ
+      Func : ?_Decref@facet@locale@std@@UEAAPEAV_Facet_base@3@XZ
+      Func : ?id@?$codecvt@_WDU_Mbstatet@@@std@@2V0locale@2@A
+      Func : ?cout@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A
+      Func : ?out@?$codecvt@_WDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEB_W1AEAPEB_WPEAD3AEAPEAD@Z
+      Func : ?setf@ios_base@std@@QEAAHHH@Z
+      Func : ??0?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAA@XZ
+      Func : ??1?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAA@XZ
+      Func : ?eback@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?gptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?pbase@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?pptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?egptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?gbump@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXH@Z
+      Func : ?setg@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXPEAD00@Z
+      Func : ?epptr@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEBAPEADXZ
+      Func : ?setp@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXPEAD0@Z
+      Func : ?setp@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXPEAD00@Z
+      Func : ?_Pninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAPEADXZ
+      Func : ??1?$basic_ios@DU?$char_traits@D@std@@@std@@UEAA@XZ
+      Func : ??0?$basic_ios@DU?$char_traits@D@std@@@std@@IEAA@XZ
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@P6AAEAVios_base@1@AEAV21@@Z@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@G@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@H@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@J@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@_K@Z
+      Func : ??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@PEBX@Z
+      Func : ??0?$basic_iostream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@@Z
+      Func : ??1?$basic_iostream@DU?$char_traits@D@std@@@std@@UEAA@XZ
+      Func : ?setw@std@@YA?AU?$_Smanip@_J@1@_J@Z
+      Func : ?imbue@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAXAEBVlocale@2@@Z
+      Func : ?sync@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAHXZ
+      Func : ?setbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAPEAV12@PEAD_J@Z
+      Func : ?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEBD_J@Z
+      Func : ?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEAD_J@Z
+      Func : ?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAHXZ
+      Func : ?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JXZ
+      Func : ?_Unlock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAAXXZ
+      Func : ?_Lock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAAXXZ
+      Func : ?cerr@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A
+      Func : ??Bid@locale@std@@QEAA_KXZ
+      Func : ??3_Crt_new_delete@std@@SAXPEAX@Z
+      Func : ??2_Crt_new_delete@std@@SAPEAX_K@Z
+      Func : ??4?$_Yarn@D@std@@QEAAAEAV01@PEBD@Z
+      Func : ?_W_Getmonths@_Locinfo@std@@QEBAPEBGXZ
+      Func : ?_W_Getdays@_Locinfo@std@@QEBAPEBGXZ
+      Func : ?_Getmonths@_Locinfo@std@@QEBAPEBDXZ
+      Func : ?_Getdays@_Locinfo@std@@QEBAPEBDXZ
+      Func : ?_Getcvt@_Locinfo@std@@QEBA?AU_Cvtvec@@XZ
+      Func : _Mbrtowc
+      Func : ?uncaught_exception@std@@YA_NXZ
+      Func : ?_Xout_of_range@std@@YAXPEBD@Z
+      Func : ?_Xlength_error@std@@YAXPEBD@Z
+      Func : ?_Xinvalid_argument@std@@YAXPEBD@Z
+      Func : ?_Xbad_alloc@std@@YAXXZ
+      Func : ??1_Lockit@std@@QEAA@XZ
+      Func : ??0_Lockit@std@@QEAA@H@Z
+      Func : ?_Addfac@_Locimp@locale@std@@AEAAXPEAVfacet@23@_K@Z
+      Func : ?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@D@Z
+    Module Name: (VCRUNTIME140D.dll)
+      Func : memmove
+      Func : __std_exception_copy
+      Func : __std_exception_destroy
+      Func : _CxxThrowException
+      Func : memset
+      Func : __C_specific_handler
+      Func : __C_specific_handler_noexcept
+      Func : __std_type_info_destroy_list
+      Func : __current_exception
+      Func : __current_exception_context
+      Func : __vcrt_GetModuleFileNameW
+      Func : __vcrt_GetModuleHandleW
+      Func : __vcrt_LoadLibraryExW
+      Func : memcmp
+      Func : memcpy
+    Module Name: (VCRUNTIME140_1D.dll)
+      Func : __CxxFrameHandler4
+    Module Name: (ucrtbased.dll)
+      Func : _exit
+      Func : _set_fmode
+      Func : __p___argc
+      Func : __p___argv
+      Func : _cexit
+      Func : _c_exit
+      Func : _register_thread_local_exe_atexit_callback
+      Func : _configthreadlocale
+      Func : _set_new_mode
+      Func : __p__commode
+      Func : _free_dbg
+      Func : _initterm_e
+      Func : strcat_s
+      Func : __stdio_common_vsprintf_s
+      Func : _seh_filter_dll
+      Func : _initialize_onexit_table
+      Func : _register_onexit_function
+      Func : _execute_onexit_table
+      Func : _crt_atexit
+      Func : _crt_at_quick_exit
+      Func : terminate
+      Func : _wmakepath_s
+      Func : _wsplitpath_s
+      Func : _initialize_narrow_environment
+      Func : exit
+      Func : _get_initial_narrow_environment
+      Func : _configure_narrow_argv
+      Func : __setusermatherr
+      Func : _set_app_type
+      Func : _seh_filter_exe
+      Func : _CrtDbgReportW
+      Func : malloc
+      Func : _callnewh
+      Func : wcscpy_s
+      Func : wcscat_s
+      Func : _initterm
+      Func : strlen
+      Func : wcslen
+      Func : strtol
+      Func : _errno
+      Func : _calloc_dbg
+      Func : _CrtDbgReport
+      Func : strcpy_s
+      Func : _invalid_parameter
+
+Export list:
+    No export list.
+
+PBI information for process
+ UniqueProcessId:  14704              
+ PebBaseAddress:   0x000000010037C000 
+
+PEB information for process
+ BeingDebugged:      0                  
+ Ldr:                0x00007FFA9335C4C0 
+ ProcessParameters:  0x0000012487803A90 
+ SessionId:          1                  
+
+PEB/Loader info: (194) modules has been detected.
+  Module (0) -> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+    Baseaddress = 0x00007FF6B25C0000, Checksum = 0x9335c1b0, TimeDateStamp = 1686179561
+  Module (1) -> C:\Windows\SYSTEM32\ntdll.dll
+    Baseaddress = 0x00007FFA931F0000, Checksum = 0x9335c280, TimeDateStamp = 1665770738
+  Module (2) -> C:\Windows\System32\KERNEL32.DLL
+    Baseaddress = 0x00007FFA92A50000, Checksum = 0x9335c260, TimeDateStamp = 109389002
+  Module (3) -> C:\Windows\System32\KERNELBASE.dll
+    Baseaddress = 0x00007FFA90C10000, Checksum = 0x9335c180, TimeDateStamp = 1764838162
+  Module (4) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\msedge_elf.dll
+    Baseaddress = 0x00007FFA590C0000, Checksum = 0x9335c2d0, TimeDateStamp = 1686179561
+  Module (5) -> C:\Windows\System32\OLEAUT32.dll
+    Baseaddress = 0x00007FFA92E00000, Checksum = 0x9335c210, TimeDateStamp = 1633057643
+  Module (6) -> C:\Windows\System32\msvcp_win.dll
+    Baseaddress = 0x00007FFA91180000, Checksum = 0x9335c240, TimeDateStamp = 958749903
+  Module (7) -> C:\Windows\System32\ucrtbase.dll
+    Baseaddress = 0x00007FFA908D0000, Checksum = 0x9335c2b0, TimeDateStamp = 735529151
+  Module (8) -> C:\Windows\System32\combase.dll
+    Baseaddress = 0x00007FFA923D0000, Checksum = 0x9335c1c0, TimeDateStamp = 65528135
+  Module (9) -> C:\Windows\System32\RPCRT4.dll
+    Baseaddress = 0x00007FFA928A0000, Checksum = 0x9335c170, TimeDateStamp = 576827356
+  Module (10) -> C:\Windows\System32\advapi32.dll
+    Baseaddress = 0x00007FFA93100000, Checksum = 0x9335c300, TimeDateStamp = 1751767846
+  Module (11) -> C:\Windows\System32\msvcrt.dll
+    Baseaddress = 0x00007FFA93000000, Checksum = 0x9335c1f0, TimeDateStamp = 1448058681
+  Module (12) -> C:\Windows\System32\sechost.dll
+    Baseaddress = 0x00007FFA92D60000, Checksum = 0x9335c230, TimeDateStamp = 2473636409
+  Module (13) -> C:\Windows\SYSTEM32\CRYPTBASE.DLL
+    Baseaddress = 0x00007FFA901B0000, Checksum = 0x9335c290, TimeDateStamp = 686332483
+  Module (14) -> C:\Windows\System32\bcryptPrimitives.dll
+    Baseaddress = 0x00007FFA90F10000, Checksum = 0x9335c220, TimeDateStamp = 2238088624
+  Module (15) -> C:\Windows\SYSTEM32\version.dll
+    Baseaddress = 0x00007FFA89820000, Checksum = 0x87810400, TimeDateStamp = 340988162
+  Module (16) -> C:\Windows\system32\ntmarta.dll
+    Baseaddress = 0x00007FFA8FA10000, Checksum = 0x9335c2f0, TimeDateStamp = 1029745924
+  Module (17) -> C:\Windows\System32\ole32.dll
+    Baseaddress = 0x00007FFA92ED0000, Checksum = 0x9335c310, TimeDateStamp = 797476129
+  Module (18) -> C:\Windows\System32\GDI32.dll
+    Baseaddress = 0x00007FFA92B80000, Checksum = 0x9335c150, TimeDateStamp = 4004750461
+  Module (19) -> C:\Windows\System32\win32u.dll
+    Baseaddress = 0x00007FFA91220000, Checksum = 0x87807fd0, TimeDateStamp = 231539219
+  Module (20) -> C:\Windows\System32\gdi32full.dll
+    Baseaddress = 0x00007FFA90A80000, Checksum = 0x8782d770, TimeDateStamp = 3097366874
+  Module (21) -> C:\Windows\System32\USER32.dll
+    Baseaddress = 0x00007FFA912E0000, Checksum = 0x9335c140, TimeDateStamp = 849519337
+  Module (22) -> C:\Windows\System32\IMM32.DLL
+    Baseaddress = 0x00007FFA92390000, Checksum = 0x9335c320, TimeDateStamp = 1761546430
+  Module (23) -> C:\Windows\SYSTEM32\kernel.appcore.dll
+    Baseaddress = 0x00007FFA8F0D0000, Checksum = 0x9335c190, TimeDateStamp = 4033953741
+  Module (24) -> C:\Windows\system32\uxtheme.dll
+    Baseaddress = 0x00007FFA8DE10000, Checksum = 0x8780f4e0, TimeDateStamp = 113001793
+  Module (25) -> C:\Windows\System32\clbcatq.dll
+    Baseaddress = 0x00007FFA91950000, Checksum = 0x9335c1e0, TimeDateStamp = 2814977598
+  Module (26) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\msedge.dll
+    Baseaddress = 0x00007FFA49BD0000, Checksum = 0x87806c50, TimeDateStamp = 1686179561
+  Module (27) -> C:\Windows\SYSTEM32\WINMM.dll
+    Baseaddress = 0x00007FFA7EC50000, Checksum = 0x87804df0, TimeDateStamp = 3100257655
+  Module (28) -> C:\Windows\SYSTEM32\WINSTA.dll
+    Baseaddress = 0x00007FFA8F580000, Checksum = 0x9335c2e0, TimeDateStamp = 3522171156
+  Module (29) -> C:\Windows\System32\MSCTF.dll
+    Baseaddress = 0x00007FFA91B10000, Checksum = 0x8782dbf0, TimeDateStamp = 244136534
+  Module (30) -> C:\Windows\System32\Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings.dll
+    Baseaddress = 0x00007FFA5FBC0000, Checksum = 0x87807c70, TimeDateStamp = 2040164885
+  Module (31) -> C:\Windows\SYSTEM32\USERENV.dll
+    Baseaddress = 0x00007FFA907D0000, Checksum = 0x9335c2c0, TimeDateStamp = 4202194487
+  Module (32) -> C:\Windows\SYSTEM32\gpapi.dll
+    Baseaddress = 0x00007FFA8F0F0000, Checksum = 0x878045d0, TimeDateStamp = 1083967625
+  Module (33) -> C:\Windows\System32\SHLWAPI.dll
+    Baseaddress = 0x00007FFA92760000, Checksum = 0x8782d890, TimeDateStamp = 431707959
+  Module (34) -> C:\Windows\System32\shcore.dll
+    Baseaddress = 0x00007FFA91A00000, Checksum = 0x8782dad0, TimeDateStamp = 693325689
+  Module (35) -> C:\Windows\SYSTEM32\wkscli.dll
+    Baseaddress = 0x00007FFA8FA50000, Checksum = 0x87808310, TimeDateStamp = 2309912836
+  Module (36) -> C:\Windows\SYSTEM32\netutils.dll
+    Baseaddress = 0x00007FFA8FDF0000, Checksum = 0x87832d10, TimeDateStamp = 4243946779
+  Module (37) -> C:\Windows\System32\bcrypt.dll
+    Baseaddress = 0x00007FFA90FF0000, Checksum = 0x9335c160, TimeDateStamp = 2278171848
+  Module (38) -> C:\Windows\System32\crypt32.dll
+    Baseaddress = 0x00007FFA91020000, Checksum = 0x87808af0, TimeDateStamp = 1927018090
+  Module (39) -> C:\Windows\SYSTEM32\dbghelp.dll
+    Baseaddress = 0x00007FFA8E4D0000, Checksum = 0x8782d0b0, TimeDateStamp = 2082042897
+  Module (40) -> C:\Windows\SYSTEM32\dhcpcsvc.dll
+    Baseaddress = 0x00007FFA86D30000, Checksum = 0x87805410, TimeDateStamp = 1534751972
+  Module (41) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\ffmpeg.dll
+    Baseaddress = 0x00007FFA461A0000, Checksum = 0x8782d530, TimeDateStamp = 1686179561
+  Module (42) -> C:\Windows\SYSTEM32\iphlpapi.dll
+    Baseaddress = 0x00007FFA8FCE0000, Checksum = 0x8780f820, TimeDateStamp = 1650908844
+  Module (43) -> C:\Windows\SYSTEM32\ncrypt.dll
+    Baseaddress = 0x00007FFA90390000, Checksum = 0x9335c2a0, TimeDateStamp = 930665917
+  Module (44) -> C:\Windows\SYSTEM32\NTASN1.dll
+    Baseaddress = 0x00007FFA90350000, Checksum = 0x9335c250, TimeDateStamp = 443565554
+  Module (45) -> C:\Windows\SYSTEM32\secur32.dll
+    Baseaddress = 0x00007FFA7E190000, Checksum = 0x87833a90, TimeDateStamp = 2062290500
+  Module (46) -> C:\Windows\SYSTEM32\uiautomationcore.dll
+    Baseaddress = 0x00007FFA683A0000, Checksum = 0x87832ad0, TimeDateStamp = 516734108
+  Module (47) -> C:\Windows\SYSTEM32\PROPSYS.dll
+    Baseaddress = 0x00007FFA8D7E0000, Checksum = 0x87833610, TimeDateStamp = 979989517
+  Module (48) -> C:\Windows\SYSTEM32\winhttp.dll
+    Baseaddress = 0x00007FFA81AE0000, Checksum = 0x8782dd10, TimeDateStamp = 862231783
+  Module (49) -> C:\Windows\SYSTEM32\winspool.drv
+    Baseaddress = 0x00007FFA7EFF0000, Checksum = 0x87833070, TimeDateStamp = 824772419
+  Module (50) -> C:\Windows\System32\wintrust.dll
+    Baseaddress = 0x00007FFA90BA0000, Checksum = 0x8782d9b0, TimeDateStamp = 1699512657
+  Module (51) -> C:\Windows\SYSTEM32\MSASN1.dll
+    Baseaddress = 0x00007FFA904B0000, Checksum = 0x878333d0, TimeDateStamp = 106720832
+  Module (52) -> C:\Windows\System32\ws2_32.dll
+    Baseaddress = 0x00007FFA92B10000, Checksum = 0x8782d2f0, TimeDateStamp = 2951950683
+  Module (53) -> C:\Windows\SYSTEM32\powrprof.dll
+    Baseaddress = 0x00007FFA8FE50000, Checksum = 0x9335c1d0, TimeDateStamp = 2871989681
+  Module (54) -> C:\Windows\SYSTEM32\UMPDC.dll
+    Baseaddress = 0x00007FFA8FCC0000, Checksum = 0x87833f10, TimeDateStamp = 1493927030
+  Module (55) -> C:\Windows\system32\dwrite.dll
+    Baseaddress = 0x00007FFA6D040000, Checksum = 0x87832410, TimeDateStamp = 699001005
+  Module (56) -> C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+    Baseaddress = 0x00007FFA7ED50000, Checksum = 0x8780fa20, TimeDateStamp = 3677030639
+  Module (57) -> C:\Windows\SYSTEM32\DPAPI.dll
+    Baseaddress = 0x00007FFA906D0000, Checksum = 0x87833cd0, TimeDateStamp = 2182944100
+  Module (58) -> C:\Windows\system32\NLAapi.dll
+    Baseaddress = 0x00007FFA897C0000, Checksum = 0x87832650, TimeDateStamp = 1536221646
+  Module (59) -> C:\Windows\System32\NSI.dll
+    Baseaddress = 0x00007FFA92750000, Checksum = 0x878329b0, TimeDateStamp = 2862384513
+  Module (60) -> C:\Windows\SYSTEM32\dhcpcsvc6.DLL
+    Baseaddress = 0x00007FFA86D50000, Checksum = 0x878322f0, TimeDateStamp = 3721666392
+  Module (61) -> C:\Windows\SYSTEM32\DNSAPI.dll
+    Baseaddress = 0x00007FFA8FD20000, Checksum = 0x87833850, TimeDateStamp = 1736069799
+  Module (62) -> C:\Windows\System32\netprofm.dll
+    Baseaddress = 0x00007FFA8B510000, Checksum = 0x87884770, TimeDateStamp = 1135233550
+  Module (63) -> C:\Windows\System32\npmproxy.dll
+    Baseaddress = 0x00007FFA80450000, Checksum = 0x8782d650, TimeDateStamp = 1866036829
+  Module (64) -> C:\Windows\SYSTEM32\textinputframework.dll
+    Baseaddress = 0x00007FFA7E4D0000, Checksum = 0x87832f50, TimeDateStamp = 2090443524
+  Module (65) -> C:\Windows\System32\CoreUIComponents.dll
+    Baseaddress = 0x00007FFA8D000000, Checksum = 0x9335c330, TimeDateStamp = 3459616227
+  Module (66) -> C:\Windows\System32\CoreMessaging.dll
+    Baseaddress = 0x00007FFA8D6E0000, Checksum = 0x87833df0, TimeDateStamp = 4054597010
+  Module (67) -> C:\Windows\SYSTEM32\wintypes.dll
+    Baseaddress = 0x00007FFA8C020000, Checksum = 0x9335c270, TimeDateStamp = 1440779336
+  Module (68) -> C:\Windows\System32\SHELL32.dll
+    Baseaddress = 0x00007FFA91C40000, Checksum = 0x8782de30, TimeDateStamp = 3892084558
+  Module (69) -> C:\Windows\SYSTEM32\windows.storage.dll
+    Baseaddress = 0x00007FFA8E920000, Checksum = 0x9335c1a0, TimeDateStamp = 2397877500
+  Module (70) -> C:\Windows\SYSTEM32\Wldp.dll
+    Baseaddress = 0x00007FFA90240000, Checksum = 0x878840b0, TimeDateStamp = 3678761583
+  Module (71) -> C:\Windows\System32\Windows.UI.dll
+    Baseaddress = 0x00007FFA6E720000, Checksum = 0x8780f610, TimeDateStamp = 24073832
+  Module (72) -> C:\Windows\System32\InputHost.dll
+    Baseaddress = 0x00007FFA6F450000, Checksum = 0x87808670, TimeDateStamp = 2770122906
+  Module (73) -> C:\Windows\System32\WindowManagementAPI.dll
+    Baseaddress = 0x00007FFA8AA30000, Checksum = 0x8782d1d0, TimeDateStamp = 2419992133
+  Module (74) -> C:\Windows\SYSTEM32\twinapi.appcore.dll
+    Baseaddress = 0x00007FFA8A150000, Checksum = 0x87884f50, TimeDateStamp = 1624405660
+  Module (75) -> C:\Windows\SYSTEM32\profapi.dll
+    Baseaddress = 0x00007FFA90810000, Checksum = 0x878854f0, TimeDateStamp = 2033911092
+  Module (76) -> C:\Windows\System32\SETUPAPI.dll
+    Baseaddress = 0x00007FFA914E0000, Checksum = 0x87885190, TimeDateStamp = 2903688766
+  Module (77) -> C:\Windows\System32\cfgmgr32.dll
+    Baseaddress = 0x00007FFA90FA0000, Checksum = 0x87832530, TimeDateStamp = 82663509
+  Module (78) -> C:\Windows\SYSTEM32\WTSAPI32.dll
+    Baseaddress = 0x00007FFA8DA40000, Checksum = 0x87885f10, TimeDateStamp = 1578773089
+  Module (79) -> C:\Windows\SYSTEM32\mscms.dll
+    Baseaddress = 0x00007FFA8B2B0000, Checksum = 0x87884650, TimeDateStamp = 1640494898
+  Module (80) -> C:\Windows\SYSTEM32\ColorAdapterClient.dll
+    Baseaddress = 0x00007FFA8B240000, Checksum = 0x87885df0, TimeDateStamp = 2900060839
+  Module (81) -> C:\Windows\SYSTEM32\DEVOBJ.dll
+    Baseaddress = 0x00007FFA90680000, Checksum = 0x87832bf0, TimeDateStamp = 259761835
+  Module (82) -> C:\Windows\SYSTEM32\icm32.dll
+    Baseaddress = 0x00007FFA87C90000, Checksum = 0x87884530, TimeDateStamp = 1474316886
+  Module (83) -> C:\Windows\system32\windowsudk.shellcommon.dll
+    Baseaddress = 0x00007FFA657C0000, Checksum = 0x8782d410, TimeDateStamp = 3801731972
+  Module (84) -> C:\Windows\system32\Bcp47Langs.dll
+    Baseaddress = 0x00007FFA7E1D0000, Checksum = 0x87885850, TimeDateStamp = 3528299756
+  Module (85) -> C:\Windows\system32\DictationManager.dll
+    Baseaddress = 0x00007FFA65740000, Checksum = 0x878852b0, TimeDateStamp = 2328509771
+  Module (86) -> C:\Windows\System32\Windows.Internal.UI.Shell.WindowTabManager.dll
+    Baseaddress = 0x00007FFA65BD0000, Checksum = 0x878332b0, TimeDateStamp = 3642066097
+  Module (87) -> C:\Windows\SYSTEM32\usermgrcli.dll
+    Baseaddress = 0x00007FFA81AC0000, Checksum = 0x8970b3d0, TimeDateStamp = 4091247238
+  Module (88) -> C:\Windows\System32\Windows.Security.Authentication.Web.Core.dll
+    Baseaddress = 0x00007FFA70680000, Checksum = 0x87833730, TimeDateStamp = 3599057191
+  Module (89) -> C:\Windows\System32\iertutil.dll
+    Baseaddress = 0x00007FFA7CF20000, Checksum = 0x87833190, TimeDateStamp = 263523775
+  Module (90) -> C:\Windows\System32\OneCoreCommonProxyStub.dll
+    Baseaddress = 0x00007FFA707A0000, Checksum = 0x8970b2b0, TimeDateStamp = 2320370253
+  Module (91) -> C:\Windows\System32\vaultcli.dll
+    Baseaddress = 0x00007FFA6B580000, Checksum = 0x8970a9b0, TimeDateStamp = 1778568436
+  Module (92) -> C:\Windows\SYSTEM32\LINKINFO.dll
+    Baseaddress = 0x00007FFA73A60000, Checksum = 0x87885610, TimeDateStamp = 1073611889
+  Module (93) -> C:\Windows\SYSTEM32\SSPICLI.DLL
+    Baseaddress = 0x00007FFA90790000, Checksum = 0x878849b0, TimeDateStamp = 493371348
+  Module (94) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\libsmartscreenn.dll
+    Baseaddress = 0x00007FFA44BB0000, Checksum = 0x87804440, TimeDateStamp = 1686179561
+  Module (95) -> C:\Windows\SYSTEM32\netapi32.dll
+    Baseaddress = 0x00007FFA79C10000, Checksum = 0x878321d0, TimeDateStamp = 1730506375
+  Module (96) -> C:\Windows\System32\Windows.Media.dll
+    Baseaddress = 0x00007FFA884E0000, Checksum = 0x87832890, TimeDateStamp = 487231000
+  Module (97) -> C:\Windows\SYSTEM32\CRYPTSP.dll
+    Baseaddress = 0x00007FFA90280000, Checksum = 0x8782df50, TimeDateStamp = 81361638
+  Module (98) -> C:\Windows\system32\rsaenh.dll
+    Baseaddress = 0x00007FFA8F8F0000, Checksum = 0x878842f0, TimeDateStamp = 2847141691
+  Module (99) -> C:\Windows\System32\Windows.ApplicationModel.dll
+    Baseaddress = 0x00007FFA883F0000, Checksum = 0x87885730, TimeDateStamp = 150538660
+  Module (100) -> C:\Windows\System32\AppXDeploymentClient.dll
+    Baseaddress = 0x00007FFA882E0000, Checksum = 0x8970a0b0, TimeDateStamp = 2943120930
+  Module (101) -> C:\Windows\system32\mswsock.dll
+    Baseaddress = 0x00007FFA90020000, Checksum = 0x878320b0, TimeDateStamp = 4096564257
+  Module (102) -> C:\Windows\System32\usermgrproxy.dll
+    Baseaddress = 0x00007FFA80600000, Checksum = 0x878841d0, TimeDateStamp = 1507297005
+  Module (103) -> C:\Windows\SYSTEM32\wlanapi.dll
+    Baseaddress = 0x00007FFA81EF0000, Checksum = 0x87808100, TimeDateStamp = 3959612924
+  Module (104) -> C:\Windows\SYSTEM32\wofutil.dll
+    Baseaddress = 0x00007FFA702D0000, Checksum = 0x87884bf0, TimeDateStamp = 3541440398
+  Module (105) -> C:\Windows\system32\TenantRestrictionsPlugin.dll
+    Baseaddress = 0x00007FFA8A540000, Checksum = 0x8973e190, TimeDateStamp = 3261479119
+  Module (106) -> C:\Windows\System32\OneCoreUAPCommonProxyStub.dll
+    Baseaddress = 0x00007FFA88CA0000, Checksum = 0x8970bf10, TimeDateStamp = 1586412566
+  Module (107) -> C:\Windows\SYSTEM32\capauthz.dll
+    Baseaddress = 0x00007FFA80890000, Checksum = 0x8970ad10, TimeDateStamp = 1511911294
+  Module (108) -> C:\Windows\SYSTEM32\windows.staterepositorycore.dll
+    Baseaddress = 0x00007FFA80BA0000, Checksum = 0x878853d0, TimeDateStamp = 3136523117
+  Module (109) -> C:\Windows\System32\msxml6.dll
+    Baseaddress = 0x00007FFA7F620000, Checksum = 0x87884410, TimeDateStamp = 391676260
+  Module (110) -> C:\Windows\System32\AppExtension.dll
+    Baseaddress = 0x00007FFA6B530000, Checksum = 0x8973e4f0, TimeDateStamp = 551151998
+  Module (111) -> C:\Windows\System32\Windows.StateRepositoryPS.dll
+    Baseaddress = 0x00007FFA7E800000, Checksum = 0x8970b4f0, TimeDateStamp = 3845363281
+  Module (112) -> C:\Windows\System32\twinui.appcore.dll
+    Baseaddress = 0x00007FFA6F5B0000, Checksum = 0x8970ae30, TimeDateStamp = 2116365543
+  Module (113) -> C:\Windows\SYSTEM32\daxexec.dll
+    Baseaddress = 0x00007FFA6F3A0000, Checksum = 0x8970af50, TimeDateStamp = 2668056167
+  Module (114) -> C:\Windows\System32\FLTLIB.DLL
+    Baseaddress = 0x00007FFA7E2C0000, Checksum = 0x878fe4f0, TimeDateStamp = 782889789
+  Module (115) -> C:\Windows\System32\container.dll
+    Baseaddress = 0x00007FFA6F350000, Checksum = 0x9fe71f50, TimeDateStamp = 2708014890
+  Module (116) -> C:\Windows\System32\TwinUI.dll
+    Baseaddress = 0x00007FFA66210000, Checksum = 0x8973dad0, TimeDateStamp = 3629734087
+  Module (117) -> C:\Windows\System32\dwmapi.dll
+    Baseaddress = 0x00007FFA8E090000, Checksum = 0x9fe712f0, TimeDateStamp = 2127301137
+  Module (118) -> C:\Windows\System32\pdh.dll
+    Baseaddress = 0x00007FFA874E0000, Checksum = 0x87832e30, TimeDateStamp = 2597858961
+  Module (119) -> C:\Windows\SYSTEM32\licensemanagerapi.dll
+    Baseaddress = 0x00007FFA68910000, Checksum = 0x9fe71410, TimeDateStamp = 922438170
+  Module (120) -> C:\Windows\SYSTEM32\apphelp.dll
+    Baseaddress = 0x00007FFA8DBE0000, Checksum = 0x8970bbb0, TimeDateStamp = 2640882674
+  Module (121) -> C:\Windows\system32\NetworkExplorer.dll
+    Baseaddress = 0x00007FFA6C560000, Checksum = 0x878334f0, TimeDateStamp = 1234405057
+  Module (122) -> C:\Windows\SYSTEM32\MPR.dll
+    Baseaddress = 0x00007FFA76880000, Checksum = 0x9fe72a90, TimeDateStamp = 221259801
+  Module (123) -> C:\Windows\System32\p9np.dll
+    Baseaddress = 0x00007FFA6C530000, Checksum = 0x8973dbf0, TimeDateStamp = 4075060205
+  Module (124) -> C:\Windows\System32\drprov.dll
+    Baseaddress = 0x00007FFA767C0000, Checksum = 0x9fe71650, TimeDateStamp = 2496792829
+  Module (125) -> C:\Windows\System32\ntlanman.dll
+    Baseaddress = 0x00007FFA6C510000, Checksum = 0x8973dd10, TimeDateStamp = 3919755674
+  Module (126) -> C:\Windows\System32\davclnt.dll
+    Baseaddress = 0x00007FFA6C4F0000, Checksum = 0x8970ba90, TimeDateStamp = 2046290906
+  Module (127) -> C:\Windows\System32\DAVHLPR.dll
+    Baseaddress = 0x00007FFA6C4E0000, Checksum = 0x8973d9b0, TimeDateStamp = 2624299229
+  Module (128) -> C:\Windows\SYSTEM32\edputil.dll
+    Baseaddress = 0x00007FFA66910000, Checksum = 0x87885070, TimeDateStamp = 3191173975
+  Module (129) -> C:\Windows\SYSTEM32\urlmon.dll
+    Baseaddress = 0x00007FFA7D210000, Checksum = 0x87885a90, TimeDateStamp = 230183022
+  Module (130) -> C:\Windows\SYSTEM32\srvcli.dll
+    Baseaddress = 0x00007FFA7D1E0000, Checksum = 0x87884e30, TimeDateStamp = 1487465601
+  Module (131) -> C:\Windows\System32\appresolver.dll
+    Baseaddress = 0x00007FFA6D2C0000, Checksum = 0x9fec4190, TimeDateStamp = 1457994800
+  Module (132) -> C:\Windows\System32\SLC.dll
+    Baseaddress = 0x00007FFA8F3C0000, Checksum = 0x87833970, TimeDateStamp = 3993057979
+  Module (133) -> C:\Windows\System32\sppc.dll
+    Baseaddress = 0x00007FFA8F390000, Checksum = 0x8970a890, TimeDateStamp = 1955072539
+  Module (134) -> C:\Windows\system32\twinapi.dll
+    Baseaddress = 0x00007FFA6D490000, Checksum = 0x9fe72190, TimeDateStamp = 2881784043
+  Module (135) -> C:\Windows\system32\dataexchange.dll
+    Baseaddress = 0x00007FFA66BD0000, Checksum = 0x9fec4f10, TimeDateStamp = 1240967822
+  Module (136) -> C:\Windows\system32\d3d11.dll
+    Baseaddress = 0x00007FFA8C5E0000, Checksum = 0x8973e850, TimeDateStamp = 3784563892
+  Module (137) -> C:\Windows\system32\dcomp.dll
+    Baseaddress = 0x00007FFA8CE10000, Checksum = 0x9fec3d10, TimeDateStamp = 85410391
+  Module (138) -> C:\Windows\system32\dxgi.dll
+    Baseaddress = 0x00007FFA8F140000, Checksum = 0x9335c200, TimeDateStamp = 3824413449
+  Module (139) -> C:\Windows\SYSTEM32\atlthunk.dll
+    Baseaddress = 0x00007FFA71090000, Checksum = 0x9fe72730, TimeDateStamp = 3291212056
+  Module (140) -> C:\Windows\SYSTEM32\OLEACC.dll
+    Baseaddress = 0x00007FFA7EC80000, Checksum = 0x8973de30, TimeDateStamp = 617469193
+  Module (141) -> C:\Windows\system32\directmanipulation.dll
+    Baseaddress = 0x00007FFA6C5A0000, Checksum = 0x8970a770, TimeDateStamp = 3213001646
+  Module (142) -> C:\Windows\System32\Speech\Common\sapi.dll
+    Baseaddress = 0x00007FFA3BFC0000, Checksum = 0x9fec4bb0, TimeDateStamp = 605758198
+  Module (143) -> C:\Windows\SYSTEM32\MSACM32.dll
+    Baseaddress = 0x00007FFA69C40000, Checksum = 0x9fe72f10, TimeDateStamp = 2129323861
+  Module (144) -> C:\Windows\SYSTEM32\msdmo.dll
+    Baseaddress = 0x00007FFA8AB50000, Checksum = 0x9fe72850, TimeDateStamp = 219375342
+  Module (145) -> C:\Windows\SYSTEM32\winmmbase.dll
+    Baseaddress = 0x00007FFA682D0000, Checksum = 0x9fec4070, TimeDateStamp = 2953835666
+  Module (146) -> C:\Windows\System32\MMDevApi.dll
+    Baseaddress = 0x00007FFA81F70000, Checksum = 0x9fedf0b0, TimeDateStamp = 12713954
+  Module (147) -> C:\Windows\System32\FirewallAPI.dll
+    Baseaddress = 0x00007FFA8F4A0000, Checksum = 0x8970b190, TimeDateStamp = 608212042
+  Module (148) -> C:\Windows\System32\fwbase.dll
+    Baseaddress = 0x00007FFA8F430000, Checksum = 0x9fec3e30, TimeDateStamp = 2835133941
+  Module (149) -> C:\Windows\System32\FWPolicyIOMgr.dll
+    Baseaddress = 0x00007FFA7C7B0000, Checksum = 0x9fec3530, TimeDateStamp = 3472533558
+  Module (150) -> C:\Windows\SYSTEM32\wevtapi.dll
+    Baseaddress = 0x00007FFA8AAE0000, Checksum = 0x9fec4850, TimeDateStamp = 2549958924
+  Module (151) -> C:\Windows\System32\Windows.System.UserProfile.DiagnosticsSettings.dll
+    Baseaddress = 0x00007FFA40030000, Checksum = 0x9fec4a90, TimeDateStamp = 4057799081
+  Module (152) -> C:\Windows\System32\Geolocation.dll
+    Baseaddress = 0x00007FFA3BF40000, Checksum = 0x9fee0bb0, TimeDateStamp = 2344723389
+  Module (153) -> C:\Windows\System32\msvcp110_win.dll
+    Baseaddress = 0x00007FFA8F980000, Checksum = 0x9fec4cd0, TimeDateStamp = 4086360785
+  Module (154) -> C:\Windows\System32\BiWinrt.dll
+    Baseaddress = 0x00007FFA76B60000, Checksum = 0x9fec4df0, TimeDateStamp = 2012433985
+  Module (155) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\telclient.dll
+    Baseaddress = 0x00007FFA2BB40000, Checksum = 0xa5a7c040, TimeDateStamp = 1686179561
+  Module (156) -> C:\Program Files (x86)\Microsoft\Edge\Application\114.0.1823.43\oneds.dll
+    Baseaddress = 0x00007FFA02B40000, Checksum = 0x9fec42b0, TimeDateStamp = 1686179561
+  Module (157) -> C:\Windows\System32\Windows.Networking.Connectivity.dll
+    Baseaddress = 0x00007FFA6EBE0000, Checksum = 0xa5a7b740, TimeDateStamp = 3315881860
+  Module (158) -> C:\Windows\System32\BitsProxy.dll
+    Baseaddress = 0x00007FFA810F0000, Checksum = 0x9fec39b0, TimeDateStamp = 1403293789
+  Module (159) -> C:\Windows\System32\ShellCommonCommonProxyStub.dll
+    Baseaddress = 0x00007FFA68830000, Checksum = 0x9fec44f0, TimeDateStamp = 3405575393
+  Module (160) -> C:\Windows\System32\MsSpellCheckingFacility.dll
+    Baseaddress = 0x00007FFA44E70000, Checksum = 0x9fec4730, TimeDateStamp = 402780051
+  Module (161) -> C:\Windows\SYSTEM32\avrt.dll
+    Baseaddress = 0x00007FFA8AFE0000, Checksum = 0xa5a7b500, TimeDateStamp = 249105492
+  Module (162) -> C:\Windows\system32\NInput.dll
+    Baseaddress = 0x00007FFA8AC30000, Checksum = 0x9fe72610, TimeDateStamp = 89416914
+  Module (163) -> C:\Windows\System32\UIAnimation.dll
+    Baseaddress = 0x00007FFA8A960000, Checksum = 0xa5a7b860, TimeDateStamp = 582947978
+  Module (164) -> C:\Windows\System32\Windows.Media.MediaControl.dll
+    Baseaddress = 0x00007FF9F2BE0000, Checksum = 0xa5a7a8a0, TimeDateStamp = 3453564141
+  Module (165) -> C:\Windows\system32\windowscodecs.dll
+    Baseaddress = 0x00007FFA89F90000, Checksum = 0x9fedf410, TimeDateStamp = 533663757
+  Module (166) -> C:\Windows\SYSTEM32\ntshrui.dll
+    Baseaddress = 0x00007FFA69DD0000, Checksum = 0x9fee0df0, TimeDateStamp = 2742270231
+  Module (167) -> C:\Windows\SYSTEM32\cscapi.dll
+    Baseaddress = 0x00007FFA6A0A0000, Checksum = 0x9fee04f0, TimeDateStamp = 822491700
+  Module (168) -> C:\Windows\SYSTEM32\policymanager.dll
+    Baseaddress = 0x00007FFA8B940000, Checksum = 0x87832770, TimeDateStamp = 404303408
+  Module (169) -> C:\Windows\System32\TaskFlowDataEngine.dll
+    Baseaddress = 0x00007FFA65CD0000, Checksum = 0xa5a7b2c0, TimeDateStamp = 3711235008
+  Module (170) -> C:\Windows\System32\cdp.dll
+    Baseaddress = 0x00007FFA71750000, Checksum = 0xa5a7d6c0, TimeDateStamp = 3595195977
+  Module (171) -> C:\Windows\System32\dsreg.dll
+    Baseaddress = 0x00007FFA8DA90000, Checksum = 0x9fedfd10, TimeDateStamp = 3389607055
+  Module (172) -> C:\Windows\SYSTEM32\HID.DLL
+    Baseaddress = 0x00007FFA8F0C0000, Checksum = 0x87884d10, TimeDateStamp = 2529998450
+  Module (173) -> C:\Windows\system32\explorerframe.dll
+    Baseaddress = 0x00007FFA669B0000, Checksum = 0x87833bb0, TimeDateStamp = 1062416372
+  Module (174) -> C:\Windows\SYSTEM32\TextShaping.dll
+    Baseaddress = 0x00007FFA6C640000, Checksum = 0x87885cd0, TimeDateStamp = 1671654469
+  Module (175) -> C:\Windows\System32\Windows.Devices.Sensors.dll
+    Baseaddress = 0x00007FFA76BC0000, Checksum = 0x9fec3ad0, TimeDateStamp = 3821665752
+  Module (176) -> C:\Windows\SYSTEM32\profext.dll
+    Baseaddress = 0x00007FFA8F550000, Checksum = 0xa5a7a420, TimeDateStamp = 2472695480
+  Module (177) -> C:\Windows\System32\Windows.FileExplorer.Common.dll
+    Baseaddress = 0x00007FFA60FF0000, Checksum = 0x9fec43d0, TimeDateStamp = 326318481
+  Module (178) -> C:\Windows\System32\coml2.dll
+    Baseaddress = 0x00007FFA929D0000, Checksum = 0x8973ea90, TimeDateStamp = 2729320841
+  Module (179) -> C:\Windows\System32\thumbcache.dll
+    Baseaddress = 0x00007FFA66940000, Checksum = 0x9fe71530, TimeDateStamp = 984456691
+  Module (180) -> C:\Windows\System32\imagehlp.dll
+    Baseaddress = 0x00007FFA92730000, Checksum = 0x9fee0610, TimeDateStamp = 1032354488
+  Module (181) -> C:\Windows\SYSTEM32\sxs.dll
+    Baseaddress = 0x00007FFA906E0000, Checksum = 0xa5a7a1e0, TimeDateStamp = 1511241079
+  Module (182) -> C:\Windows\System32\cryptnet.dll
+    Baseaddress = 0x00007FFA71E90000, Checksum = 0xa5a7b080, TimeDateStamp = 4077896824
+  Module (183) -> C:\Windows\SYSTEM32\WINNSI.DLL
+    Baseaddress = 0x00007FFA87C80000, Checksum = 0x8973d530, TimeDateStamp = 2125395518
+  Module (184) -> C:\Windows\SYSTEM32\webio.dll
+    Baseaddress = 0x00007FFA78690000, Checksum = 0x9fe72970, TimeDateStamp = 3833848479
+  Module (185) -> C:\Windows\System32\rasadhlp.dll
+    Baseaddress = 0x00007FFA7FD50000, Checksum = 0xa5a7b3e0, TimeDateStamp = 1242704408
+  Module (186) -> C:\Windows\System32\fwpuclnt.dll
+    Baseaddress = 0x00007FFA802D0000, Checksum = 0x878fe190, TimeDateStamp = 2543455954
+  Module (187) -> C:\Windows\SYSTEM32\virtdisk.dll
+    Baseaddress = 0x00007FFA7E330000, Checksum = 0x9fec3f50, TimeDateStamp = 2940521857
+  Module (188) -> C:\Windows\SYSTEM32\shdocvw.dll
+    Baseaddress = 0x00007FFA61130000, Checksum = 0x9fedfad0, TimeDateStamp = 3465629802
+  Module (189) -> C:\Windows\SYSTEM32\pcacli.dll
+    Baseaddress = 0x00007FFA70240000, Checksum = 0x9fe71e30, TimeDateStamp = 1802703043
+  Module (190) -> C:\Windows\System32\sfc_os.dll
+    Baseaddress = 0x00007FFA46040000, Checksum = 0xa5a7cb80, TimeDateStamp = 4210928752
+  Module (191) -> C:\Windows\System32\nlmproxy.dll
+    Baseaddress = 0x00007FFA8A460000, Checksum = 0xa5a7a9c0, TimeDateStamp = 2278549003
+  Module (192) -> C:\Windows\System32\Windows.Web.dll
+    Baseaddress = 0x00007FFA6B310000, Checksum = 0x9fec3bf0, TimeDateStamp = 187891474
+  Module (193) -> 
+    Baseaddress = 0x0000000000000000, Checksum = 0x87000, TimeDateStamp = 144
+

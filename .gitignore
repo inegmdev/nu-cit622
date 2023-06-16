@@ -28,5 +28,10 @@
 
 # Executables
 *.exe
+!procinfo.exe
 *.out
 *.app
+
+# Temp folders
+.vs
+Debug
