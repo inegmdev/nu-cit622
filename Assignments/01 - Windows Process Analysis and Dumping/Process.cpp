@@ -775,8 +775,58 @@ static VOID vidPrintImportList(const HMODULE hModule)
     std::cout << std::endl;
 }
 
-static VOID vidPrintExportList(const HMODULE hModule) {
+static VOID vidPrintExportList(const HMODULE hModule)
+{
+    // Get the base address of the PE image
+    PIMAGE_DOS_HEADER pDosHeader = reinterpret_cast<PIMAGE_DOS_HEADER>(hModule);
+    PIMAGE_NT_HEADERS pNtHeaders = reinterpret_cast<PIMAGE_NT_HEADERS>(
+        reinterpret_cast<PBYTE>(hModule) + pDosHeader->e_lfanew
+    );
 
+    // Retrieve the pointer to the export directory entry
+    IMAGE_DATA_DIRECTORY exportDataDir = pNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT];
+    PIMAGE_EXPORT_DIRECTORY pExportDirectory = reinterpret_cast<PIMAGE_EXPORT_DIRECTORY>(
+        reinterpret_cast<const PBYTE>(hModule) + exportDataDir.VirtualAddress
+    );
+
+    // Get the module name
+    LPCSTR moduleName = reinterpret_cast<LPCSTR>(reinterpret_cast<const PBYTE>(hModule) + pExportDirectory->Name);
+ 
+
+    // Retrieve the exported functions
+    PDWORD pAddressOfFunctions = reinterpret_cast<PDWORD>(reinterpret_cast<const PBYTE>(hModule) + pExportDirectory->AddressOfFunctions);
+    PWORD pAddressOfNameOrdinals = reinterpret_cast<PWORD>(reinterpret_cast<const PBYTE>(hModule) + pExportDirectory->AddressOfNameOrdinals);
+    PDWORD pAddressOfNames = reinterpret_cast<PDWORD>(reinterpret_cast<const PBYTE>(hModule) + pExportDirectory->AddressOfNames);
+    DWORD numberOfFunctions = pExportDirectory->NumberOfFunctions;
+
+    if (numberOfFunctions == 0) {
+        std::cout << "    No export list." << std::endl << std::endl;
+        return;
+    }
+
+    std::cout << "Module Name: " << moduleName << std::endl;
+
+    for (DWORD i = 0; i < numberOfFunctions; i++)
+    {
+        DWORD functionRVA = pAddressOfFunctions[i];
+        WORD nameOrdinal = pAddressOfNameOrdinals[i];
+        DWORD functionNameRVA = pAddressOfNames[nameOrdinal];
+
+        // Check if the function is forwarded
+        if (functionRVA >= exportDataDir.VirtualAddress && functionRVA < exportDataDir.VirtualAddress + exportDataDir.Size)
+        {
+            // Forwarded export
+            LPCSTR forwardedFunctionName = reinterpret_cast<LPCSTR>(reinterpret_cast<const PBYTE>(hModule) + functionRVA);
+            std::cout << "Forwarded Function: " << forwardedFunctionName << std::endl;
+        }
+        else
+        {
+            // Regular export
+            LPCSTR functionName = reinterpret_cast<LPCSTR>(reinterpret_cast<const PBYTE>(hModule) + functionNameRVA);
+            std::cout << "Function Name: " << functionName << std::endl;
+        }
+    }
+    std::cout << std::endl;
 }
 
 
@@ -851,6 +901,10 @@ VOID ProcessInfo::vidPrintProcExportsImports(_In_ const DWORD dwProcessId) {
     // Print the import list
     std::cout << "Import list:" << std::endl;
     vidPrintImportList(hModule);
+    
+    // Print the export list
+    std::cout << "Export list:" << std::endl;
+    vidPrintExportList(hModule);
 
 #endif
 }
