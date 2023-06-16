@@ -133,7 +133,6 @@
     <ClCompile Include="Process.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\External\Cosmetics\cpp-text-table\TextTable.h" />
     <ClInclude Include="Errors.h" />
     <ClInclude Include="Process.h" />
   </ItemGroup>

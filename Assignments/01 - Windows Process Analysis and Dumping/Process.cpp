@@ -4,7 +4,6 @@
 #include <string>
 #include <sstream>
 #include <tlhelp32.h>  // For: CreateToolhelp32Snapshot, TH32CS_SNAPPROCESS, PROCESSENTRY32, Process32First, Process32Next
-#include "TextTable.h"
 
 #include <psapi.h> // For: GetModuleInformation
 #include <wchar.h> // For: wcscpy_s, wcscat_s
@@ -317,88 +316,30 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
     /*
         PBI (Process Basic Info) Structure
     */
-
-    TextTable pbiTable(' ');
-
-    pbiTable.add("UniqueProcessId: ");
-    pbiTable.add(to_string( pPbi->UniqueProcessId ));
-    pbiTable.endOfRow();
-
-    pbiTable.add("PebBaseAddress: ");
-    std::stringstream ss;
-    ss << "0x" << std::hex << pPbi->PebBaseAddress;
-    pbiTable.add( ss.str() );
-    pbiTable.endOfRow();
-
-    std::cout << "PBI information for process" << std::endl;
-    std::cout << pbiTable << std::endl;
+    std::cout << "PBI (Process Basic Information):" << std::endl;
+    std::cout << "  UniqueProcessId: " 
+        << pPbi->UniqueProcessId << std::endl;
+    std::cout << "  PebBaseAddress: " << "0x" 
+        << std::hex << pPbi->PebBaseAddress << std::endl;
+    std::cout << std::endl;
 
     /*
         PEB (Process Environment Block) Structure
     */
-    
-    TextTable pebTable(' ');
-    pebTable.add("BeingDebugged: ");
-    pebTable.add(to_string(pPeb->BeingDebugged));
-    pebTable.endOfRow();
 
-    pebTable.add("Ldr: ");
-    ss.str("");
-    ss << "0x" << std::hex << pPeb->Ldr;
-    pebTable.add(ss.str());
-    pebTable.endOfRow();
-
-    pebTable.add("ProcessParameters: ");
-    ss.str("");
-    ss << "0x" << std::hex << pPeb->ProcessParameters;
-    pebTable.add(ss.str());
-    pebTable.endOfRow();
-
-    pebTable.add("SessionId: ");
-    pebTable.add(to_string(pPeb->SessionId));
-    pebTable.endOfRow();
-
-    std::cout << "PEB information for process" << std::endl;
-    std::cout << pebTable << std::endl;
+    std::cout << "PEB (Process Executable Block):" << std::endl;
+    std::cout << "  BeingDebugged: " << pPeb->BeingDebugged << std::endl;
+    std::cout << "  Ldr: " << "0x" << std::hex << pPeb->Ldr << std::endl;
+    std::cout << "  ProcessParameters: " << "0x" << std::hex << pPeb->ProcessParameters << std::endl;
+    std::cout << "  SessionId: " << pPeb->SessionId << std::endl;
+    std::cout << std::endl;
 
     /*
         Loader Data Print
     */
-#define ENABLE_USE_TEXTTABLE 0 
-#if ENABLE_USE_TEXTTABLE 
-    TextTable ldrDataTable(' ');
-#else
     std::cout << "PEB/Loader info: " << "(" << std::dec << ldrData->numEntries << ") modules has been detected." << std::endl;
-#endif
+
     for (int i = 0; i < ldrData->numEntries; i++) {
-#if ENABLE_USE_TEXTTABLE 
-        ss.str("");
-        ss << "Module (" << std::dec <<  i << ") -> ";
-        ldrDataTable.add(ss.str());
-        std::string _str(
-            std::begin(ldrData->entries[i].moduleName),
-            std::end(ldrData->entries[i].moduleName) - 1);
-        ldrDataTable.add(_str);
-        ldrDataTable.endOfRow();
-        
-        ldrDataTable.add("");
-        ss.str("");
-        ss << "Baseaddress = 0x" << std::hex << ldrData->entries[i].moduleBaseAddr;
-        ldrDataTable.add(ss.str());
-        ldrDataTable.endOfRow();
-
-        ldrDataTable.add("");
-        ss.str("");
-        ss << "Checksum = 0x" << std::hex << ldrData->entries[i].moduleCheckSum;
-        ldrDataTable.add(ss.str());
-        ldrDataTable.endOfRow();
-
-        ldrDataTable.add("");
-        ss.str("");
-        ss << "TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp;
-        ldrDataTable.add(ss.str());
-        ldrDataTable.endOfRow();
-#else
         std::string _str(
             std::begin(ldrData->entries[i].moduleName),
             std::end(ldrData->entries[i].moduleName) - 1);
@@ -407,15 +348,8 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
             << ", Checksum = 0x" << std::hex << ldrData->entries[i].moduleCheckSum
             << ", TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp
             << std::endl;
-#endif
     }
-    
-#if ENABLE_USE_TEXTTABLE
-    std::cout << "PEB/Loader info: " << "(" << std::dec << ldrData->numEntries << ") modules has been detected." << std::endl;
-    std::cout << ldrDataTable << std::endl;
-#endif
     std::cout << std::endl;
-
 }
 
 // Function to dump the DOS header of a module
