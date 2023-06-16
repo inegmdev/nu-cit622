@@ -28,6 +28,7 @@
 
 # Executables
 *.exe
+!procinfo.exe
 *.out
 *.app
 

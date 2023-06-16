@@ -217,7 +217,7 @@ VOID ProcessInfo::dumpProcessByPid(DWORD processId) {
     
     if (vidEnableDebugPrivilege())
     {
-        std::cout << "[SUCCESS] SeDebugPrivilege enabled successfully!" << std::endl;
+        // std::cout << "[SUCCESS] SeDebugPrivilege enabled successfully!" << std::endl;
         // Proceed with dumping other processes...
     }
     else
@@ -399,8 +399,11 @@ VOID ProcessInfo::printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo) {
         ldrDataTable.add(ss.str());
         ldrDataTable.endOfRow();
 #else
-        std::cout << "Module (" << std::dec << i << ") -> " << ldrData->entries[i].moduleName << std::endl;
-        std::cout << "  Baseaddress = 0x" << std::hex << ldrData->entries[i].moduleBaseAddr
+        std::string _str(
+            std::begin(ldrData->entries[i].moduleName),
+            std::end(ldrData->entries[i].moduleName) - 1);
+        std::cout << "  Module (" << std::dec << i << ") -> " << _str << std::endl;
+        std::cout << "    Baseaddress = 0x" << std::hex << ldrData->entries[i].moduleBaseAddr
             << ", Checksum = 0x" << std::hex << ldrData->entries[i].moduleCheckSum
             << ", TimeDateStamp = " << std::dec << ldrData->entries[i].moduleTimeDateStamp
             << std::endl;
@@ -677,7 +680,7 @@ VOID ProcessInfo::printProcHeaders(_In_ const DWORD processId) {
     
     if (vidEnableDebugPrivilege())
     {
-        std::cout << "[SUCCESS] SeDebugPrivilege enabled successfully!" << std::endl;
+        // std::cout << "[SUCCESS] SeDebugPrivilege enabled successfully!" << std::endl;
         // Proceed with dumping other processes...
     }
     else
