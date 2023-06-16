@@ -175,12 +175,58 @@ static HANDLE bCreateOutDumpFile(const LPCWSTR folderPath, const LPCWSTR fileNam
 	return hFile;
 }
 
+static BOOL vidEnableDebugPrivilege(VOID) {
+	HANDLE hToken;
+	TOKEN_PRIVILEGES tp;
+	LUID luid;
+
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+	{
+		std::cout << "[ERROR] Failed to open process token. Error code: " << GetLastError() << std::endl;
+		return 0;
+	}
+
+	if (!LookupPrivilegeValue(nullptr, SE_DEBUG_NAME, &luid))
+	{
+		CloseHandle(hToken);
+		std::cout << "[ERROR] Failed to lookup privilege value. Error code: " << GetLastError() << std::endl;
+		return 0;
+	}
+
+	tp.PrivilegeCount = 1;
+	tp.Privileges[0].Luid = luid;
+	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	if (!AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), nullptr, nullptr))
+	{
+		CloseHandle(hToken);
+		std::cout << "[ERROR] Failed to adjust token privileges. Error code: " << GetLastError() << std::endl;
+		return 0;
+	}
+
+	CloseHandle(hToken);
+	return 1;
+}
+
 VOID ProcessInfo::dumpProcessByPid(DWORD processId) {
 	BOOL bRet = 0;
 
+	/* In order to be able to dump the process, the app should have a SeDebugPrivilege */
+	
+	if (vidEnableDebugPrivilege())
+	{
+		std::cout << "[SUCCESS] SeDebugPrivilege enabled successfully!" << std::endl;
+		// Proceed with dumping other processes...
+	}
+	else
+	{
+		std::cout << "[ERROR] Failed to enable SeDebugPrivilege." << std::endl;
+		return;
+	}
+
 	HANDLE hProcess = NULL;
 	hProcess = OpenProcess(
-		PROCESS_ALL_ACCESS,
+		PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
 		FALSE, processId);
 	CHECK_COND_AND_RET_IF_ERR(hProcess != NULL, "Failed to open process " << processId << " to dump it.", );
 
@@ -199,8 +245,12 @@ VOID ProcessInfo::dumpProcessByPid(DWORD processId) {
 		std::cout << "Failed to determine the process architecture" << std::endl;
 	}
 	
+
 	// GetModuleHandle(NULL) = Get the handle for the module used to create the current process
-	//HMODULE hModule = GetModuleHandle(NULL);
+#if 1
+	HMODULE hModule = GetModuleHandle(NULL);
+	CHECK_COND_AND_RET_IF_ERR(hModule != NULL, "Failed to get the module handle for the current process executable.", );
+#else
 	HMODULE hModule = NULL;
 	bRet = GetModuleHandleExW(
 		GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
@@ -208,6 +258,7 @@ VOID ProcessInfo::dumpProcessByPid(DWORD processId) {
 		&hModule
 	);
 	CHECK_COND_AND_RET_IF_ERR((bRet != 0) && hModule != NULL, "Failed to get the module handle for the current process executable.", );
+#endif
 	bRet = GetModuleInformation(hProcess, hModule, &moduleInfo, sizeof(MODULEINFO));
 
 	CHECK_COND_AND_RET_IF_ERR((bRet != 0), "Failed to get the basic module information.", );
