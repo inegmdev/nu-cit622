@@ -500,55 +500,6 @@ static void DumpNtHeader(const IMAGE_NT_HEADERS* ntHeader)
     std::cout << std::endl;
 }
 
-
-
-#if 0
-    
-    const IMAGE_OPTIONAL_HEADER& optionalHeader = ntHeader->OptionalHeader;
-    std::cout << "  Optional Header:" << std::endl;
-    std::cout << "    Magic: " << optionalHeader.Magic << std::endl;
-    std::cout << "    Major Linker Version: " << optionalHeader.MajorLinkerVersion << std::endl;
-    std::cout << "    Minor Linker Version: " << optionalHeader.MinorLinkerVersion << std::endl;
-    std::cout << "    Size of Code: " << optionalHeader.SizeOfCode << std::endl;
-    std::cout << "    Size of Initialized Data: " << optionalHeader.SizeOfInitializedData << std::endl;
-    std::cout << "    Size of Uninitialized Data: " << optionalHeader.SizeOfUninitializedData << std::endl;
-    std::cout << "    Address of Entry Point: " << optionalHeader.AddressOfEntryPoint << std::endl;
-    std::cout << "    Base of Code: " << optionalHeader.BaseOfCode << std::endl;
-    std::cout << "    Base of Data: " << optionalHeader.BaseOfData << std::endl;
-    std::cout << "    Image Base: " << optionalHeader.ImageBase << std::endl;
-    std::cout << "    Section Alignment: " << optionalHeader.SectionAlignment << std::endl;
-    std::cout << "    File Alignment: " << optionalHeader.FileAlignment << std::endl;
-    std::cout << "    Major Operating System Version: " << optionalHeader.MajorOperatingSystemVersion << std::endl;
-    std::cout << "    Minor Operating System Version: " << optionalHeader.MinorOperatingSystemVersion << std::endl;
-    std::cout << "    Major Image Version: " << optionalHeader.MajorImageVersion << std::endl;
-    std::cout << "    Minor Image Version: " << optionalHeader.MinorImageVersion << std::endl;
-    std::cout << "    Major Subsystem Version: " << optionalHeader.MajorSubsystemVersion << std::endl;
-    std::cout << "    Minor Subsystem Version: " << optionalHeader.MinorSubsystemVersion << std::endl;
-    std::cout << "    Win32 Version Value: " << optionalHeader.Win32VersionValue << std::endl;
-    std::cout << "    Size of Image: " << optionalHeader.SizeOfImage << std::endl;
-    std::cout << "    Size of Headers: " << optionalHeader.SizeOfHeaders << std::endl;
-    std::cout << "    Checksum: " << optionalHeader.CheckSum << std::endl;
-    std::cout << "    Subsystem: " << optionalHeader.Subsystem << std::endl;
-    std::cout << "    Dll Characteristics: " << optionalHeader.DllCharacteristics << std::endl;
-    std::cout << "    Size of Stack Reserve: " << optionalHeader.SizeOfStackReserve << std::endl;
-    std::cout << "    Size of Stack Commit: " << optionalHeader.SizeOfStackCommit << std::endl;
-    std::cout << "    Size of Heap Reserve: " << optionalHeader.SizeOfHeapReserve << std::endl;
-    std::cout << "    Size of Heap Commit: " << optionalHeader.SizeOfHeapCommit << std::endl;
-    std::cout << "    Loader Flags: " << optionalHeader.LoaderFlags << std::endl;
-    std::cout << "    Number of RVA and Sizes: " << optionalHeader.NumberOfRvaAndSizes << std::endl;
-    const IMAGE_DATA_DIRECTORY* dataDirectories = optionalHeader.DataDirectory;
-    std::cout << "    Data Directories:" << std::endl;
-    for (int i = 0; i < IMAGE_NUMBEROF_DIRECTORY_ENTRIES; ++i)
-    {
-        std::cout << "      Entry " << i << ":" << std::endl;
-        std::cout << "        Virtual Address: " << dataDirectories[i].VirtualAddress << std::endl;
-        std::cout << "        Size: " << dataDirectories[i].Size << std::endl;
-    }
-
-#endif
-
-
-
 // Function to dump the exported functions of a module
 static void DumpExportedFunctions(HANDLE hProcess, HMODULE hModule)
 {
