@@ -30,5 +30,8 @@ int main() {
 	
 	// Print the process PBI information in table format
 	ProcessInfo::printProcInfo(&procAllInfo);
+
+	// Dump the process by PID
+	ProcessInfo::dumpProcessByPid(dwProcessId);
 	return 0;
 }

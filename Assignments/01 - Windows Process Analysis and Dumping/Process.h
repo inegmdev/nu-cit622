@@ -16,6 +16,17 @@
 #define PROCESS_INFO_DEBUG               (OFF)
 
 /*
+	Macro Like Functions
+*/
+#define CHECK_COND_AND_RET_IF_ERR(cond, message, retValInFailure) do { \
+	if (!(cond)) { \
+		std::cerr << "[Error] Error occured in condition (" #cond ") in line #" << __LINE__ << ": " << GetLastError() << std::endl; \
+		std::cerr << "[Error] " << message << std::endl; \
+		return retValInFailure; \
+	} \
+} while(0)
+
+/*
 	Types
 */
 
@@ -58,6 +69,7 @@ public:
 	static DWORD getPidByName(_In_ const std::wstring& processName);
 	static StdError getProcInfoByPid(_In_ const DWORD processId, ProcessInfo_tpstrAllInfo pProcAllInfo);
 	static VOID printProcInfo(_In_ ProcessInfo_tpstrAllInfo pProcAllInfo);
+	static VOID dumpProcessByPid(DWORD processId);
 };
 
 
