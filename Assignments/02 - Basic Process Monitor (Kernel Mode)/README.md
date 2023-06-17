@@ -1,4 +1,4 @@
-# [Assignment#2: 🕵 Basic Process Monitor (🌽Kernel Mode)](./Assignments/02%20-%20Basic%20Process%20Monitor%20(Kernel%20Mode)/README.md)
+# Assignment#2: 🕵 Basic Process Monitor (🌽Kernel Mode)
 
 ## Introduction
 
