@@ -66,8 +66,6 @@ VOID ProcessCreateCallback(
         else
         {
             DBG_LOG("Process terminated - ID: %lu\n", HandleToULong(ProcessId));
-            DBG_LOG("Process Name: %wZ\n", &processName);
-            DBG_LOG("Image Name: %wZ\n", &imageName);
         }
     }
 }
@@ -80,13 +78,22 @@ VOID ImageLoadCallback(
     _In_ PIMAGE_INFO ImageInfo
 )
 {
-    UNREFERENCED_PARAMETER(ProcessId);
-    UNREFERENCED_PARAMETER(ImageInfo);
+    // Extract the base name from FullImageName
+    PCWSTR baseName = wcsrchr(FullImageName->Buffer, L'\\');
+    if (baseName != NULL)
+    {
+        baseName++; // Move past the backslash character
+    }
+    else
+    {
+        baseName = FullImageName->Buffer; // No backslash found, use the full name
+    }
 
-    // Image loaded
-    DBG_LOG("Image loaded - Path: %wZ\n", FullImageName);
-    // Perform logging or other processing as needed
+    // Print image load information
+    DBG_LOG("Img loaded -> Name (%ws), BaseAddr (0x%p), Size (%I64u bytes), PID (%lu).\n",
+            baseName, ImageInfo->ImageBase, (SIZE_T) ImageInfo->ImageSize, HandleToULong(ProcessId));
 }
+
 
 #define VAL(reg, bitIndex) ((reg >> bitIndex) & 0b1)
 

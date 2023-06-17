@@ -1,0 +1,747 @@
+[KernelMonitor] DriverEntry called
+[KernelMonitor] CPUID Information:
+[KernelMonitor] EAX: 000806ea
+[KernelMonitor]   Maximum Input Value Supported: 000006ea
+[KernelMonitor]   Processor Signature: 00000008
+[KernelMonitor]   Processor Type: 00000000
+[KernelMonitor]   Family Identifier: 00000006
+[KernelMonitor]   Model Identifier: 0000000e
+[KernelMonitor]   Stepping Identifier: 0000000a
+[KernelMonitor] EBX: 00020800
+[KernelMonitor]   Brand Index: 00000000
+    - this number provides an entry into a brand string table that contains brand strings for IA-32 processors.
+[KernelMonitor] ECX: c2da2203
+[KernelMonitor]   0   SSE3          (0x1) Streaming SIMD Extensions 3 (SSE3). 
+                 - 1: supports this technology.
+[KernelMonitor]   1   PCLMULQDQ     (0x1) PCLMULQDQ. 
+                 - 1: supports the PCLMULQDQ instruction.
+[KernelMonitor]   2   DTES64        (0x0) 64-bit DS Area. 
+                 - 1: supports DS area using 64-bit layout.
+[KernelMonitor]   3   MONITOR       (0x0) MONITOR/MWAIT. 
+                 - 1: supports this feature.
+[KernelMonitor]   4   DS-CPL        (0x0) CPL Qualified Debug Store. 
+                 - 1: supports the extensions to the Debug Store feature to allow for branch message storage qualified by CPL.
+[KernelMonitor]   5   VMX           (0x0) Virtual Machine Extensions. 
+                 - 1: supports this technology.
+[KernelMonitor]   6   SMX           (0x0) Safer Mode Extensions. 
+                 - 1: supports this technology.
+[KernelMonitor]   7   EIST          (0x0) Enhanced Intel SpeedStepÂ® technology. 
+                 - 1: supports this technology.
+[KernelMonitor]   8   TM2           (0x0) Thermal Monitor 2. 
+                 - 1: whether supports this technology.
+[KernelMonitor]   9   SSSE3         (0x1) 
+                 - 1: the presence of the Supplemental Streaming SIMD Extensions 3 (SSSE3).
+                 - 0: the instruction extensions are not present in the processor.
+[KernelMonitor]   10  CNXT-ID       (0x0) L1 Context ID. 
+                 - 1: the L1 data cache mode can be set to either adaptive mode or shared mode.
+                 - 0: this feature is not supported. See definition of the IA32_MISC_ENABLE MSR Bit 24 (L1 Data Cache Context Mode) for details.
+[KernelMonitor]   11  SDBG          (0x0) 
+                 - 1: supports IA32_DEBUG_INTERFACE MSR for silicon debug.
+[KernelMonitor]   12  FMA           (0x0) 
+                 - 1: supports FMA extensions using YMM state.
+[KernelMonitor]   13  CMPXCHG16B    (0x1) CMPXCHG16B Available. 
+                 - 1: that the feature is available.
+[KernelMonitor]   14  xTPR          (0x0) Update Control  xTPR Update Control. 
+                 - 1: supports changing IA32_MISC_ENABLE[bit 23].
+[KernelMonitor]   15  PDCM          (0x0) Perfmon and Debug Capability: 
+                 - 1: supports the performance and debug feature indication MSR IA32_PERF_CAPABILITIES.
+[KernelMonitor]   16  Reserved      (0x0) .
+[KernelMonitor]   17  PCID          (0x1) Process-context identifiers. 
+                 - 1: supports PCIDs and that software may set CR4.PCIDE to 1.
+[KernelMonitor]   18  DCA           (0x0) 
+                 - 1: supports the ability to prefetch data from a memory mapped device.
+[KernelMonitor]   19  SSE4_1        (0x1) 
+                 - 1: supports SSE4.1.
+[KernelMonitor]   20  SSE4_2        (0x1) 
+                 - 1: supports SSE4.2.
+[KernelMonitor]   21  x2APIC        (0x0) 
+                 - 1: supports x2APIC feature.
+[KernelMonitor]   22  MOVBE         (0x1) 
+                 - 1: supports MOVBE instruction.
+[KernelMonitor]   23  POPCNT        (0x1) 
+                 - 1: supports the POPCNT instruction.
+[KernelMonitor]   24  TSC-Deadline  (0x0) 
+                 - 1: that the processorâ€™s local APIC timer supports one-shot operation using a TSC deadline value.
+[KernelMonitor]   25  AESNI         (0x1) 
+                 - 1: supports the AESNI instruction extensions.
+[KernelMonitor]   26  XSAVE         (0x0) 
+                 - 1: supports the XSAVE/XRSTOR processor extended states feature, the XSETBV/XGETBV instructions, and XCR0.
+[KernelMonitor]   27  OSXSAVE       (0x0) 
+                 - 1: that the OS has set CR4.OSXSAVE[bit 18] to enable XSETBV/XGETBV instructions to access XCR0 and to support processor extended state management using XSAVE/XRSTOR.
+[KernelMonitor]   28  AVX           (0x0) 
+                 - 1: supports the AVX instruction extensions.
+[KernelMonitor]   29  F16C          (0x0) 
+                 - 1: that processor supports 16-bit floating-point conversion instructions.
+[KernelMonitor]   30  RDRAND        (0x1) 
+                 - 1: that processor supports RDRAND instruction.
+[KernelMonitor]   31  Not Used      (0x1) Always returns 0.
+[KernelMonitor] EDX: 178bfbff
+[KernelMonitor]   0   FPU   (0x1):(Present) Floating-Point Unit.
+[KernelMonitor]   1   VME   (0x1):(Present) Virtual 8086 Mode Enhancements.
+[KernelMonitor]   2   DE    (0x1):(Present) Debugging Extensions.
+[KernelMonitor]   3   PSE   (0x1):(Present) Page Size Extensions.
+[KernelMonitor]   4   TSC   (0x1):(Present) Time Stamp Counter.
+[KernelMonitor]   5   MSR   (0x1):(Present) Model Specific Registers.
+[KernelMonitor]   6   PAE   (0x1):(Present) Physical Address Extension.
+[KernelMonitor]   7   MCE   (0x1):(Present) Machine Check Exception.
+[KernelMonitor]   8   CX8   (0x1):(Present) CMPXCHG8 Instruction.
+[KernelMonitor]   9   APIC  (0x1):(Present) Onboard APIC Support.
+[KernelMonitor]   10  Reserved.
+[KernelMonitor]   11  SEP   (0x1):(Present) SYSENTER/SYSEXIT Instructions.
+[KernelMonitor]   12  MTRR  (0x1):(Present) Memory Type Range Registers.
+[KernelMonitor]   13  PGE   (0x1):(Present) Page Global Enable.
+[KernelMonitor]   14  MCA   (0x1):(Present) Machine Check Architecture.
+[KernelMonitor]   15  CMOV  (0x1):(Present) Conditional Move Instructions Supported.
+[KernelMonitor]   16  PAT   (0x1):(Present) Page Attribute Table.
+[KernelMonitor]   17  PSE36 (0x1):(Present) 36-Bit Page Size Extensions.
+[KernelMonitor]   18  PSN   (0x0):(Not Present) Processor Serial Number.
+[KernelMonitor]   19  CLFSH (0x1):(Present) CLFLUSH Instruction Supported.
+[KernelMonitor]   20  Reserved.
+[KernelMonitor]   21  DS    (0x0):(Not Present) Debug Store.
+[KernelMonitor]   22  ACPI  (0x0):(Not Present) ACPI Support.
+[KernelMonitor]   23  MMX   (0x1):(Present) MultiMedia Extensions.
+[KernelMonitor]   24  FXSR  (0x1):(Present) FXSAVE/FXRSTOR Instructions Supported.
+[KernelMonitor]   25  SSE   (0x1):(Present) Streaming SIMD Extensions.
+[KernelMonitor]   26  SSE2  (0x1):(Present) SSE2 extensions.
+[KernelMonitor]   27  SS    (0x0):(Not Present) Self Snoop.
+[KernelMonitor]   28  HTT   (0x1):(Mutliple) Max APIC IDs reserved field is Valid.
+                          - 0: indicates there is only a single logical processor in the package and software should assume only a single APIC ID is reserved.
+                          - 1: indicates the value in CPUID.1.EBX[23:16] (the Maximum number of addressable IDs for logical processors in this package) is valid for the package.
+[KernelMonitor]   29  TM    (0x0):(Not Present) Thermal Monitor.
+[KernelMonitor]   30  Reserved.
+[KernelMonitor]   31  PBE   (0x0):(Not Present) Pending Break Enable.
+[KernelMonitor] Process created - ID: 4148, Parent ID: 2796
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (svchost.exe), BaseAddr (0x00007FF67ED70000), Size (65536 bytes), PID (4148).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (4148).
+[KernelMonitor] Process terminated - ID: 4148
+[KernelMonitor] Process terminated - ID: 6292
+[KernelMonitor] Process terminated - ID: 1632
+[KernelMonitor] Img loaded -> Name (ieframe.dll), BaseAddr (0x00007FFC13DC0000), Size (7766016 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (netapi32.dll), BaseAddr (0x00007FFC291C0000), Size (102400 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (secur32.dll), BaseAddr (0x00007FFC31420000), Size (49152 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (mlang.dll), BaseAddr (0x00007FFC24530000), Size (270336 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (Windows.Energy.dll), BaseAddr (0x00007FFC28630000), Size (217088 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (Windows.Security.Integrity.dll), BaseAddr (0x00007FFC31910000), Size (110592 bytes), PID (3848).
+[KernelMonitor] Process created - ID: 7028, Parent ID: 780
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (SearchApp.exe), BaseAddr (0x00007FF6819E0000), Size (3751936 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wincorlib.dll), BaseAddr (0x00007FFC2D890000), Size (454656 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (dxgi.dll), BaseAddr (0x00007FFC34910000), Size (995328 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wkscli.dll), BaseAddr (0x00007FFC35170000), Size (102400 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (netutils.dll), BaseAddr (0x00007FFC354B0000), Size (49152 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (UIAutomationCore.dll), BaseAddr (0x00007FFC1AE80000), Size (3100672 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (xmllite.dll), BaseAddr (0x00007FFC31790000), Size (221184 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (propsys.dll), BaseAddr (0x00007FFC32830000), Size (1007616 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.UI.Xaml.dll), BaseAddr (0x00007FFC2C1D0000), Size (17559552 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (CoreMessaging.dll), BaseAddr (0x00007FFC333D0000), Size (991232 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ws2_32.dll), BaseAddr (0x00007FFC37990000), Size (438272 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (BCP47Langs.dll), BaseAddr (0x00007FFC2D830000), Size (372736 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (iertutil.dll), BaseAddr (0x00007FFC2BF10000), Size (2822144 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (dcomp.dll), BaseAddr (0x00007FFC32980000), Size (1978368 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (twinapi.appcore.dll), BaseAddr (0x00007FFC306B0000), Size (2097152 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (WinTypes.dll), BaseAddr (0x00007FFC326D0000), Size (1392640 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryCore.dll), BaseAddr (0x00007FFC28570000), Size (69632 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (SearchApi.dll), BaseAddr (0x00007FFC1A7D0000), Size (6971392 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (crypt32.dll), BaseAddr (0x00007FFC36770000), Size (1433600 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (sspicli.dll), BaseAddr (0x00007FFC35F40000), Size (204800 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (cabinet.dll), BaseAddr (0x00007FFC2EB20000), Size (167936 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Search.Core.dll), BaseAddr (0x00007FFC1A750000), Size (483328 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (BingConfigurationClient.dll), BaseAddr (0x00007FFC1A730000), Size (118784 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msvcp110_win.dll), BaseAddr (0x00007FFC350E0000), Size (565248 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Storage.ApplicationData.dll), BaseAddr (0x00007FFC1B320000), Size (417792 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (windowsudk.shellcommon.dll), BaseAddr (0x00007FFC1BF70000), Size (2387968 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (CoreUIComponents.dll), BaseAddr (0x00007FFC32F20000), Size (3530752 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ntmarta.dll), BaseAddr (0x00007FFC35190000), Size (208896 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (DictationManager.dll), BaseAddr (0x00007FFC1BEF0000), Size (524288 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (userenv.dll), BaseAddr (0x00007FFC35F10000), Size (188416 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.UI.dll), BaseAddr (0x00007FFC2D570000), Size (1314816 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (WindowManagementAPI.dll), BaseAddr (0x00007FFC30AB0000), Size (659456 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (InputHost.dll), BaseAddr (0x00007FFC2D310000), Size (1384448 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (TextInputFramework.dll), BaseAddr (0x00007FFC2D470000), Size (1024000 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (policymanager.dll), BaseAddr (0x00007FFC30590000), Size (667648 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (OneCoreUAPCommonProxyStub.dll), BaseAddr (0x00007FFC2FCC0000), Size (8171520 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (slc.dll), BaseAddr (0x00007FFC34B90000), Size (167936 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (sppc.dll), BaseAddr (0x00007FFC34B60000), Size (151552 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (sapi_onecore.dll), BaseAddr (0x00007FFC1A230000), Size (5197824 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (AudioSes.dll), BaseAddr (0x00007FFC2A6E0000), Size (1581056 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (MMDevAPI.dll), BaseAddr (0x00007FFC2F780000), Size (544768 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (powrprof.dll), BaseAddr (0x00007FFC35EC0000), Size (307200 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (devobj.dll), BaseAddr (0x00007FFC35D20000), Size (180224 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (cfgmgr32.dll), BaseAddr (0x00007FFC361D0000), Size (319488 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (cryptsp.dll), BaseAddr (0x00007FFC35920000), Size (98304 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (urlmon.dll), BaseAddr (0x00007FFC2BBE0000), Size (2015232 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (srvcli.dll), BaseAddr (0x00007FFC2BBB0000), Size (163840 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (winmmbase.dll), BaseAddr (0x00007FFC1A200000), Size (155648 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (umpdc.dll), BaseAddr (0x00007FFC35EA0000), Size (73728 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (winhttp.dll), BaseAddr (0x00007FFC2E660000), Size (1089536 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ConstraintIndex.Search.dll), BaseAddr (0x00007FFC1A070000), Size (1593344 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (profapi.dll), BaseAddr (0x00007FFC35F90000), Size (126976 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (MrmCoreR.dll), BaseAddr (0x00007FFC2D6E0000), Size (999424 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryClient.dll), BaseAddr (0x00007FFC21780000), Size (262144 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.ApplicationModel.dll), BaseAddr (0x00007FFC24FA0000), Size (942080 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (LanguageOverlayUtil.dll), BaseAddr (0x00007FFC2D2C0000), Size (266240 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (BCP47mrm.dll), BaseAddr (0x00007FFC2D290000), Size (184320 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Web.Http.dll), BaseAddr (0x00007FFC19EF0000), Size (1536000 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ResourcePolicyClient.dll), BaseAddr (0x00007FFC33B20000), Size (81920 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (d3d11.dll), BaseAddr (0x00007FFC31EA0000), Size (2502656 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (d3d10warp.dll), BaseAddr (0x00007FFC2EE20000), Size (7299072 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (DXCore.dll), BaseAddr (0x00007FFC2EB70000), Size (241664 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (d2d1.dll), BaseAddr (0x00007FFC32110000), Size (6029312 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (DWrite.dll), BaseAddr (0x00007FFC2B7D0000), Size (2617344 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (TextShaping.dll), BaseAddr (0x00007FFC2AD00000), Size (704512 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Globalization.dll), BaseAddr (0x00007FFC2B620000), Size (1728512 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msctf.dll), BaseAddr (0x00007FFC37870000), Size (1130496 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.UI.Immersive.dll), BaseAddr (0x00007FFC2BDD0000), Size (1282048 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (FlightSettings.dll), BaseAddr (0x00007FFC27420000), Size (937984 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wininet.dll), BaseAddr (0x00007FFC26AB0000), Size (5083136 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Shell.ServiceHostBuilder.dll), BaseAddr (0x00007FFC24F60000), Size (118784 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (OneCoreCommonProxyStub.dll), BaseAddr (0x00007FFC25630000), Size (520192 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (OnDemandConnRouteHelper.dll), BaseAddr (0x00007FFC1BCD0000), Size (94208 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (mswsock.dll), BaseAddr (0x00007FFC35730000), Size (434176 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (IPHLPAPI.DLL), BaseAddr (0x00007FFC35420000), Size (245760 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (winnsi.dll), BaseAddr (0x00007FFC2F8D0000), Size (45056 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (nsi.dll), BaseAddr (0x00007FFC37800000), Size (32768 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (execmodelproxy.dll), BaseAddr (0x00007FFC27B40000), Size (98304 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (rmclient.dll), BaseAddr (0x00007FFC33D30000), Size (172032 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (logoncli.dll), BaseAddr (0x00007FFC35460000), Size (274432 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (profext.dll), BaseAddr (0x00007FFC34D20000), Size (167936 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (UiaManager.dll), BaseAddr (0x00007FFC22A90000), Size (659456 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Cortana.ProxyStub.dll), BaseAddr (0x00007FFC19B10000), Size (151552 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Security.Authentication.OnlineId.dll), BaseAddr (0x00007FFC243E0000), Size (999424 bytes), PID (5624).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc6.dll), BaseAddr (0x00007FFC2F610000), Size (94208 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc.dll), BaseAddr (0x00007FFC313D0000), Size (118784 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Security.Authentication.OnlineId.dll), BaseAddr (0x00007FFC243E0000), Size (999424 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (bcrypt.dll), BaseAddr (0x00007FFC36100000), Size (159744 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.UI.Core.TextInput.dll), BaseAddr (0x00007FFC1C1C0000), Size (1064960 bytes), PID (7028).
+[KernelMonitor] Process created - ID: 5964, Parent ID: 656
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (svchost.exe), BaseAddr (0x00007FF67ED70000), Size (65536 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (DataExchange.dll), BaseAddr (0x00007FFC1E090000), Size (253952 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (cryptbase.dll), BaseAddr (0x00007FFC35940000), Size (49152 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (netjoin.dll), BaseAddr (0x00007FFC2F6E0000), Size (217088 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (joinutil.dll), BaseAddr (0x00007FFC35980000), Size (176128 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (dsreg.dll), BaseAddr (0x00007FFC33280000), Size (1363968 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wlidsvc.dll), BaseAddr (0x00007FFC13B90000), Size (2281472 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (crypt32.dll), BaseAddr (0x00007FFC36770000), Size (1433600 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (bcrypt.dll), BaseAddr (0x00007FFC36100000), Size (159744 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (ncrypt.dll), BaseAddr (0x00007FFC35A40000), Size (163840 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (cryptsp.dll), BaseAddr (0x00007FFC35920000), Size (98304 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (profapi.dll), BaseAddr (0x00007FFC35F90000), Size (126976 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (Clipc.dll), BaseAddr (0x00007FFC203D0000), Size (196608 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (dpapi.dll), BaseAddr (0x00007FFC35D70000), Size (40960 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (ntasn1.dll), BaseAddr (0x00007FFC35A00000), Size (241664 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (Microsoft.Web.WebView2.Core.dll), BaseAddr (0x00007FFC16930000), Size (610304 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (rsaenh.dll), BaseAddr (0x00007FFC35050000), Size (212992 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (cryptbase.dll), BaseAddr (0x00007FFC35940000), Size (49152 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msxml6.dll), BaseAddr (0x00007FFC21A50000), Size (2486272 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msasn1.dll), BaseAddr (0x00007FFC35B60000), Size (73728 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (winhttp.dll), BaseAddr (0x00007FFC2E660000), Size (1089536 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (netprofm.dll), BaseAddr (0x00007FFC33810000), Size (258048 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (ws2_32.dll), BaseAddr (0x00007FFC37990000), Size (438272 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (IPHLPAPI.DLL), BaseAddr (0x00007FFC35420000), Size (245760 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (nsi.dll), BaseAddr (0x00007FFC37800000), Size (32768 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (gamestreamingext.dll), BaseAddr (0x00007FFC257D0000), Size (28672 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msauserext.dll), BaseAddr (0x00007FFC336D0000), Size (45056 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (policymanager.dll), BaseAddr (0x00007FFC30590000), Size (667648 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (msvcp110_win.dll), BaseAddr (0x00007FFC350E0000), Size (565248 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (tbs.dll), BaseAddr (0x00007FFC2A3B0000), Size (106496 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (imagehlp.dll), BaseAddr (0x00007FFC37780000), Size (118784 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (wtsapi32.dll), BaseAddr (0x00007FFC32960000), Size (81920 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (winsta.dll), BaseAddr (0x00007FFC35D80000), Size (409600 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (Windows.Graphics.dll), BaseAddr (0x00007FFC2F520000), Size (577536 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (twinapi.dll), BaseAddr (0x00007FFC20C40000), Size (692224 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (npmproxy.dll), BaseAddr (0x00007FFC2AAF0000), Size (65536 bytes), PID (5964).
+[KernelMonitor] Img loaded -> Name (Windows.UI.Xaml.Controls.dll), BaseAddr (0x00007FFC2AE50000), Size (4046848 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ole32.dll), BaseAddr (0x00007FFC37FE0000), Size (1220608 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (EdgeManager.dll), BaseAddr (0x00007FFC195F0000), Size (970752 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (edgehtml.dll), BaseAddr (0x00007FFC17CC0000), Size (26406912 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Chakra.dll), BaseAddr (0x00007FFC17540000), Size (7831552 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (icuuc.dll), BaseAddr (0x0000028191570000), Size (36864 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (icuin.dll), BaseAddr (0x0000028191580000), Size (32768 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (rometadata.dll), BaseAddr (0x00007FFC17500000), Size (241664 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (icuuc.dll), BaseAddr (0x0000028191570000), Size (36864 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (icuin.dll), BaseAddr (0x0000028191580000), Size (32768 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (icu.dll), BaseAddr (0x00007FFC172D0000), Size (2285568 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (srpapi.dll), BaseAddr (0x00007FFC172A0000), Size (180224 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (WebRuntimeManager.dll), BaseAddr (0x00007FFC13910000), Size (2600960 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (edgeIso.dll), BaseAddr (0x00007FFC171E0000), Size (471040 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wintrust.dll), BaseAddr (0x00007FFC36640000), Size (421888 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msasn1.dll), BaseAddr (0x00007FFC35B60000), Size (73728 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (shell32.dll), BaseAddr (0x00007FFC369D0000), Size (7618560 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (ninput.dll), BaseAddr (0x00007FFC30D20000), Size (434176 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (msimtf.dll), BaseAddr (0x00007FFC171C0000), Size (73728 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (directmanipulation.dll), BaseAddr (0x00007FFC2ADB0000), Size (647168 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (biwinrt.dll), BaseAddr (0x00007FFC1B2C0000), Size (339968 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.Networking.Connectivity.dll), BaseAddr (0x00007FFC20E10000), Size (757760 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Geolocation.dll), BaseAddr (0x00007FFC1D8E0000), Size (512000 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (npmproxy.dll), BaseAddr (0x00007FFC2AAF0000), Size (65536 bytes), PID (5624).
+[KernelMonitor] Img loaded -> Name (Windows.ApplicationModel.Background.TimeBroker.dll), BaseAddr (0x00007FFC31900000), Size (49152 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (LocationFrameworkPS.dll), BaseAddr (0x00007FFC25B50000), Size (53248 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (Windows.ApplicationModel.Background.SystemEventsBroker.dll), BaseAddr (0x00007FFC33620000), Size (139264 bytes), PID (7028).
+[KernelMonitor] Process created - ID: 2040, Parent ID: 656
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (svchost.exe), BaseAddr (0x00007FF67ED70000), Size (65536 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (CapabilityAccessManager.dll), BaseAddr (0x00007FFC233F0000), Size (409600 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (CapabilityAccessManagerClient.dll), BaseAddr (0x00007FFC17260000), Size (258048 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryPS.dll), BaseAddr (0x00007FFC25090000), Size (1335296 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (capauthz.dll), BaseAddr (0x00007FFC2A4F0000), Size (331776 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (wintrust.dll), BaseAddr (0x00007FFC36640000), Size (421888 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (crypt32.dll), BaseAddr (0x00007FFC36770000), Size (1433600 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (msasn1.dll), BaseAddr (0x00007FFC35B60000), Size (73728 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (CapabilityAccessHandlers.dll), BaseAddr (0x00007FFC286B0000), Size (86016 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (cfgmgr32.dll), BaseAddr (0x00007FFC361D0000), Size (319488 bytes), PID (2040).
+[KernelMonitor] Process created - ID: 2492, Parent ID: 656
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (svchost.exe), BaseAddr (0x00007FF67ED70000), Size (65536 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (policymanager.dll), BaseAddr (0x00007FFC30590000), Size (667648 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (msvcp110_win.dll), BaseAddr (0x00007FFC350E0000), Size (565248 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (CapabilityAccessManagerClient.dll), BaseAddr (0x00007FFC17260000), Size (258048 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentServer.dll), BaseAddr (0x00007FFC13540000), Size (3952640 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (StateRepository.Core.dll), BaseAddr (0x00007FFC2DC00000), Size (724992 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (MrmDeploy.dll), BaseAddr (0x00007FFC24E60000), Size (335872 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (MrmCoreR.dll), BaseAddr (0x00007FFC2D6E0000), Size (999424 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x0000028FFBA60000), Size (708608 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (wevtapi.dll), BaseAddr (0x00007FFC31170000), Size (413696 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (wer.dll), BaseAddr (0x00007FFC33C20000), Size (909312 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (wtsapi32.dll), BaseAddr (0x00007FFC32960000), Size (81920 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (winsta.dll), BaseAddr (0x00007FFC35D80000), Size (409600 bytes), PID (2492).
+[KernelMonitor] Img loaded -> Name (cellulardatacapabilityhandler.dll), BaseAddr (0x00007FFC318E0000), Size (65536 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (wwapi.dll), BaseAddr (0x00007FFC27600000), Size (106496 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (wifidatacapabilityhandler.dll), BaseAddr (0x00007FFC2AA40000), Size (65536 bytes), PID (2040).
+[KernelMonitor] Img loaded -> Name (FirewallAPI.dll), BaseAddr (0x00007FFC34C70000), Size (659456 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (dnsapi.dll), BaseAddr (0x00007FFC354C0000), Size (831488 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (fwbase.dll), BaseAddr (0x00007FFC34C30000), Size (237568 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (rasadhlp.dll), BaseAddr (0x00007FFC2AB90000), Size (40960 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (threadpoolwinrt.dll), BaseAddr (0x00007FFC26890000), Size (81920 bytes), PID (7028).
+[KernelMonitor] Process created - ID: 6656, Parent ID: 780
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (smartscreen.exe), BaseAddr (0x00007FF6B1960000), Size (2412544 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (bcrypt.dll), BaseAddr (0x00007FFC36100000), Size (159744 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (crypt32.dll), BaseAddr (0x00007FFC36770000), Size (1433600 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (ws2_32.dll), BaseAddr (0x00007FFC37990000), Size (438272 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (WinTypes.dll), BaseAddr (0x00007FFC326D0000), Size (1392640 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (wintrust.dll), BaseAddr (0x00007FFC36640000), Size (421888 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (urlmon.dll), BaseAddr (0x00007FFC2BBE0000), Size (2015232 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (iertutil.dll), BaseAddr (0x00007FFC2BF10000), Size (2822144 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (srvcli.dll), BaseAddr (0x00007FFC2BBB0000), Size (163840 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (netutils.dll), BaseAddr (0x00007FFC354B0000), Size (49152 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (msasn1.dll), BaseAddr (0x00007FFC35B60000), Size (73728 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (policymanager.dll), BaseAddr (0x00007FFC30590000), Size (667648 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (msvcp110_win.dll), BaseAddr (0x00007FFC350E0000), Size (565248 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (Chakra.dll), BaseAddr (0x00007FFC17540000), Size (7831552 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (icuuc.dll), BaseAddr (0x0000018700050000), Size (36864 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (icuin.dll), BaseAddr (0x0000018700050000), Size (32768 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (icuuc.dll), BaseAddr (0x0000018700050000), Size (36864 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (icuin.dll), BaseAddr (0x0000018700060000), Size (32768 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (icu.dll), BaseAddr (0x00007FFC172D0000), Size (2285568 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (rometadata.dll), BaseAddr (0x00007FFC17500000), Size (241664 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (Windows.Foundation.winmd), BaseAddr (0x0000018F7FF30000), Size (69632 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (WinRtTracing.dll), BaseAddr (0x00007FFC285C0000), Size (200704 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (Windows.Web.Http.dll), BaseAddr (0x00007FFC19EF0000), Size (1536000 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (cryptbase.dll), BaseAddr (0x00007FFC35940000), Size (49152 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (tbs.dll), BaseAddr (0x00007FFC2A3B0000), Size (106496 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (imagehlp.dll), BaseAddr (0x00007FFC37780000), Size (118784 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (Windows.Security.Authentication.OnlineId.dll), BaseAddr (0x00007FFC243E0000), Size (999424 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (smartscreenps.dll), BaseAddr (0x00007FFC1E470000), Size (335872 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (wkscli.dll), BaseAddr (0x00007FFC35170000), Size (102400 bytes), PID (6656).
+[KernelMonitor] Process created - ID: 2600, Parent ID: 4668
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (dwmapi.dll), BaseAddr (0x00007FFC33D00000), Size (192512 bytes), PID (7028).
+[KernelMonitor] Img loaded -> Name (wininet.dll), BaseAddr (0x00007FFC26AB0000), Size (5083136 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (sspicli.dll), BaseAddr (0x00007FFC35F40000), Size (204800 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (notepad.exe), BaseAddr (0x00007FF6826B0000), Size (229376 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (profapi.dll), BaseAddr (0x00007FFC35F90000), Size (126976 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (OnDemandConnRouteHelper.dll), BaseAddr (0x00007FFC1BCD0000), Size (94208 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (winhttp.dll), BaseAddr (0x00007FFC2E660000), Size (1089536 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (mswsock.dll), BaseAddr (0x00007FFC35730000), Size (434176 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (IPHLPAPI.DLL), BaseAddr (0x00007FFC35420000), Size (245760 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (winnsi.dll), BaseAddr (0x00007FFC2F8D0000), Size (45056 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (nsi.dll), BaseAddr (0x00007FFC37800000), Size (32768 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (FirewallAPI.dll), BaseAddr (0x00007FFC34C70000), Size (659456 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (dnsapi.dll), BaseAddr (0x00007FFC354C0000), Size (831488 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (fwbase.dll), BaseAddr (0x00007FFC34C30000), Size (237568 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (comctl32.dll), BaseAddr (0x00007FFC27050000), Size (2727936 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc6.dll), BaseAddr (0x00007FFC2F610000), Size (94208 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc.dll), BaseAddr (0x00007FFC313D0000), Size (118784 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (MrmCoreR.dll), BaseAddr (0x00007FFC2D6E0000), Size (999424 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (shell32.dll), BaseAddr (0x00007FFC369D0000), Size (7618560 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (msctf.dll), BaseAddr (0x00007FFC37870000), Size (1130496 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (rasadhlp.dll), BaseAddr (0x00007FFC2AB90000), Size (40960 bytes), PID (6656).
+[KernelMonitor] Img loaded -> Name (TextShaping.dll), BaseAddr (0x00007FFC2AD00000), Size (704512 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (efswrt.dll), BaseAddr (0x00007FFC26910000), Size (905216 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (mpr.dll), BaseAddr (0x00007FFC33700000), Size (118784 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (WinTypes.dll), BaseAddr (0x00007FFC326D0000), Size (1392640 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (twinapi.appcore.dll), BaseAddr (0x00007FFC306B0000), Size (2097152 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (oleacc.dll), BaseAddr (0x00007FFC1E140000), Size (417792 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (TextInputFramework.dll), BaseAddr (0x00007FFC2D470000), Size (1024000 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (CoreUIComponents.dll), BaseAddr (0x00007FFC32F20000), Size (3530752 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (ntmarta.dll), BaseAddr (0x00007FFC35190000), Size (208896 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (CoreMessaging.dll), BaseAddr (0x00007FFC333D0000), Size (991232 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (ws2_32.dll), BaseAddr (0x00007FFC37990000), Size (438272 bytes), PID (2600).
+[KernelMonitor] Img loaded -> Name (CoreMessaging.dll), BaseAddr (0x0000021318D90000), Size (991232 bytes), PID (2600).
+[KernelMonitor] Process created - ID: 1232, Parent ID: 588
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (LaunchTM.exe), BaseAddr (0x00007FF780AC0000), Size (28672 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (shell32.dll), BaseAddr (0x00007FFC369D0000), Size (7618560 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (ole32.dll), BaseAddr (0x00007FFC37FE0000), Size (1220608 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (propsys.dll), BaseAddr (0x00007FFC32830000), Size (1007616 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (profapi.dll), BaseAddr (0x00007FFC35F90000), Size (126976 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (cfgmgr32.dll), BaseAddr (0x00007FFC361D0000), Size (319488 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (edputil.dll), BaseAddr (0x00007FFC1DC20000), Size (147456 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryPS.dll), BaseAddr (0x00007FFC25090000), Size (1335296 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (urlmon.dll), BaseAddr (0x00007FFC2BBE0000), Size (2015232 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (iertutil.dll), BaseAddr (0x00007FFC2BF10000), Size (2822144 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (netutils.dll), BaseAddr (0x00007FFC354B0000), Size (49152 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (srvcli.dll), BaseAddr (0x00007FFC2BBB0000), Size (163840 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (sspicli.dll), BaseAddr (0x00007FFC35F40000), Size (204800 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (virtdisk.dll), BaseAddr (0x00007FFC2ABA0000), Size (77824 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (fltLib.dll), BaseAddr (0x00007FFC284B0000), Size (45056 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (WinTypes.dll), BaseAddr (0x00007FFC326D0000), Size (1392640 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (AppResolver.dll), BaseAddr (0x00007FFC218F0000), Size (589824 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (BCP47Langs.dll), BaseAddr (0x00007FFC2D830000), Size (372736 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (userenv.dll), BaseAddr (0x00007FFC35F10000), Size (188416 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (slc.dll), BaseAddr (0x00007FFC34B90000), Size (167936 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (sppc.dll), BaseAddr (0x00007FFC34B60000), Size (151552 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (OneCoreCommonProxyStub.dll), BaseAddr (0x00007FFC25630000), Size (520192 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (OneCoreUAPCommonProxyStub.dll), BaseAddr (0x00007FFC2FCC0000), Size (8171520 bytes), PID (1232).
+[KernelMonitor] Process created - ID: 2892, Parent ID: 1232
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (Taskmgr.exe), BaseAddr (0x00007FF6B6460000), Size (1245184 bytes), PID (2892).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (2892).
+[KernelMonitor] Process terminated - ID: 2892
+[KernelMonitor] Img loaded -> Name (mpr.dll), BaseAddr (0x00007FFC33700000), Size (118784 bytes), PID (1232).
+[KernelMonitor] Process created - ID: 5248, Parent ID: 7056
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (consent.exe), BaseAddr (0x00007FF665E50000), Size (204800 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (crypt32.dll), BaseAddr (0x00007FFC36770000), Size (1433600 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (samcli.dll), BaseAddr (0x00007FFC29980000), Size (102400 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (netutils.dll), BaseAddr (0x00007FFC354B0000), Size (49152 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (sspicli.dll), BaseAddr (0x00007FFC35F40000), Size (204800 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (userenv.dll), BaseAddr (0x00007FFC35F10000), Size (188416 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (wmsgapi.dll), BaseAddr (0x00007FFC2A9D0000), Size (40960 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (amsi.dll), BaseAddr (0x00007FFC24F40000), Size (126976 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (comctl32.dll), BaseAddr (0x00007FFC27050000), Size (2727936 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (MsCtfMonitor.dll), BaseAddr (0x00007FFC22A60000), Size (118784 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msimg32.dll), BaseAddr (0x00007FFC2A450000), Size (28672 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (winsta.dll), BaseAddr (0x00007FFC35D80000), Size (409600 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (wtsapi32.dll), BaseAddr (0x00007FFC32960000), Size (81920 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msctf.dll), BaseAddr (0x00007FFC37870000), Size (1130496 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msutb.dll), BaseAddr (0x00007FFC284F0000), Size (282624 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (shell32.dll), BaseAddr (0x00007FFC369D0000), Size (7618560 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (wintrust.dll), BaseAddr (0x00007FFC36640000), Size (421888 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (msasn1.dll), BaseAddr (0x00007FFC35B60000), Size (73728 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (amsiproxy.dll), BaseAddr (0x00007FFC0F2F0000), Size (32768 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (cryptsp.dll), BaseAddr (0x00007FFC35920000), Size (98304 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (rsaenh.dll), BaseAddr (0x00007FFC35050000), Size (212992 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (bcrypt.dll), BaseAddr (0x00007FFC36100000), Size (159744 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (cryptbase.dll), BaseAddr (0x00007FFC35940000), Size (49152 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (gpapi.dll), BaseAddr (0x00007FFC348C0000), Size (143360 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (urlmon.dll), BaseAddr (0x00007FFC2BBE0000), Size (2015232 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (iertutil.dll), BaseAddr (0x00007FFC2BF10000), Size (2822144 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (srvcli.dll), BaseAddr (0x00007FFC2BBB0000), Size (163840 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (propsys.dll), BaseAddr (0x00007FFC32830000), Size (1007616 bytes), PID (5248).
+[KernelMonitor] Img loaded -> Name (ole32.dll), BaseAddr (0x00007FFC37FE0000), Size (1220608 bytes), PID (5248).
+[KernelMonitor] Process terminated - ID: 5248
+[KernelMonitor] Process created - ID: 212, Parent ID: 1232
+[KernelMonitor] Process Name: [KernelMonitor] Image Name: [KernelMonitor] Img loaded -> Name (pcacli.dll), BaseAddr (0x00007FFC1E300000), Size (90112 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (sfc_os.dll), BaseAddr (0x00007FFC275E0000), Size (73728 bytes), PID (1232).
+[KernelMonitor] Img loaded -> Name (Taskmgr.exe), BaseAddr (0x00007FF6B6460000), Size (1245184 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ntdll.dll), BaseAddr (0x00007FFC38970000), Size (2064384 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (kernel32.dll), BaseAddr (0x00007FFC385E0000), Size (782336 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (KernelBase.dll), BaseAddr (0x00007FFC36220000), Size (3104768 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ucrtbase.dll), BaseAddr (0x00007FFC368D0000), Size (1048576 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (oleaut32.dll), BaseAddr (0x00007FFC37BE0000), Size (839680 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (msvcp_win.dll), BaseAddr (0x00007FFC36130000), Size (643072 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (combase.dll), BaseAddr (0x00007FFC37420000), Size (3489792 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (rpcrt4.dll), BaseAddr (0x00007FFC37A50000), Size (1204224 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (nsi.dll), BaseAddr (0x00007FFC37800000), Size (32768 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (shlwapi.dll), BaseAddr (0x00007FFC38580000), Size (348160 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (msvcrt.dll), BaseAddr (0x00007FFC386A0000), Size (647168 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (powrprof.dll), BaseAddr (0x00007FFC35EC0000), Size (307200 bytes), PID (212).
+[KernelMonitor] Process terminated - ID: 1232
+[KernelMonitor] Img loaded -> Name (comctl32.dll), BaseAddr (0x00007FFC27050000), Size (2727936 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (gdi32.dll), BaseAddr (0x00007FFC37240000), Size (180224 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (win32u.dll), BaseAddr (0x00007FFC366B0000), Size (139264 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (gdi32full.dll), BaseAddr (0x00007FFC36520000), Size (1134592 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (user32.dll), BaseAddr (0x00007FFC37D90000), Size (1691648 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (uxtheme.dll), BaseAddr (0x00007FFC339F0000), Size (647168 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (shell32.dll), BaseAddr (0x00007FFC369D0000), Size (7618560 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (setupapi.dll), BaseAddr (0x00007FFC38110000), Size (4620288 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (cfgmgr32.dll), BaseAddr (0x00007FFC361D0000), Size (319488 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (bcrypt.dll), BaseAddr (0x00007FFC36100000), Size (159744 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (credui.dll), BaseAddr (0x00007FFC284D0000), Size (114688 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (duser.dll), BaseAddr (0x00007FFC0ACB0000), Size (610304 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dui70.dll), BaseAddr (0x00007FFC0AD50000), Size (1761280 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (pdh.dll), BaseAddr (0x00007FFC1DAD0000), Size (299008 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (advapi32.dll), BaseAddr (0x00007FFC37F30000), Size (716800 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (sechost.dll), BaseAddr (0x00007FFC37120000), Size (638976 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (DXCore.dll), BaseAddr (0x00007FFC2EB70000), Size (241664 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dxgi.dll), BaseAddr (0x00007FFC34910000), Size (995328 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (d3d11.dll), BaseAddr (0x00007FFC31EA0000), Size (2502656 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (D3D12.dll), BaseAddr (0x00007FFC25AA0000), Size (131072 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (SHCore.dll), BaseAddr (0x00007FFC38880000), Size (708608 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (kernel.appcore.dll), BaseAddr (0x00007FFC33F10000), Size (73728 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (umpdc.dll), BaseAddr (0x00007FFC35EA0000), Size (73728 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (imm32.dll), BaseAddr (0x00007FFC37A10000), Size (196608 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (bcryptprimitives.dll), BaseAddr (0x00007FFC366E0000), Size (532480 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (msctf.dll), BaseAddr (0x00007FFC37870000), Size (1130496 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (TextShaping.dll), BaseAddr (0x00007FFC2AD00000), Size (704512 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (TextInputFramework.dll), BaseAddr (0x00007FFC2D470000), Size (1024000 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (CoreUIComponents.dll), BaseAddr (0x00007FFC32F20000), Size (3530752 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ntmarta.dll), BaseAddr (0x00007FFC35190000), Size (208896 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (WinTypes.dll), BaseAddr (0x00007FFC326D0000), Size (1392640 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (CoreMessaging.dll), BaseAddr (0x000001FE22440000), Size (991232 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (CoreMessaging.dll), BaseAddr (0x00007FFC333D0000), Size (991232 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ws2_32.dll), BaseAddr (0x00007FFC37990000), Size (438272 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (policymanager.dll), BaseAddr (0x00007FFC30590000), Size (667648 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (msvcp110_win.dll), BaseAddr (0x00007FFC350E0000), Size (565248 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (clbcatq.dll), BaseAddr (0x00007FFC387D0000), Size (692224 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (NetworkUXBroker.dll), BaseAddr (0x00007FFC26A30000), Size (446464 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (srumapi.dll), BaseAddr (0x00007FFC27B20000), Size (81920 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (wtsapi32.dll), BaseAddr (0x00007FFC32960000), Size (81920 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (winsta.dll), BaseAddr (0x00007FFC35D80000), Size (409600 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (atlthunk.dll), BaseAddr (0x00007FFC268D0000), Size (53248 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (windows.storage.dll), BaseAddr (0x00007FFC34110000), Size (7942144 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (wldp.dll), BaseAddr (0x00007FFC359D0000), Size (188416 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.UI.Immersive.dll), BaseAddr (0x00007FFC2BDD0000), Size (1282048 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (profapi.dll), BaseAddr (0x00007FFC35F90000), Size (126976 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (samcli.dll), BaseAddr (0x00007FFC29980000), Size (102400 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (samlib.dll), BaseAddr (0x00007FFC32930000), Size (159744 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (netutils.dll), BaseAddr (0x00007FFC354B0000), Size (49152 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (WindowsCodecs.dll), BaseAddr (0x00007FFC30B60000), Size (1785856 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ole32.dll), BaseAddr (0x00007FFC37FE0000), Size (1220608 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (oleacc.dll), BaseAddr (0x00007FFC1E140000), Size (417792 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (propsys.dll), BaseAddr (0x00007FFC32830000), Size (1007616 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppResolver.dll), BaseAddr (0x00007FFC218F0000), Size (589824 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (BCP47Langs.dll), BaseAddr (0x00007FFC2D830000), Size (372736 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (slc.dll), BaseAddr (0x00007FFC34B90000), Size (167936 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (userenv.dll), BaseAddr (0x00007FFC35F10000), Size (188416 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (sppc.dll), BaseAddr (0x00007FFC34B60000), Size (151552 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (apphelp.dll), BaseAddr (0x00007FFC33770000), Size (593920 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (TileDataRepository.dll), BaseAddr (0x00007FFC216D0000), Size (630784 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (StateRepository.Core.dll), BaseAddr (0x00007FFC2DC00000), Size (724992 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepository.dll), BaseAddr (0x00007FFC2DCC0000), Size (5828608 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryPS.dll), BaseAddr (0x00007FFC25090000), Size (1335296 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (actxprxy.dll), BaseAddr (0x00007FFC2F630000), Size (659456 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryCore.dll), BaseAddr (0x00007FFC28570000), Size (69632 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (MrmCoreR.dll), BaseAddr (0x00007FFC2D6E0000), Size (999424 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.UI.dll), BaseAddr (0x00007FFC2D570000), Size (1314816 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (WindowManagementAPI.dll), BaseAddr (0x00007FFC30AB0000), Size (659456 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (twinapi.appcore.dll), BaseAddr (0x00007FFC306B0000), Size (2097152 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (InputHost.dll), BaseAddr (0x00007FFC2D310000), Size (1384448 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (LanguageOverlayUtil.dll), BaseAddr (0x00007FFC2D2C0000), Size (266240 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (BCP47mrm.dll), BaseAddr (0x00007FFC2D290000), Size (184320 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (iertutil.dll), BaseAddr (0x00007FFC2BF10000), Size (2822144 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (cryptbase.dll), BaseAddr (0x00007FFC35940000), Size (49152 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (IPHLPAPI.DLL), BaseAddr (0x00007FFC35420000), Size (245760 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (winnsi.dll), BaseAddr (0x00007FFC2F8D0000), Size (45056 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (thumbcache.dll), BaseAddr (0x00007FFC1DC50000), Size (417792 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (d3d9.dll), BaseAddr (0x00007FFC14360000), Size (1888256 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dwmapi.dll), BaseAddr (0x00007FFC33D00000), Size (192512 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (ResourcePolicyClient.dll), BaseAddr (0x00007FFC33B20000), Size (81920 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (D3D12Core.dll), BaseAddr (0x00007FFC14190000), Size (1888256 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (d3d10warp.dll), BaseAddr (0x00007FFC2EE20000), Size (7299072 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dxilconv.dll), BaseAddr (0x00007FFC16410000), Size (1282048 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (D3DSCache.dll), BaseAddr (0x00007FFC24500000), Size (176128 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (d3d10warp.dll), BaseAddr (0x00007FFC2EE20000), Size (7299072 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (devobj.dll), BaseAddr (0x00007FFC35D20000), Size (180224 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc6.dll), BaseAddr (0x00007FFC2F610000), Size (94208 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dhcpcsvc.dll), BaseAddr (0x00007FFC313D0000), Size (118784 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (dnsapi.dll), BaseAddr (0x00007FFC354C0000), Size (831488 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (wkscli.dll), BaseAddr (0x00007FFC35170000), Size (102400 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (xmllite.dll), BaseAddr (0x00007FFC31790000), Size (221184 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.ApplicationModel.dll), BaseAddr (0x00007FFC24FA0000), Size (942080 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (Windows.StateRepositoryBroker.dll), BaseAddr (0x00007FFC244E0000), Size (131072 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (profext.dll), BaseAddr (0x00007FFC34D20000), Size (167936 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (212).
+[KernelMonitor] Img loaded -> Name (AppXDeploymentClient.dll), BaseAddr (0x00007FFC2ED10000), Size (1064960 bytes), PID (212).
+Invalid parameter passed to C runtime function.
+Invalid parameter passed to C runtime function.
+Invalid parameter passed to C runtime function.
+Invalid parameter passed to C runtime function.
+[KernelMonitor] Process terminated - ID: 2600
+[KernelMonitor] Process terminated - ID: 5964
+[KernelMonitor] Process terminated - ID: 6836
+[KernelMonitor] Process terminated - ID: 2492
+[KernelMonitor] Process terminated - ID: 2040
+[KernelMonitor] Process terminated - ID: 6656
+[KernelMonitor] Img loaded -> Name (wpnapps.dll), BaseAddr (0x00007FFC20550000), Size (1392640 bytes), PID (4668).
+[KernelMonitor] Img loaded -> Name (Windows.Web.dll), BaseAddr (0x00007FFC1BC00000), Size (798720 bytes), PID (2104).
+[KernelMonitor] Process terminated - ID: 212
+[KernelMonitor] DriverUnload called
+[KernelMonitor] Callbacks has been removed.
