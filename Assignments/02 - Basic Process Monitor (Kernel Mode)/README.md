@@ -61,10 +61,19 @@ Write a simple Windows kernel driver that prints the CPUID information from the 
   - [X] Provision a target VM ready for kernel debugging check [REF_LAB] and [REF_PROV_TEST]
   - [X] Deploy a driver to the test computer, check [REF_TUT_DBG].
 - [X] Write simple kernel driver that prints the CPUID information from the kernel, check [REF_CPUID].
-- [ ] Extend your kernel driver into a basic process monitor that logs processes being started. For example, after the driver being loaded any process starts (i.e. `Chrome.exe`) the driver will log the process info. Use `PsSetCreateProcessNotifyRoutine` and `PsSetNotifyLoadImageRoutine`.
+- [X] Extend your kernel driver into a basic process monitor that logs processes being started. For example, after the driver being loaded any process starts (i.e. `Chrome.exe`) the driver will log the process info. Use `PsSetCreateProcessNotifyRoutine` and `PsSetNotifyLoadImageRoutine`.
+  - [X] Output the various fields of the process notify struct and CPUID.
+- [X] Deliver the source code for the project and screenshots for the program while working.
 
-  - [ ] Output the various fields of the process notify struct and CPUID.
-- [ ] Deliver the source code for the project ans screenshots for the program while working.
+### Screenshots
+
+![kernel-driver-logging-cpuid.jpg](./__OUT/screenshots/kernel-driver-logging-cpuid.jpg)
+![kernel-driver-logging-processinfo.jpg](./__OUT/screenshots/kernel-driver-logging-processinfo.jpg)
+
+### Report and Demo Video
+
+Take a look on the full log output from the kernel driver using WinDbg - [full-kernel-driver-log-using-windbg-inside-vstudio.txt](./__OUT/reports/full-kernel-driver-log-using-windbg-inside-vstudio.txt)
+Also check the video added for a walk through the demo - [CIT622 - [Project Demo] Process Monitoring Windows Kernel Driver - Youtube](https://youtu.be/d_TJgxzFkjQ)
 
 ### References
 
