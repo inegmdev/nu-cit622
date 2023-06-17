@@ -42,10 +42,10 @@ Write a simple Windows kernel driver that prints the CPUID information from the 
 
 ### API documentation
 
-- https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk
-- https://learn.microsoft.com/en-us/cpp/intrinsics/cpuid-cpuidex?view=msvc-170
-- https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-pssetcreateprocessnotifyroutine
-- https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-pssetloadimagenotifyroutine
+- [Download the Windows Driver Kit (WDK) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+- [__cpuid, __cpuidex | Microsoft Learn](https://learn.microsoft.com/en-us/cpp/intrinsics/cpuid-cpuidex?view=msvc-170)
+- [PsSetCreateProcessNotifyRoutine function (ntddk.h) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-pssetcreateprocessnotifyroutine)
+- [PsSetLoadImageNotifyRoutine function (ntddk.h) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-pssetloadimagenotifyroutine)
 
 ### Assignment deliverables
 
@@ -56,10 +56,11 @@ Write a simple Windows kernel driver that prints the CPUID information from the 
 
 - [X] Create a VM Windows 10 and disable the driver signing from it (Test Mode)
 - [X] Create an empty driver, and add initial syntax for a minimal driver.
-- [ ] Setup the link between the debugger and the remote computer.
+- [X] Setup the link between the debugger and the remote computer.
 
-  - [ ] Provision a target VM ready for kernel debugging check [REF_LAB]
-- [ ] Write simple kerneel driver that prints the CPUID information from the kernel.
+  - [X] Provision a target VM ready for kernel debugging check [REF_LAB] and [REF_PROV_TEST]
+  - [X] Deploy a driver to the test computer, check [REF_TUT_DBG].
+- [X] Write simple kernel driver that prints the CPUID information from the kernel, check [REF_CPUID].
 - [ ] Extend your kernel driver into a basic process monitor that logs processes being started. For example, after the driver being loaded any process starts (i.e. `Chrome.exe`) the driver will log the process info. Use `PsSetCreateProcessNotifyRoutine` and `PsSetNotifyLoadImageRoutine`.
 
   - [ ] Output the various fields of the process notify struct and CPUID.
@@ -70,4 +71,8 @@ Write a simple Windows kernel driver that prints the CPUID information from the 
 1. [Download the Windows Driver Kit (WDK) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk#download-and-install-the-windows-11-version-22h2-wdk)
 2. [Write a Hello World Windows Driver (KMDF) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/writing-a-very-small-kmdf--driver)
 3. [REF_LAB] [Debug Windows drivers step-by-step lab (echo kernel mode) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/debug-universal-drivers---step-by-step-lab--echo-kernel-mode-)
-4. [Disable Driver Signature Enforcement [Windows Guide] (windowsreport.com)](https://windowsreport.com/driver-signature-enforcement-windows-10/) - Put Windows in test mode
+4. [REF_PROV_TEST] [Provision a computer for driver deployment and testing (WDK 10) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-gb/windows-hardware/drivers/gettingstarted/provision-a-target-computer-wdk-8-1)
+5. [REF_DEP_DRIVER] [Deploying a Driver to a Test Computer - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-gb/windows-hardware/drivers/develop/deploying-a-driver-to-a-test-computer)
+6. [REF_TUT_DBG] [(50) How to Set Up Kernel Debugging in Windows - YouTube](https://www.youtube.com/watch?v=h6p-Kt-Cx9E)
+7. [REF_CPUID] [CPUID — CPU Identification (felixcloutier.com)](https://www.felixcloutier.com/x86/cpuid)
+8. [Disable Driver Signature Enforcement [Windows Guide] (windowsreport.com)](https://windowsreport.com/driver-signature-enforcement-windows-10/) - Put Windows in test mode
