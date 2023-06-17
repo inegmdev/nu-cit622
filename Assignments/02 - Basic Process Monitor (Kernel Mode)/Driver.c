@@ -1,62 +1,41 @@
 #include <ntddk.h>
 #include <wdf.h>
+#include <ntdef.h> // For: UNREFERENCED_PARAMETER
 
 DRIVER_INITIALIZE DriverEntry;
 EVT_WDF_DRIVER_DEVICE_ADD KmdfHelloWorldEvtDeviceAdd;
 
-NTSTATUS
-DriverEntry(
-    _In_ PDRIVER_OBJECT     DriverObject,
-    _In_ PUNICODE_STRING    RegistryPath
-)
+
+VOID DriverUnload(PDRIVER_OBJECT driver)
 {
-    // NTSTATUS variable to record success or failure
-    NTSTATUS status = STATUS_SUCCESS;
+    // Perform driver cleanup tasks
+    UNREFERENCED_PARAMETER(driver);
 
-    // Allocate the driver configuration object
-    WDF_DRIVER_CONFIG config;
-
-    // Print "Hello World" for DriverEntry
-    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "KmdfHelloWorld: DriverEntry\n"));
-
-    // Initialize the driver configuration object to register the
-    // entry point for the EvtDeviceAdd callback, KmdfHelloWorldEvtDeviceAdd
-    WDF_DRIVER_CONFIG_INIT(&config,
-        KmdfHelloWorldEvtDeviceAdd
-    );
-
-    // Finally, create the driver object
-    status = WdfDriverCreate(DriverObject,
-        RegistryPath,
-        WDF_NO_OBJECT_ATTRIBUTES,
-        &config,
-        WDF_NO_HANDLE
-    );
-    return status;
+    // Print a message to the kernel debugger
+    DbgPrint("DriverUnload called\n");
 }
 
-NTSTATUS
-KmdfHelloWorldEvtDeviceAdd(
-    _In_    WDFDRIVER       Driver,
-    _Inout_ PWDFDEVICE_INIT DeviceInit
-)
+NTSTATUS DriverEntry(PDRIVER_OBJECT driver, PUNICODE_STRING registryPath)
 {
-    // We're not using the driver object,
-    // so we need to mark it as unreferenced
-    UNREFERENCED_PARAMETER(Driver);
+    UNREFERENCED_PARAMETER(registryPath);
 
-    NTSTATUS status;
+    // Print a message to the kernel debugger
+    DbgPrint("DriverEntry called\n");
 
-    // Allocate the device object
-    WDFDEVICE hDevice;
+    // Register the unload function
+    driver->DriverUnload = DriverUnload;
 
-    // Print "Hello World"
-    KdPrintEx((DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, "KmdfHelloWorld: KmdfHelloWorldEvtDeviceAdd\n"));
 
-    // Create the device object
-    status = WdfDeviceCreate(&DeviceInit,
-        WDF_NO_OBJECT_ATTRIBUTES,
-        &hDevice
-    );
-    return status;
+    // Perform CPUID and print the information
+    int info[4] = { 0 };
+    __cpuid(info, 0);
+
+    DbgPrint("CPUID Information:\n");
+    DbgPrint("EAX: 0x%X\n", info[0]);
+    DbgPrint("EBX: 0x%X\n", info[1]);
+    DbgPrint("ECX: 0x%X\n", info[2]);
+    DbgPrint("EDX: 0x%X\n", info[3]);
+
+    return STATUS_SUCCESS;
 }
+

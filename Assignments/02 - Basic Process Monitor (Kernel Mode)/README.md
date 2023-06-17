@@ -54,12 +54,20 @@ Write a simple Windows kernel driver that prints the CPUID information from the 
 
 ### 📃 Tasklist for the assginement#2
 
+- [X] Create a VM Windows 10 and disable the driver signing from it (Test Mode)
+- [X] Create an empty driver, and add initial syntax for a minimal driver.
+- [ ] Setup the link between the debugger and the remote computer.
+
+  - [ ] Provision a target VM ready for kernel debugging check [REF_LAB]
 - [ ] Write simple kerneel driver that prints the CPUID information from the kernel.
 - [ ] Extend your kernel driver into a basic process monitor that logs processes being started. For example, after the driver being loaded any process starts (i.e. `Chrome.exe`) the driver will log the process info. Use `PsSetCreateProcessNotifyRoutine` and `PsSetNotifyLoadImageRoutine`.
+
   - [ ] Output the various fields of the process notify struct and CPUID.
 - [ ] Deliver the source code for the project ans screenshots for the program while working.
 
 ### References
 
-* [Download the Windows Driver Kit (WDK) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk#download-and-install-the-windows-11-version-22h2-wdk)
-* [Disable Driver Signature Enforcement [Windows Guide] (windowsreport.com)](https://windowsreport.com/driver-signature-enforcement-windows-10/) - Put Windows in test mode
+1. [Download the Windows Driver Kit (WDK) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk#download-and-install-the-windows-11-version-22h2-wdk)
+2. [Write a Hello World Windows Driver (KMDF) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/writing-a-very-small-kmdf--driver)
+3. [REF_LAB] [Debug Windows drivers step-by-step lab (echo kernel mode) - Windows drivers | Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/debug-universal-drivers---step-by-step-lab--echo-kernel-mode-)
+4. [Disable Driver Signature Enforcement [Windows Guide] (windowsreport.com)](https://windowsreport.com/driver-signature-enforcement-windows-10/) - Put Windows in test mode
