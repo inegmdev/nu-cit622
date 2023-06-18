@@ -56,28 +56,37 @@ static bool IsFile32Bit(const wchar_t* filePath, bool* is32Bit) {
     return 1;
 }
 
+#define WCHAR_ARG(str,argIndex) std::wstring wide##str = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(argv[argIndex]); \
+                                const wchar_t* ##str = wide##str.c_str()
+
 int main(int argc, char* argv[])
 {
     // Check the inputs
-    if (argc != 2) {
+    if (argc != 3) {
         ERR_LN("Invalid call for the program.");
-        INFO_LN("Usage: " << argv[0] << " <executable_path> ");
+        INFO_LN("Usage: " << argv[0] << " <target_executable> <dll_path>");
         return 1;
     }
 
-    std::wstring wideFilePath = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(argv[1]);
-    const wchar_t* filePath = wideFilePath.c_str();
+    WCHAR_ARG(targetExecPath, 1);
+    WCHAR_ARG(dllPath, 2);
 
-    if (!IsFileValid(filePath)) {
-        ERR("Invalid file: (");
-        std::wcerr << filePath;
+    if (!IsFileValid(targetExecPath)) {
+        ERR("Invalid executable: (");
+        std::wcerr << targetExecPath;
         std::cerr << ")." << std::endl;
         return 1;
     }
-    bool is32Bit = 0;
+    if (!IsFileValid(dllPath)) {
+        ERR("Invalid DLL: (");
+        std::wcerr << dllPath;
+        std::cerr << ")." << std::endl;
+        return 1;
+    }
+    bool isExec32Bit = 0, isDll32Bit = 0;
 
-    if (IsFile32Bit(filePath, &is32Bit)) {
-        if (is32Bit == 1) {
+    if (IsFile32Bit(targetExecPath, &isExec32Bit)) {
+        if (isExec32Bit == 1) {
             INFO_LN("Executable is 32-Bit.");
         }
         else {
@@ -86,10 +95,32 @@ int main(int argc, char* argv[])
         
     }
     else {
-        ERR("Failed to read the file (");
-        std::wcerr << filePath; 
+        ERR("Failed to read the executable (");
+        std::wcerr << targetExecPath; 
         std::cerr << ")." << std::endl;
     }
 
-    std::cout << "Hello World!\n";
+    if (IsFile32Bit(dllPath, &isDll32Bit)) {
+        if (isExec32Bit == 1) {
+            INFO_LN("DLL is 32-Bit.");
+        }
+        else {
+            INFO_LN("DLL is 64-Bit.");
+        }
+
+    }
+    else {
+        ERR("Failed to read the DLL (");
+        std::wcerr << dllPath;
+        std::cerr << ")." << std::endl;
+    }
+
+    // Check if both DLL and Executable are the same architecture
+    if (isExec32Bit != isDll32Bit) {
+        ERR_LN("Can not inject DLL " 
+            << ((isDll32Bit) ? "32-Bit" : "64-Bit") 
+            << " in executable " 
+            << ((isExec32Bit) ? "32-Bit" : "64-Bit"));
+    }
+
 }
