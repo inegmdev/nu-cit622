@@ -432,6 +432,9 @@ static DWORD WINAPI Hook_GetFullPathNameW(
 /* ----------------------------------------- */
 
 
+/**
+ * processthreadsapi.h -> GetStartupInfoW
+ */
 static void (WINAPI* True_GetStartupInfoW) (
     LPSTARTUPINFOW  lpStartupInfo
     ) = GetStartupInfoW;
@@ -439,12 +442,51 @@ static void (WINAPI* True_GetStartupInfoW) (
 static void WINAPI Hook_GetStartupInfoW(
     LPSTARTUPINFOW  lpStartupInfo
 ) {
-    Log("{{ \"Function\": \"GetStartupInfoW\", \"Parameters\": {{}} }}"
-
+    Log(L"{"
+            "'Function': 'GetStartupInfoW', "
+            "'Parameters': { "
+                "'lpStartupInfo' : { "
+                    "'lpDesktop' : '{}', "
+                    "'lpTitle' : '{}', "
+                    "'dwX' : '{}', "
+                    "'dwY' : '{}', "
+                    "'dwXSize' : '{}', "
+                    "'dwYSize' : '{}', "
+                    "'dwXCountChars' : '{}', "
+                    "'dwYCountChars' : '{}', "
+                    "'dwFlags' : '{}{}{}{}{}{}{}{}{}{}{}{}{}{}', "
+                    "'wShowWindow' : '{}'"
+                "}"
+            "}"
+        "}",
+        lpStartupInfo->lpDesktop,
+        lpStartupInfo->lpTitle,
+        lpStartupInfo->dwX,
+        lpStartupInfo->dwY,
+        lpStartupInfo->dwXSize,
+        lpStartupInfo->dwYSize,
+        lpStartupInfo->dwXCountChars,
+        lpStartupInfo->dwYCountChars,
+        (lpStartupInfo->dwFlags & STARTF_FORCEONFEEDBACK) ? L"STARTF_FORCEONFEEDBACK | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_FORCEOFFFEEDBACK) ? L"STARTF_FORCEOFFFEEDBACK | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_PREVENTPINNING) ? L"STARTF_PREVENTPINNING | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_RUNFULLSCREEN) ? L"STARTF_RUNFULLSCREEN | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_TITLEISAPPID) ? L"STARTF_TITLEISAPPID | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_TITLEISLINKNAME) ? L"STARTF_TITLEISLINKNAME | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_UNTRUSTEDSOURCE) ? L"STARTF_UNTRUSTEDSOURCE | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USECOUNTCHARS) ? L"STARTF_USECOUNTCHARS | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USEFILLATTRIBUTE) ? L"STARTF_USEFILLATTRIBUTE | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USEHOTKEY) ? L"STARTF_USEHOTKEY | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USEPOSITION) ? L"STARTF_USEPOSITION | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USESHOWWINDOW) ? L"STARTF_USESHOWWINDOW | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USESIZE) ? L"STARTF_USESIZE | " : L"" ,
+        (lpStartupInfo->dwFlags & STARTF_USESTDHANDLES) ? L"STARTF_USESTDHANDLES " : L"" ,
+        lpStartupInfo->wShowWindow
     );
 
     return True_GetStartupInfoW(lpStartupInfo);
 }
+/* ----------------------------------------- */
 
 
 static HANDLE(WINAPI* True_OpenMutexA) (
@@ -779,7 +821,10 @@ void DetourAttach_AllHooks() {
     // HOOK_API(GetFullPathNameA);
     // fileapi.h -> GetFullPathNameW
     // HOOK_API(GetFullPathNameW);
+    
+    // processthreadsapi.h -> GetStartupInfoW
     HOOK_API(GetStartupInfoW);
+    
     HOOK_API(OpenMutexA);
     HOOK_API(OpenProcess);
     HOOK_API(RegCloseKey);
