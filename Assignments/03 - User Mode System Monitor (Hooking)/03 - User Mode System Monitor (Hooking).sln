@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HooksDll", "HooksDll\HooksD
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spdlog", "External\spdlog\spdlog.vcxproj", "{A7B16E55-5CEF-4922-8062-DBAB35A95F7C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleTestApp", "Tests\SimpleTestApp\SimpleTestApp.vcxproj", "{00C0F95A-8408-449A-885D-97065B167D77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{A7B16E55-5CEF-4922-8062-DBAB35A95F7C}.Release|x64.Build.0 = Release|x64
 		{A7B16E55-5CEF-4922-8062-DBAB35A95F7C}.Release|x86.ActiveCfg = Release|Win32
 		{A7B16E55-5CEF-4922-8062-DBAB35A95F7C}.Release|x86.Build.0 = Release|Win32
+		{00C0F95A-8408-449A-885D-97065B167D77}.Debug|x64.ActiveCfg = Debug|x64
+		{00C0F95A-8408-449A-885D-97065B167D77}.Debug|x64.Build.0 = Debug|x64
+		{00C0F95A-8408-449A-885D-97065B167D77}.Debug|x86.ActiveCfg = Debug|Win32
+		{00C0F95A-8408-449A-885D-97065B167D77}.Debug|x86.Build.0 = Debug|Win32
+		{00C0F95A-8408-449A-885D-97065B167D77}.Release|x64.ActiveCfg = Release|x64
+		{00C0F95A-8408-449A-885D-97065B167D77}.Release|x64.Build.0 = Release|x64
+		{00C0F95A-8408-449A-885D-97065B167D77}.Release|x86.ActiveCfg = Release|Win32
+		{00C0F95A-8408-449A-885D-97065B167D77}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
