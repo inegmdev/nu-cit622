@@ -492,7 +492,9 @@ static BOOL WINAPI Hook_ReleaseMutex(
     return True_ReleaseMutex(hMutex);
 }
 
-
+/**
+ * shellapi.h -> ShellExecuteA
+ */
 static HINSTANCE(WINAPI* True_ShellExecuteA) (
     HWND    hwnd,
     LPCSTR  lpOperation,
@@ -510,13 +512,69 @@ static HINSTANCE WINAPI Hook_ShellExecuteA(
     LPCSTR  lpDirectory,
     INT     nShowCmd
 ) {
-    Log("{{ \"Function\": \"ShellExecuteA\", \"Parameters\": {{ \"lpOperation\": \"{}\", \"lpFile\": \"{}\", \"lpParameters\": \"{}\", \"lpDirectory\": \"{}\", \"nShowCmd\": \"{}\"}} }}"
-        , lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd
+    Log("{"
+            "'Function': 'ShellExecuteA', "
+            "'Parameters': { "
+                "'lpOperation': '{}', "
+                "'lpFile': '{}', "
+                "'lpParameters': '{}', "
+                "'lpDirectory': '{}', "
+                "'nShowCmd': '{}'"
+            "}"
+        "}",
+        lpOperation,
+        lpFile,
+        lpParameters,
+        lpDirectory,
+        nShowCmd
     );
 
     return True_ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd);
 }
+/*-------------------------------------*/
 
+
+/**
+ * shellapi.h -> ShellExecuteW
+ */
+static HINSTANCE (WINAPI* True_ShellExecuteW) (
+    HWND    hwnd,
+    LPCWSTR lpOperation,
+    LPCWSTR lpFile,
+    LPCWSTR lpParameters,
+    LPCWSTR lpDirectory,
+    INT     nShowCmd
+) = ShellExecuteW;
+
+static HINSTANCE WINAPI Hook_ShellExecuteW(
+    HWND    hwnd,
+    LPCWSTR lpOperation,
+    LPCWSTR lpFile,
+    LPCWSTR lpParameters,
+    LPCWSTR lpDirectory,
+    INT     nShowCmd
+) {
+    Log(L"{"
+            "'Function': 'ShellExecuteW', "
+            "'Parameters': "
+            "{"
+                "'lpOperation' : '{}' ,"
+                "'lpFile' : '{}' ,"
+                "'lpParameters' : '{}' ,"
+                "'lpDirectory' : '{}' ,"
+                "'nShowCmd' : '{}' ,"
+            "}"
+        "}",
+        lpOperation,
+        lpFile,
+        lpParameters,
+        lpDirectory,
+        nShowCmd
+    );
+
+    return True_ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd);
+}
+/*-------------------------------------*/
 
 static void (WINAPI* True_Sleep) (
     DWORD  dwMilliseconds
@@ -648,6 +706,9 @@ void DetourAttach_AllHooks() {
 
     DetourAttach((PVOID *) &True_ShellExecuteA, Hook_ShellExecuteA);
     Log("\"Registered `ShellExecuteA` \"");
+
+    DetourAttach((PVOID *) &True_ShellExecuteW, Hook_ShellExecuteW);
+    Log("\"Registered `ShellExecuteW` \"");
 
     DetourAttach((PVOID *) &True_Sleep, Hook_Sleep);
     Log("\"Registered `Sleep` \"");
