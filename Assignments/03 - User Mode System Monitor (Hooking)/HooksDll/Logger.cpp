@@ -37,7 +37,7 @@ void Logger::init() {
 		);
 		m_logger->set_pattern("");
 		m_logger->info("[");
-		m_logger->set_pattern("{ \"timestamp\": \"%E.%f\", \"timestampReadable\": \"%T.%f\" , \"processId\": \"%P\", \"threadId\": \"%t\" , \"event\": %v },");
+		m_logger->set_pattern("{ 'timestamp': '%E.%f', 'timestampReadable': '%T.%f' , 'processId': '%P', 'threadId': '%t' , 'event': %v },");
 		std::string message = "Logging will be inside file " + path_of_file;
 		MessageBoxA(HWND_DESKTOP, message.c_str(), "Detoury - Success", MB_OK);
 	}
