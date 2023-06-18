@@ -507,24 +507,49 @@ static HANDLE WINAPI Hook_OpenMutexA(
     return True_OpenMutexA(dwDesiredAccess, bInheritHandle, lpName);
 }
 
-
+/**
+ * processthreadsapi.h -> OpenProcess
+ */
 static HANDLE(WINAPI* True_OpenProcess) (
     DWORD  dwDesiredAccess,
     BOOL   bInheritHandle,
     DWORD  dwProcessId
-    ) = OpenProcess;
+) = OpenProcess;
 
 static HANDLE WINAPI Hook_OpenProcess(
     DWORD  dwDesiredAccess,
     BOOL   bInheritHandle,
     DWORD  dwProcessId
 ) {
-    Log("{{ \"Function\": \"OpenProcess\", \"Parameters\": {{ \"dwDesiredAccess\": \"{}\", \"bInheritHandle\": \"{}\", \"dwProcessId\": \"{}\"}} }}"
-        , dwDesiredAccess, bInheritHandle, dwProcessId
+    Log("{"
+            "'Function': 'OpenProcess', "
+            "'Parameters': { "
+                "'dwDesiredAccess': '{}{}{}{}{}{}{}{}{}{}{}{}{}{}', "
+                "'bInheritHandle': '{}', "
+                "'dwProcessId': '{}'"
+            "}"
+        "}",
+        (dwDesiredAccess & PROCESS_ALL_ACCESS) ? "PROCESS_ALL_ACCESS | " : "" ,
+        (dwDesiredAccess & PROCESS_CREATE_PROCESS) ? "PROCESS_CREATE_PROCESS | " : "" ,
+        (dwDesiredAccess & PROCESS_CREATE_THREAD) ? "PROCESS_CREATE_THREAD | " : "" ,
+        (dwDesiredAccess & PROCESS_DUP_HANDLE) ? "PROCESS_DUP_HANDLE | " : "" ,
+        (dwDesiredAccess & PROCESS_QUERY_INFORMATION) ? "PROCESS_QUERY_INFORMATION | " : "" ,
+        (dwDesiredAccess & PROCESS_QUERY_LIMITED_INFORMATION) ? "PROCESS_QUERY_LIMITED_INFORMATION | " : "" ,
+        (dwDesiredAccess & PROCESS_SET_INFORMATION) ? "PROCESS_SET_INFORMATION | " : "" ,
+        (dwDesiredAccess & PROCESS_SET_QUOTA) ? "PROCESS_SET_QUOTA | " : "" ,
+        (dwDesiredAccess & PROCESS_SUSPEND_RESUME) ? "PROCESS_SUSPEND_RESUME | " : "" ,
+        (dwDesiredAccess & PROCESS_TERMINATE) ? "PROCESS_TERMINATE | " : "" ,
+        (dwDesiredAccess & PROCESS_VM_OPERATION) ? "PROCESS_VM_OPERATION | " : "" ,
+        (dwDesiredAccess & PROCESS_VM_READ) ? "PROCESS_VM_READ | " : "" ,
+        (dwDesiredAccess & PROCESS_VM_WRITE) ? "PROCESS_VM_WRITE | " : "" ,
+        (dwDesiredAccess & SYNCHRONIZE) ? "SYNCHRONIZE | " : "" , 
+        bInheritHandle,
+        dwProcessId
     );
 
     return True_OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId);
 }
+/* ----------------------------------------- */
 
 
 static LSTATUS(WINAPI* True_RegCloseKey) (
@@ -826,7 +851,10 @@ void DetourAttach_AllHooks() {
     HOOK_API(GetStartupInfoW);
     
     HOOK_API(OpenMutexA);
+
+    // processthreadsapi.h -> OpenProcess
     HOOK_API(OpenProcess);
+    
     HOOK_API(RegCloseKey);
     HOOK_API(RegDeleteKeyA);
     HOOK_API(RegDeleteValueA);
