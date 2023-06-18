@@ -102,6 +102,59 @@ Once you are hooking APIs, your program should print the function called, args/p
 * [ ] Repeat the same thing for all of the APIs.
 * [ ] Find a quick way to log/print to be able to capture and monitor all the APIs.
 
+## Notes
+
+### How to build MS Detours
+
+*From source [REF_DETOURS_BUILD]*
+
+You need to build a version of `detours.lib` for your C/C++ compiler. The steps to build detours are:
+
+1. [Initialize the Microsoft C++ toolset command line environment](https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2019) for the architecture you are targeting.
+
+   1. Identify where is your MS Visusal Studio BAT file for developer CLI, for example I have it here `C:\Program Files\Microsoft Visual Studio\2022\Community` .
+   2. Under `\VC\Auxiliary\Build\` you will find `vcvars64.bat` file that you should trigger to setup the CMD env for 64.
+      *Note: There's also a file for 32-bit environments.*
+   3. Git checkout `v4.0.1` tag in Detours.
+   4. Go back to Detours folder and open `cmd.exe` and then right the following command
+      ```batch
+      Detours> cd src
+      Detours/src> "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+      
+      **********************************************************************
+      ** Visual Studio 2022 Developer Command Prompt v17.6.2
+      ** Copyright (c) 2022 Microsoft Corporation
+      **********************************************************************
+      [vcvarsall.bat] Environment initialized for: 'x64'
+
+      Detours/src> SET DETOURS_TARGET_PROCESSOR=X64
+      Detours/src> nmake
+      Detours/src> SET DETOURS_TARGET_PROCESSOR=X86
+      Detours/src> nmake
+      ```
+2. Run with [`nmake`](https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake)
+   a. To build just the detours library, change to the `detours/src` directory and run the `nmake` command.
+   b. To build detours and the samples, change to the `detours` directory and run the `nmake` command.
+3. A `lib.<ARCH>` directory should now exist, containing the Detours static library, where `<ARCH>` is the target architecture you are compiling for. The `include` directory will also be generated during the build, it contains the headers for the library.
+
+   > C:\detours> dir /b *.x64
+   > bin.X64
+   > lib.X64
+   >
+   > C:\detours> dir /b lib.X64
+   > detours.lib
+   > detours.pdb
+   > syelog.lib
+   >
+   > C:\detours> dir /b include
+   > detours.h
+   > detver.h
+   > syelog.h
+   >
+
+
+
 ## Resources
 
-* [inegmdev/detoury: Detoury is a monitoring and instrumenting wrapper layer based on Microsoft Detours (github.com)](https://github.com/inegmdev/detoury)
+1. [inegmdev/detoury: Detoury is a monitoring and instrumenting wrapper layer based on Microsoft Detours (github.com)](https://github.com/inegmdev/detoury)
+2. [REF_DETOURS_BUILD] [FAQ · microsoft/Detours Wiki (github.com)](https://github.com/microsoft/detours/wiki/FAQ#compiling-with-detours-code)

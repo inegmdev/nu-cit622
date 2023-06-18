@@ -1,0 +1,3 @@
+[submodule "Assignments/03 - User Mode System Monitor (Hooking)/External/Detours"]
+	path = Assignments/03 - User Mode System Monitor (Hooking)/External/Detours
+	url = git@github.com:microsoft/Detours.git
