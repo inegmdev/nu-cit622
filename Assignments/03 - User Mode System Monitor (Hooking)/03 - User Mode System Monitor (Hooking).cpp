@@ -4,6 +4,7 @@
 #include <codecvt>
 
 #include "Detoury.h"
+#include "detours.h"
 
 static bool IsFileValid(const wchar_t* filePath) {
     DWORD fileAttributes = GetFileAttributes(filePath);
@@ -59,18 +60,21 @@ static bool IsFile32Bit(const wchar_t* filePath, bool* is32Bit) {
 #define WCHAR_ARG(str,argIndex) std::wstring wide##str = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>().from_bytes(argv[argIndex]); \
                                 const wchar_t* ##str = wide##str.c_str()
 
-int main(int argc, char* argv[])
+static std::string WideCharToMultiByteString(const wchar_t* wideString)
 {
-    // Check the inputs
-    if (argc != 3) {
-        ERR_LN("Invalid call for the program.");
-        INFO_LN("Usage: " << argv[0] << " <target_executable> <dll_path>");
-        return 1;
+    int requiredLength = WideCharToMultiByte(CP_UTF8, 0, wideString, -1, nullptr, 0, nullptr, nullptr);
+    if (requiredLength == 0)
+    {
+        throw std::runtime_error("Failed to convert the string from wide-char to multi-byte.");
     }
 
-    WCHAR_ARG(targetExecPath, 1);
-    WCHAR_ARG(dllPath, 2);
+    std::string convertedString(requiredLength, '\0');
+    WideCharToMultiByte(CP_UTF8, 0, wideString, -1, &convertedString[0], requiredLength, nullptr, nullptr);
 
+    return convertedString;
+}
+
+static int checkInputs(const wchar_t* targetExecPath, const wchar_t* dllPath) {
     if (!IsFileValid(targetExecPath)) {
         ERR("Invalid executable: (");
         std::wcerr << targetExecPath;
@@ -92,12 +96,13 @@ int main(int argc, char* argv[])
         else {
             INFO_LN("Executable is 64-Bit.");
         }
-        
+
     }
     else {
         ERR("Failed to read the executable (");
-        std::wcerr << targetExecPath; 
+        std::wcerr << targetExecPath;
         std::cerr << ")." << std::endl;
+        return 1;
     }
 
     if (IsFile32Bit(dllPath, &isDll32Bit)) {
@@ -113,14 +118,88 @@ int main(int argc, char* argv[])
         ERR("Failed to read the DLL (");
         std::wcerr << dllPath;
         std::cerr << ")." << std::endl;
+        return 1;
     }
 
     // Check if both DLL and Executable are the same architecture
     if (isExec32Bit != isDll32Bit) {
-        ERR_LN("Can not inject DLL " 
-            << ((isDll32Bit) ? "32-Bit" : "64-Bit") 
-            << " in executable " 
+        ERR_LN("Can not inject DLL "
+            << ((isDll32Bit) ? "32-Bit" : "64-Bit")
+            << " in executable "
             << ((isExec32Bit) ? "32-Bit" : "64-Bit"));
+        return 1;
+    }
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    // Check the inputs
+    if (argc != 3) {
+        ERR_LN("Invalid call for the program.");
+        INFO_LN("Usage: " << argv[0] << " <target_executable> <dll_path>");
+        return 1;
     }
 
+    WCHAR_ARG(targetExecPath, 1);
+    WCHAR_ARG(dllPath, 2);
+
+    // Check the inputs
+    if (checkInputs(targetExecPath, dllPath) == 1) {
+        return 1;
+    }
+
+    // Prepare for Detours
+    /*
+BOOL WINAPI DetourCreateProcessWithDllsW(_In_opt_ LPCWSTR lpApplicationName,
+                                         _Inout_opt_ LPWSTR lpCommandLine,
+                                         _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
+                                         _In_opt_ LPSECURITY_ATTRIBUTES lpThreadAttributes,
+                                         _In_ BOOL bInheritHandles,
+                                         _In_ DWORD dwCreationFlags,
+                                         _In_opt_ LPVOID lpEnvironment,
+                                         _In_opt_ LPCWSTR lpCurrentDirectory,
+                                         _In_ LPSTARTUPINFOW lpStartupInfo,
+                                         _Out_ LPPROCESS_INFORMATION lpProcessInformation,
+                                         _In_ DWORD nDlls,
+                                         _In_reads_(nDlls) LPCSTR *rlpDlls,
+                                         _In_opt_ PDETOUR_CREATE_PROCESS_ROUTINEW pfCreateProcessW);
+    */
+    STARTUPINFO startupInfo = { 0 };
+    PROCESS_INFORMATION processInfo = { 0 };
+
+    std::string dllPathStr = WideCharToMultiByteString(dllPath);
+    LPCSTR lpcstrDllPath = dllPathStr.c_str();
+
+    bool bRet = DetourCreateProcessWithDll(
+        targetExecPath,
+        NULL,
+        NULL,
+        NULL,
+        FALSE,
+        CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED, // Creation flags
+        NULL, // Environment
+        NULL, // Current directory
+        &startupInfo, // Startup information 
+        &processInfo, // Process information
+        lpcstrDllPath,
+        NULL);
+
+    if (bRet)
+    {
+        // Resume the suspended process
+        ResumeThread(processInfo.hThread);
+
+        INFO_LN("DLL injected successfully.");
+
+        // Clean up the process handles
+        CloseHandle(processInfo.hProcess);
+        CloseHandle(processInfo.hThread);
+    }
+    else
+    {
+        ERR_LN("Failed to create process.");
+    }
+
+    
 }
