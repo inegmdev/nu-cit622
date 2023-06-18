@@ -35,9 +35,7 @@ void Logger::init() {
 		m_logger = spdlog::basic_logger_mt(
 			"basic_logger", path_of_file
 		);
-		m_logger->set_pattern("");
-		m_logger->info("[");
-		m_logger->set_pattern("{ 'timestamp': '%E.%f', 'timestampReadable': '%T.%f' , 'processId': '%P', 'threadId': '%t' , 'event': %v },");
+		m_logger->set_pattern("{ \"timestamp\": \"%E.%f\", \"timestampReadable\": \"%T.%f\" , \"processId\": \"%P\", \"threadId\": \"%t\" , \"event\": %v },");
 		std::string message = "Logging will be inside file " + path_of_file;
 		MessageBoxA(HWND_DESKTOP, message.c_str(), "Detoury - Success", MB_OK);
 	}
@@ -49,7 +47,7 @@ void Logger::init() {
 
 void Logger::deinit() {
 	try {
-		m_logger->info("]");
+		m_logger->flush();
 	}
 	catch (const spdlog::spdlog_ex& ex) {
 		MessageBoxA(HWND_DESKTOP, "Failed to write at the end of log file", "Detoury::Log", MB_OK);

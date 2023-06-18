@@ -187,7 +187,8 @@ BOOL WINAPI DetourCreateProcessWithDllsW(_In_opt_ LPCWSTR lpApplicationName,
 
     if (bRet)
     {
-        INFO_LN("DLL injected successfully.");
+        INFO_LN("Process created and DLL injected successfully.");
+        INFO_LN("PID:(" << processInfo.dwProcessId << ")");
 
         // Resume the suspended process
         INFO_LN("Resume the process after injection.");
