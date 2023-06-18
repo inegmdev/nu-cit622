@@ -66,7 +66,7 @@ Detours is widely used by developers in a variety of industries, including video
 
 * **Process API**
   * ShellExecuteA
-  * CreateProcessAsUser -x 
+  * CreateProcessAsUser
   * ExitProcess
   * GetCommandLine
   * GetFullPathName - x
@@ -98,9 +98,29 @@ Once you are hooking APIs, your program should print the function called, args/p
 
 ## 📃 Tasklist
 
-* [ ] Integrate Detours in the solution and use one API.
+* [x] Integrate Detours in the solution and use one API.
 * [ ] Repeat the same thing for all of the APIs.
-* [ ] Find a quick way to log/print to be able to capture and monitor all the APIs.
+  * [ ] **Process API**
+    * [x] ShellExecuteA, ShellExecuteW
+    * [x] CreateProcessAsUserW
+    * [ ] ExitProcess
+    * [ ] GetCommandLine
+    * [ ] GetFullPathName - x
+    * [ ] GetStartupInfo
+    * [ ] OpenProcess
+  * [ ] **FileSystem API**
+    * [ ] CreateFile
+    * [ ] DeleteFile
+    * [ ] CreateDirectoryEx - x
+  * [ ] **Registry API**
+    * [ ] RegDeleteKey
+    * [ ] RegCloseKey
+    * [ ] RegEnumKeyEx - x
+    * [ ] RegEnumValue - x
+    * [ ] RegOpenKeyEx - x
+    * [ ] RegSetValueEx - x
+    * [ ] RegSetValue
+* [x] Find a quick way to log/print to be able to capture and monitor all the APIs.
 
 ## Notes
 
@@ -120,7 +140,7 @@ You need to build a version of `detours.lib` for your C/C++ compiler. The steps 
       ```batch
       Detours> cd src
       Detours/src> "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-      
+
       **********************************************************************
       ** Visual Studio 2022 Developer Command Prompt v17.6.2
       ** Copyright (c) 2022 Microsoft Corporation
@@ -151,8 +171,6 @@ You need to build a version of `detours.lib` for your C/C++ compiler. The steps 
    > detver.h
    > syelog.h
    >
-
-
 
 ## Resources
 

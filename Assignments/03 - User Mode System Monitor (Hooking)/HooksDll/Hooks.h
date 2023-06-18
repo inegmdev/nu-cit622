@@ -184,7 +184,7 @@ static BOOL WINAPI Hook_CreateProcessAsUserW(
         lpProcessInformation
         );
 }
-/* -- CreateProcessAsUserW -- */
+/* ---------------------------------- */
 
 static HANDLE(WINAPI* True_CreateMutexA) (
     LPSECURITY_ATTRIBUTES  lpMutexAttributes,
@@ -639,84 +639,37 @@ static LPVOID WINAPI Hook_VirtualAllocEx(
 /*                               DETOUR ATTACH                               */
 /*****************************************************************************/
 
+#define HOOK_API(API)     DetourAttach((PVOID *) & True_##API, Hook_##API); \
+    Log("\"Registered `" #API "` \"")
+
 void DetourAttach_AllHooks() {
 
-    DetourAttach((PVOID *) & True_CopyFileA, Hook_CopyFileA);
-    Log("\"Registered `CopyFileA` \"");
-
-    DetourAttach((PVOID *) &True_CreateFileA, Hook_CreateFileA);
-    Log("\"Registered `CreateFileA` \"");
-
-    DetourAttach((PVOID *) &True_CreateFileW, Hook_CreateFileW);
-    Log("\"Registered `CreateFileW` \"");
-
-    DetourAttach((PVOID *) &True_CreateProcessAsUserW, Hook_CreateProcessAsUserW);
-    Log("\"Registered `CreateProcessAsUserW` \"");
-
-    DetourAttach((PVOID *) &True_CreateMutexA, Hook_CreateMutexA);
-    Log("\"Registered `CreateMutexA` \"");
-
-    DetourAttach((PVOID *) &True_CreateProcessA, Hook_CreateProcessA);
-    Log("\"Registered `CreateProcessA` \"");
-
-    DetourAttach((PVOID *) &True_DeleteFileA, Hook_DeleteFileA);
-    Log("\"Registered `DeleteFileA` \"");
-
-    DetourAttach((PVOID *) &True_ExitProcess, Hook_ExitProcess);
-    Log("\"Registered `ExitProcess` \"");
-
-    DetourAttach((PVOID *) &True_FindFirstFileA, Hook_FindFirstFileA);
-    Log("\"Registered `FindFirstFileA` \"");
-
-    DetourAttach((PVOID *) &True_FindNextFileA, Hook_FindNextFileA);
-    Log("\"Registered `FindNextFileA` \"");
-
-    DetourAttach((PVOID *) &True_GetCommandLineA, Hook_GetCommandLineA);
-    Log("\"Registered `GetCommandLineA` \"");
-
-    DetourAttach((PVOID *) &True_GetStartupInfoW, Hook_GetStartupInfoW);
-    Log("\"Registered `GetStartupInfoW` \"");
-
-    DetourAttach((PVOID *) &True_OpenMutexA, Hook_OpenMutexA);
-    Log("\"Registered `OpenMutexA` \"");
-
-    DetourAttach((PVOID *) &True_OpenProcess, Hook_OpenProcess);
-    Log("\"Registered `OpenProcess` \"");
-
-    DetourAttach((PVOID *) &True_RegCloseKey, Hook_RegCloseKey);
-    Log("\"Registered `RegCloseKey` \"");
-
-    DetourAttach((PVOID *) &True_RegDeleteKeyA, Hook_RegDeleteKeyA);
-    Log("\"Registered `RegDeleteKeyA` \"");
-
-    DetourAttach((PVOID *) &True_RegDeleteValueA, Hook_RegDeleteValueA);
-    Log("\"Registered `RegDeleteValueA` \"");
-
-    DetourAttach((PVOID *) &True_RegOpenKeyA, Hook_RegOpenKeyA);
-    Log("\"Registered `RegOpenKeyA` \"");
-
-    DetourAttach((PVOID *) &True_RegSaveKeyA, Hook_RegSaveKeyA);
-    Log("\"Registered `RegSaveKeyA` \"");
-
-    DetourAttach((PVOID *) &True_RegSetValueA, Hook_RegSetValueA);
-    Log("\"Registered `RegSetValueA` \"");
-
-    DetourAttach((PVOID *) &True_ReleaseMutex, Hook_ReleaseMutex);
-    Log("\"Registered `ReleaseMutex` \"");
-
-    DetourAttach((PVOID *) &True_ShellExecuteA, Hook_ShellExecuteA);
-    Log("\"Registered `ShellExecuteA` \"");
-
-    DetourAttach((PVOID *) &True_ShellExecuteW, Hook_ShellExecuteW);
-    Log("\"Registered `ShellExecuteW` \"");
-
-    DetourAttach((PVOID *) &True_Sleep, Hook_Sleep);
-    Log("\"Registered `Sleep` \"");
-
-    DetourAttach((PVOID *) &True_VirtualAlloc, Hook_VirtualAlloc);
-    Log("\"Registered `VirtualAlloc` \"");
-
-    DetourAttach((PVOID *) &True_VirtualAllocEx, Hook_VirtualAllocEx);
-    Log("\"Registered `VirtualAllocEx` \"");
-
+    HOOK_API(CopyFileA);
+    HOOK_API(CreateFileA);
+    HOOK_API(CreateFileW);
+    HOOK_API(CreateProcessAsUserW);
+    HOOK_API(CreateMutexA);
+    HOOK_API(CreateProcessA);
+    HOOK_API(DeleteFileA);
+    HOOK_API(ExitProcess);
+    HOOK_API(FindFirstFileA);
+    HOOK_API(FindNextFileA);
+    HOOK_API(GetCommandLineA);
+    HOOK_API(GetStartupInfoW);
+    HOOK_API(OpenMutexA);
+    HOOK_API(OpenProcess);
+    HOOK_API(RegCloseKey);
+    HOOK_API(RegDeleteKeyA);
+    HOOK_API(RegDeleteValueA);
+    HOOK_API(RegOpenKeyA);
+    HOOK_API(RegSaveKeyA);
+    HOOK_API(RegSetValueA);
+    HOOK_API(ReleaseMutex);
+    // shellapi.h -> ShellExecuteA
+    HOOK_API(ShellExecuteA);
+    // shellapi.h -> ShellExecuteW
+    HOOK_API(ShellExecuteW);
+    HOOK_API(Sleep);
+    HOOK_API(VirtualAlloc);
+    HOOK_API(VirtualAllocEx);
 }
