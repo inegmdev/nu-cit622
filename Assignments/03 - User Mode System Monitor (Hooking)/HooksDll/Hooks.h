@@ -317,13 +317,17 @@ static LPSTR(WINAPI* True_GetCommandLineA) (
 
 static LPSTR WINAPI Hook_GetCommandLineA(
 ) {
+    LPSTR commandLine = True_GetCommandLineA();
     Log("{"
             "'Function': 'GetCommandLineA', "
-            "'Parameters': '{}' "
-        "}"
+            "'Parameters': 'n/a' ,"
+            "'Return' : { "
+                "'CommandLine' : '{}'"
+            "}"
+        "}",
+        commandLine
     );
-
-    return True_GetCommandLineA();
+    return commandLine;
 }
 /* ----------------------------------------- */
 
@@ -337,13 +341,93 @@ static LPWSTR (WINAPI* True_GetCommandLineW) (
 
 static LPWSTR  WINAPI Hook_GetCommandLineW(
 ) {
-    Log("{"
+    LPWSTR commandLine = True_GetCommandLineW();
+    Log(L"{"
             "'Function': 'GetCommandLineW', "
-            "'Parameters': '{}' "
-        "}"
+            "'Parameters': 'n/a', "
+            "'Return': { "
+                "'CommandLine' : '{}'"
+            "} "
+        "}",
+        commandLine
     );
+    return commandLine;
+}
+/* ----------------------------------------- */
 
-    return True_GetCommandLineW();
+
+/**
+ * fileapi.h -> GetFullPathNameA 
+ */
+static DWORD (WINAPI* True_GetFullPathNameA) (
+    LPCSTR lpFileName,
+    DWORD  nBufferLength,
+    LPSTR  lpBuffer,
+    LPSTR  *lpFilePart
+) = GetFullPathNameA;
+
+static DWORD WINAPI Hook_GetFullPathNameA(
+    LPCSTR lpFileName,
+    DWORD  nBufferLength,
+    LPSTR  lpBuffer,
+    LPSTR  *lpFilePart
+) {
+    Log("{"
+            "'Function': 'GetFullPathNameA', "
+            "'Parameters': { "
+                "'lpFileName' : '{}', "
+                "'nBufferLength' : '{}', "
+                "'lpBuffer' : '{}' "
+            "}"
+        "}",
+        lpFileName,
+        nBufferLength,
+        lpBuffer
+    );
+    return True_GetFullPathNameA(
+        lpFileName,
+        nBufferLength,
+        lpBuffer,
+        lpFilePart
+    );
+}
+/* ----------------------------------------- */
+
+
+/**
+ * fileapi.h -> GetFullPathNameW
+ */
+static DWORD (WINAPI* True_GetFullPathNameW) (
+    LPCWSTR lpFileName,
+    DWORD   nBufferLength,
+    LPWSTR  lpBuffer,
+    LPWSTR  *lpFilePart
+) = GetFullPathNameW;
+
+static DWORD WINAPI Hook_GetFullPathNameW(
+    LPCWSTR lpFileName,
+    DWORD   nBufferLength,
+    LPWSTR  lpBuffer,
+    LPWSTR  *lpFilePart
+) {
+    Log(L"{"
+            "'Function': 'GetFullPathNameW', "
+            "'Parameters': { "
+                "'lpFileName' : '{}', "
+                "'nBufferLength' : '{}', "
+                "'lpBuffer' : '{}' "
+            "}"
+        "}",
+        lpFileName,
+        nBufferLength,
+        lpBuffer
+    );
+    return True_GetFullPathNameW(
+        lpFileName,
+        nBufferLength,
+        lpBuffer,
+        lpFilePart
+    );
 }
 /* ----------------------------------------- */
 
@@ -691,6 +775,10 @@ void DetourAttach_AllHooks() {
     HOOK_API(GetCommandLineA);
     // processenv.h -> GetCommandLineW
     HOOK_API(GetCommandLineW);
+    // fileapi.h -> GetFullPathNameA 
+    HOOK_API(GetFullPathNameA);
+    // fileapi.h -> GetFullPathNameW
+    HOOK_API(GetFullPathNameW);
     HOOK_API(GetStartupInfoW);
     HOOK_API(OpenMutexA);
     HOOK_API(OpenProcess);
