@@ -55,20 +55,23 @@ static BOOL WINAPI Hook_CopyFileA(
     LPCSTR  lpNewFileName,
     BOOL    bFailIfExists
 ) {
-    Log("{"
-            "{"
-                "\"Function\": \"CopyFileA\", "
-                "\"Parameters\": "
-                "{"
-                    "{"
-                        "\"lpExistingFileName\": \"{}\", "
-                        "\"lpNewFileName\": \"{}\", "
-                        "\"bFailIfExists\": \"{}\""
-                    "}"
-                "}"
-            "}"
-        "}"
-        , lpExistingFileName, lpNewFileName, bFailIfExists
+    Log("{{"
+            "{{"
+                "'Function': 'CopyFileA', "
+                "'Parameters': "
+                "{{"
+                    "{{"
+                        "'lpExistingFileName': '{}', "
+                        "'lpNewFileName': '{}', "
+                        "'bFailIfExists': '{}'"
+                    "}}"
+                "}}"
+            "}}"
+        "}}"
+        ,
+        (lpExistingFileName)? lpExistingFileName : "", 
+        (lpNewFileName)? lpNewFileName : "", 
+        bFailIfExists
     );
 
     return True_CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists);
@@ -94,23 +97,21 @@ static HANDLE WINAPI Hook_CreateFileA(
     DWORD                  dwFlagsAndAttributes,
     HANDLE                 hTemplateFile
 ) {
-    Log("{"
-            "\"Function\": \"CreateFileA\", "
-            "\"Parameters\": { "
-                "\"lpFileName\": \"{}\", "
-                "\"dwDesiredAccess\": \"{}\", "
-                "\"dwShareMode\": \"{}\", "
-                "\"dwCreationDisposition\": \"{}\", "
-                "\"dwFlagsAndAttributes\": \"{}\", "
-                "\"hTemplateFile\": \"{}\""
-            "}"
-        "}", 
-        lpFileName,
+    Log("{{"
+            "'Function': 'CreateFileA', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}', "
+                "'dwDesiredAccess': '{}', "
+                "'dwShareMode': '{}', "
+                "'dwCreationDisposition': '{}', "
+                "'dwFlagsAndAttributes': '{}' "
+            "}}"
+        "}}", 
+        (lpFileName) ? lpFileName : "",
         dwDesiredAccess,
         dwShareMode,
         dwCreationDisposition,
-        dwFlagsAndAttributes,
-        hTemplateFile
+        dwFlagsAndAttributes
     );
 
     return True_CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
@@ -138,23 +139,21 @@ static HANDLE WINAPI Hook_CreateFileW(
     CreateLpcstrFromLpcwstr(lpFileName);
 
      Log(
-        "{"
-            "\"Function\": \"CreateFileW\", "
-            "\"Parameters\": { "
-                "\"lpFileName\": \"{}\", "
-                "\"dwDesiredAccess\": \"{}\", "
-                "\"dwShareMode\": \"{}\", "
-                "\"dwCreationDisposition\": \"{}\", "
-                "\"dwFlagsAndAttributes\": \"{}\", "
-                "\"hTemplateFile\": \"{}\""
-            "}"
-        "}",
-        GetLpcstrFromLpcwstr(lpFileName),
+        "{{"
+            "'Function': 'CreateFileW', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}', "
+                "'dwDesiredAccess': '{}', "
+                "'dwShareMode': '{}', "
+                "'dwCreationDisposition': '{}', "
+                "'dwFlagsAndAttributes': '{}' "
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpFileName)) ? GetLpcstrFromLpcwstr(lpFileName) : "",
         dwDesiredAccess,
         dwShareMode,
         dwCreationDisposition,
-        dwFlagsAndAttributes,
-        hTemplateFile
+        dwFlagsAndAttributes
     );
 
     ClearLpcstrFromLpcwstr(lpFileName);
@@ -197,23 +196,23 @@ static BOOL WINAPI Hook_CreateProcessAsUserW(
     CreateLpstrFromLpwstr(lpCommandLine);
     CreateLpcstrFromLpcwstr(lpCurrentDirectory);
    
-    Log("{"
-            "\"Function\" : \"CreateProcessAsUserW\","
-            "\"Parameters\" : {"
-                "\"hToken\" : \"{}\" ,"
-                "\"lpApplicationName\" : \"{}\" ,"
-                "\"lpCommandLine\" : \"{}\" ,"
-                "\"dwCreationFlags\" : \"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}\" ,"
-                "\"lpEnvironment\" : \"{}\" ,"
-                "\"lpCurrentDirectory\" : \"{}\" ,"
-                "\"lpProcessInformation\" : \"{"
-                    "\"dwProcessId\" : \"{}\""
-                "}\""
-            "}"
-        "}",
+    Log("{{"
+            "'Function' : 'CreateProcessAsUserW',"
+            "'Parameters' : {{"
+                "'hToken' : '{}' ,"
+                "'lpApplicationName' : '{}' ,"
+                "'lpCommandLine' : '{}' ,"
+                "'dwCreationFlags' : '{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}' ,"
+                "'lpEnvironment' : '{}' ,"
+                "'lpCurrentDirectory' : '{}' ,"
+                "'lpProcessInformation' : {{"
+                    "'dwProcessId' : '{}'"
+                "}}"
+            "}}"
+        "}}",
         hToken,
-        GetLpcstrFromLpcwstr(lpApplicationName),
-        GetLpstrFromLpwstr(lpCommandLine),
+        (GetLpcstrFromLpcwstr(lpApplicationName)) ? GetLpcstrFromLpcwstr(lpApplicationName) : "" ,
+        (GetLpstrFromLpwstr(lpCommandLine)) ? GetLpstrFromLpwstr(lpCommandLine) : "",
         (dwCreationFlags & CREATE_BREAKAWAY_FROM_JOB) ? "CREATE_BREAKAWAY_FROM_JOB | " : "",
         (dwCreationFlags & CREATE_DEFAULT_ERROR_MODE) ? "CREATE_DEFAULT_ERROR_MODE | " : "",
         (dwCreationFlags & CREATE_NEW_CONSOLE) ? "CREATE_NEW_CONSOLE | " : "",
@@ -232,7 +231,7 @@ static BOOL WINAPI Hook_CreateProcessAsUserW(
         (dwCreationFlags & EXTENDED_STARTUPINFO_PRESENT) ? "EXTENDED_STARTUPINFO_PRESENT | " : "",
         (dwCreationFlags & INHERIT_PARENT_AFFINITY) ? "INHERIT_PARENT_AFFINITY" : "",
         lpEnvironment,
-        GetLpcstrFromLpcwstr(lpCurrentDirectory),
+        (GetLpcstrFromLpcwstr(lpCurrentDirectory)) ? GetLpcstrFromLpcwstr(lpCurrentDirectory) : "",
         lpProcessInformation->dwProcessId
     );
 
@@ -268,8 +267,14 @@ static HANDLE WINAPI Hook_CreateMutexA(
     BOOL                   bInitialOwner,
     LPCSTR                 lpName
 ) {
-    Log("{{ \"Function\": \"CreateMutexA\", \"Parameters\": {{ \"bInitialOwner\": \"{}\", \"lpName\": \"{}\"}} }}"
-        , bInitialOwner, lpName
+    Log("{{ "
+            "'Function': 'CreateMutexA', "
+            "'Parameters': {{ "
+                "'bInitialOwner': '{}', "
+                "'lpName': '{}'"
+            "}}"
+        "}}"
+        , bInitialOwner, (lpName) ? lpName : ""
     );
 
     return True_CreateMutexA(lpMutexAttributes, bInitialOwner, lpName);
@@ -301,8 +306,22 @@ static BOOL WINAPI Hook_CreateProcessA(
     LPSTARTUPINFOA         lpStartupInfo,
     LPPROCESS_INFORMATION  lpProcessInformation
 ) {
-    Log("{{ \"Function\": \"CreateProcessA\", \"Parameters\": {{ \"lpApplicationName\": \"{}\", \"lpCommandLine\": \"{}\", \"bInheritHandles\": \"{}\", \"dwCreationFlags\": \"{}\", \"lpEnvironment\": \"{}\", \"lpCurrentDirectory\": \"{}\"}} }}"
-        , lpApplicationName, lpCommandLine, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory
+    Log("{{"
+            "'Function': 'CreateProcessA', "
+            "'Parameters': {{ "
+                "'lpApplicationName': '{}', "
+                "'lpCommandLine': '{}', "
+                "'bInheritHandles': '{}', "
+                "'dwCreationFlags': '{}', "
+                "'lpCurrentDirectory': '{}'"
+            "}}"
+        "}}"
+        ,
+        (lpApplicationName) ? lpApplicationName : "",
+        (lpCommandLine) ? lpCommandLine : "",
+        bInheritHandles,
+        dwCreationFlags,
+        (lpCurrentDirectory) ? lpCurrentDirectory : ""
     );
 
     return True_CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation);
@@ -316,8 +335,13 @@ static BOOL(WINAPI* True_DeleteFileA) (
 static BOOL WINAPI Hook_DeleteFileA(
     LPCSTR  lpFileName
 ) {
-    Log("{{ \"Function\": \"DeleteFileA\", \"Parameters\": {{ \"lpFileName\": \"{}\"}} }}"
-        , lpFileName
+    Log("{{ "
+            "'Function': 'DeleteFileA', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}'"
+            "}}"
+        "}}"
+        , (lpFileName) ? lpFileName : "" 
     );
 
     return True_DeleteFileA(lpFileName);
@@ -332,12 +356,12 @@ static void (WINAPI* True_ExitProcess) (
 static void WINAPI Hook_ExitProcess(
     UINT  uExitCode
 ) {
-    Log("{"
-            "\"Function\": \"ExitProcess\", "
-            "\"Parameters\": { "
-                "\"uExitCode\": \"{}\" "
-            "}"
-        "}"
+    Log("{{"
+            "'Function': 'ExitProcess', "
+            "'Parameters': {{ "
+                "'uExitCode': '{}' "
+            "}}"
+        "}}"
         , uExitCode
     );
 
@@ -354,8 +378,13 @@ static HANDLE WINAPI Hook_FindFirstFileA(
     LPCSTR              lpFileName,
     LPWIN32_FIND_DATAA  lpFindFileData
 ) {
-    Log("{{ \"Function\": \"FindFirstFileA\", \"Parameters\": {{ \"lpFileName\": \"{}\"}} }}"
-        , lpFileName
+    Log("{{ "
+            "'Function': 'FindFirstFileA', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}'"
+            "}}"
+        "}}"
+        , (lpFileName) ? lpFileName : ""
     );
 
     return True_FindFirstFileA(lpFileName, lpFindFileData);
@@ -371,7 +400,12 @@ static BOOL WINAPI Hook_FindNextFileA(
     HANDLE              hFindFile,
     LPWIN32_FIND_DATAA  lpFindFileData
 ) {
-    Log("{{ \"Function\": \"FindNextFileA\", \"Parameters\": {{ \"hFindFile\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'FindNextFileA', "
+            "'Parameters': {{ "
+                "'hFindFile': '{}'"
+            "}}"
+        "}}"
         , hFindFile
     );
 
@@ -389,14 +423,14 @@ static LPSTR(WINAPI* True_GetCommandLineA) (
 static LPSTR WINAPI Hook_GetCommandLineA(
 ) {
     LPSTR commandLine = True_GetCommandLineA();
-    Log("{"
-            "\"Function\": \"GetCommandLineA\", "
-            "\"Parameters\": \"n/a\" ,"
-            "\"Return\" : { "
-                "\"CommandLine\" : \"{}\""
-            "}"
-        "}",
-        commandLine
+    Log("{{"
+            "'Function': 'GetCommandLineA', "
+            "'Parameters': 'n/a' ,"
+            "'Return' : {{ "
+                "'CommandLine' : '{}'"
+            "}}"
+        "}}",
+        (commandLine) ? commandLine : ""
     );
     return commandLine;
 }
@@ -415,14 +449,14 @@ static LPWSTR  WINAPI Hook_GetCommandLineW(
     LPWSTR commandLine = True_GetCommandLineW();
     CreateLpstrFromLpwstr(commandLine);
 
-    Log("{"
-            "\"Function\": \"GetCommandLineW\", "
-            "\"Parameters\": \"n/a\", "
-            "\"Return\": { "
-                "\"CommandLine\" : \"{}\""
-            "} "
-        "}",
-        GetLpstrFromLpwstr(commandLine)
+    Log("{{"
+            "'Function': 'GetCommandLineW', "
+            "'Parameters': 'n/a', "
+            "'Return': {{ "
+                "'CommandLine' : '{}'"
+            "}} "
+        "}}",
+        (GetLpstrFromLpwstr(commandLine)) ? GetLpstrFromLpwstr(commandLine) : ""
     );
 
     ClearLpstrFromLpwstr(commandLine);
@@ -447,17 +481,17 @@ static DWORD WINAPI Hook_GetFullPathNameA(
     LPSTR  lpBuffer,
     LPSTR  *lpFilePart
 ) {
-    Log("{"
-            "\"Function\": \"GetFullPathNameA\", "
-            "\"Parameters\": { "
-                "\"lpFileName\" : \"{}\", "
-                "\"nBufferLength\" : \"{}\", "
-                "\"lpBuffer\" : \"{}\" "
-            "}"
-        "}",
-        lpFileName,
+    Log("{{"
+            "'Function': 'GetFullPathNameA', "
+            "'Parameters': {{ "
+                "'lpFileName' : '{}', "
+                "'nBufferLength' : '{}', "
+                "'lpBuffer' : '{}' "
+            "}}"
+        "}}",
+        (lpFileName) ? lpFileName : "",
         nBufferLength,
-        lpBuffer
+        (lpBuffer) ? lpBuffer : ""
     );
     return True_GetFullPathNameA(
         lpFileName,
@@ -488,17 +522,17 @@ static DWORD WINAPI Hook_GetFullPathNameW(
     CreateLpcstrFromLpcwstr(lpFileName);
     CreateLpstrFromLpwstr(lpBuffer);
 
-    Log("{"
-            "\"Function\": \"GetFullPathNameW\", "
-            "\"Parameters\": { "
-                "\"lpFileName\" : \"{}\", "
-                "\"nBufferLength\" : \"{}\", "
-                "\"lpBuffer\" : \"{}\" "
-            "}"
-        "}",
-        GetLpcstrFromLpcwstr(lpFileName),
+    Log("{{"
+            "'Function': 'GetFullPathNameW', "
+            "'Parameters': {{ "
+                "'lpFileName' : '{}', "
+                "'nBufferLength' : '{}', "
+                "'lpBuffer' : '{}' "
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpFileName)) ? GetLpcstrFromLpcwstr(lpFileName) : "",
         nBufferLength,
-        GetLpstrFromLpwstr(lpBuffer)
+        (GetLpstrFromLpwstr(lpBuffer)) ? GetLpstrFromLpwstr(lpBuffer) : ""
     );
 
     ClearLpcstrFromLpcwstr(lpFileName);
@@ -532,25 +566,25 @@ static void WINAPI Hook_GetStartupInfoW(
 
 
 
-    Log("{"
-            "\"Function\": \"GetStartupInfoW\", "
-            "\"Parameters\": { "
-                "\"lpStartupInfo\" : { "
-                    "\"lpDesktop\" : \"{}\", "
-                    "\"lpTitle\" : \"{}\", "
-                    "\"dwX\" : \"{}\", "
-                    "\"dwY\" : \"{}\", "
-                    "\"dwXSize\" : \"{}\", "
-                    "\"dwYSize\" : \"{}\", "
-                    "\"dwXCountChars\" : \"{}\", "
-                    "\"dwYCountChars\" : \"{}\", "
-                    "\"dwFlags\" : \"{}{}{}{}{}{}{}{}{}{}{}{}{}{}\", "
-                    "\"wShowWindow\" : \"{}\""
-                "}"
-            "}"
-        "}",
-        GetLpstrFromLpwstr(lpDesktop),
-        GetLpstrFromLpwstr(lpTitle),
+    Log("{{"
+            "'Function': 'GetStartupInfoW', "
+            "'Parameters': {{ "
+                "'lpStartupInfo' : {{ "
+                    "'lpDesktop' : '{}', "
+                    "'lpTitle' : '{}', "
+                    "'dwX' : '{}', "
+                    "'dwY' : '{}', "
+                    "'dwXSize' : '{}', "
+                    "'dwYSize' : '{}', "
+                    "'dwXCountChars' : '{}', "
+                    "'dwYCountChars' : '{}', "
+                    "'dwFlags' : '{}{}{}{}{}{}{}{}{}{}{}{}{}{}', "
+                    "'wShowWindow' : '{}'"
+                "}}"
+            "}}"
+        "}}",
+        (GetLpstrFromLpwstr(lpDesktop)) ? GetLpstrFromLpwstr(lpDesktop) : "",
+        (GetLpstrFromLpwstr(lpTitle)) ? GetLpstrFromLpwstr(lpTitle) : "",
         lpStartupInfo->dwX,
         lpStartupInfo->dwY,
         lpStartupInfo->dwXSize,
@@ -593,8 +627,17 @@ static HANDLE WINAPI Hook_OpenMutexA(
     BOOL  bInheritHandle,
     LPCSTR  lpName
 ) {
-    Log("{{ \"Function\": \"OpenMutexA\", \"Parameters\": {{ \"dwDesiredAccess\": \"{}\", \"bInheritHandle\": \"{}\", \"lpName\": \"{}\"}} }}"
-        , dwDesiredAccess, bInheritHandle, lpName
+    Log("{{ "
+            "'Function': 'OpenMutexA', "
+            "'Parameters': {{ "
+                "'dwDesiredAccess': '{}', "
+                "'bInheritHandle': '{}', "
+                "'lpName': '{}'"
+            "}}"
+        "}}",
+        dwDesiredAccess,
+        bInheritHandle,
+        (lpName) ? lpName : ""
     );
 
     return True_OpenMutexA(dwDesiredAccess, bInheritHandle, lpName);
@@ -614,14 +657,14 @@ static HANDLE WINAPI Hook_OpenProcess(
     BOOL   bInheritHandle,
     DWORD  dwProcessId
 ) {
-    Log("{"
-            "\"Function\": \"OpenProcess\", "
-            "\"Parameters\": { "
-                "\"dwDesiredAccess\": \"{}{}{}{}{}{}{}{}{}{}{}{}{}{}\", "
-                "\"bInheritHandle\": \"{}\", "
-                "\"dwProcessId\": \"{}\""
-            "}"
-        "}",
+    Log("{{"
+            "'Function': 'OpenProcess', "
+            "'Parameters': {{ "
+                "'dwDesiredAccess': '{}{}{}{}{}{}{}{}{}{}{}{}{}{}', "
+                "'bInheritHandle': '{}', "
+                "'dwProcessId': '{}'"
+            "}}"
+        "}}",
         (dwDesiredAccess & PROCESS_ALL_ACCESS) ? "PROCESS_ALL_ACCESS | " : "" ,
         (dwDesiredAccess & PROCESS_CREATE_PROCESS) ? "PROCESS_CREATE_PROCESS | " : "" ,
         (dwDesiredAccess & PROCESS_CREATE_THREAD) ? "PROCESS_CREATE_THREAD | " : "" ,
@@ -652,8 +695,10 @@ static LSTATUS(WINAPI* True_RegCloseKey) (
 static LSTATUS WINAPI Hook_RegCloseKey(
     HKEY  hKey
 ) {
-    Log("{{ \"Function\": \"RegCloseKey\", \"Parameters\": {{}} }}"
-
+    Log("{{ "
+            "'Function': 'RegCloseKey', "
+            "'Parameters': 'n/a' "
+        "}}"
     );
 
     return True_RegCloseKey(hKey);
@@ -669,7 +714,12 @@ static LSTATUS WINAPI Hook_RegDeleteKeyA(
     HKEY    hKey,
     LPCSTR  lpSubKey
 ) {
-    Log("{{ \"Function\": \"RegDeleteKeyA\", \"Parameters\": {{ \"lpSubKey\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'RegDeleteKeyA', "
+            "'Parameters': {{ "
+                "'lpSubKey': '{}'"
+            "}}"
+        "}}"
         , lpSubKey
     );
 
@@ -686,8 +736,13 @@ static LSTATUS WINAPI Hook_RegDeleteValueA(
     HKEY    hKey,
     LPCSTR  lpValueName
 ) {
-    Log("{{ \"Function\": \"RegDeleteValueA\", \"Parameters\": {{ \"lpValueName\": \"{}\"}} }}"
-        , lpValueName
+    Log("{{ "
+            "'Function': 'RegDeleteValueA', "
+            "'Parameters': {{ "
+                "'lpValueName': '{}'"
+            "}}"
+        "}}"
+        , (lpValueName) ? lpValueName : ""
     );
 
     return True_RegDeleteValueA(hKey, lpValueName);
@@ -705,8 +760,13 @@ static LSTATUS WINAPI Hook_RegOpenKeyA(
     LPCSTR  lpSubKey,
     PHKEY   phkResult
 ) {
-    Log("{{ \"Function\": \"RegOpenKeyA\", \"Parameters\": {{ \"lpSubKey\": \"{}\"}} }}"
-        , lpSubKey
+    Log("{{ "
+            "'Function': 'RegOpenKeyA', "
+            "'Parameters': {{ "
+                "'lpSubKey': '{}'"
+            "}}"
+        "}}"
+        , (lpSubKey) ? lpSubKey : ""
     );
 
     return True_RegOpenKeyA(hKey, lpSubKey, phkResult);
@@ -724,8 +784,13 @@ static LSTATUS WINAPI Hook_RegSaveKeyA(
     LPCSTR                       lpFile,
     LPSECURITY_ATTRIBUTES  lpSecurityAttributes
 ) {
-    Log("{{ \"Function\": \"RegSaveKeyA\", \"Parameters\": {{ \"lpFile\": \"{}\"}} }}"
-        , lpFile
+    Log("{{ "
+            "'Function': 'RegSaveKeyA', "
+            "'Parameters': {{ "
+                "'lpFile': '{}'"
+            "}}"
+        "}}"
+        , (lpFile) ? lpFile : ""
     );
 
     return True_RegSaveKeyA(hKey, lpFile, lpSecurityAttributes);
@@ -747,8 +812,19 @@ static LSTATUS WINAPI Hook_RegSetValueA(
     LPCSTR  lpData,
     DWORD   cbData
 ) {
-    Log("{{ \"Function\": \"RegSetValueA\", \"Parameters\": {{ \"lpSubKey\": \"{}\", \"dwType\": \"{}\", \"lpData\": \"{}\", \"cbData\": \"{}\"}} }}"
-        , lpSubKey, dwType, lpData, cbData
+    Log("{{ "
+            "'Function': 'RegSetValueA', "
+            "'Parameters': {{ "
+                "'lpSubKey': '{}', "
+                "'dwType': '{}', "
+                "'lpData': '{}', "
+                "'cbData': '{}'"
+            "}}"
+        "}}",
+        (lpSubKey) ? lpSubKey : "",
+        dwType,
+        (lpData) ? lpData : "",
+        cbData
     );
 
     return True_RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData);
@@ -762,7 +838,12 @@ static BOOL(WINAPI* True_ReleaseMutex) (
 static BOOL WINAPI Hook_ReleaseMutex(
     HANDLE  hMutex
 ) {
-    Log("{{ \"Function\": \"ReleaseMutex\", \"Parameters\": {{ \"hMutex\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'ReleaseMutex', "
+            "'Parameters': {{ "
+                "'hMutex': '{}'"
+            "}}"
+        "}}"
         , hMutex
     );
 
@@ -789,20 +870,20 @@ static HINSTANCE WINAPI Hook_ShellExecuteA(
     LPCSTR  lpDirectory,
     INT     nShowCmd
 ) {
-    Log("{"
-            "\"Function\": \"ShellExecuteA\", "
-            "\"Parameters\": { "
-                "\"lpOperation\": \"{}\", "
-                "\"lpFile\": \"{}\", "
-                "\"lpParameters\": \"{}\", "
-                "\"lpDirectory\": \"{}\", "
-                "\"nShowCmd\": \"{}\""
-            "}"
-        "}",
-        lpOperation,
-        lpFile,
-        lpParameters,
-        lpDirectory,
+    Log("{{"
+            "'Function': 'ShellExecuteA', "
+            "'Parameters': {{ "
+                "'lpOperation': '{}', "
+                "'lpFile': '{}', "
+                "'lpParameters': '{}', "
+                "'lpDirectory': '{}', "
+                "'nShowCmd': '{}'"
+            "}}"
+        "}}",
+        (lpOperation) ? lpOperation : "",
+        (lpFile) ? lpFile : "",
+        (lpParameters) ? lpParameters : "",
+        (lpDirectory) ? lpDirectory : "",
         nShowCmd
     );
 
@@ -835,21 +916,21 @@ static HINSTANCE WINAPI Hook_ShellExecuteW(
     CreateLpcstrFromLpcwstr(lpFile);
     CreateLpcstrFromLpcwstr(lpParameters);
     CreateLpcstrFromLpcwstr(lpDirectory);
-    Log("{"
-            "\"Function\": \"ShellExecuteW\", "
-            "\"Parameters\": "
-            "{"
-                "\"lpOperation\" : \"{}\" ,"
-                "\"lpFile\" : \"{}\" ,"
-                "\"lpParameters\" : \"{}\" ,"
-                "\"lpDirectory\" : \"{}\" ,"
-                "\"nShowCmd\" : \"{}\" ,"
-            "}"
-        "}",
-        GetLpcstrFromLpcwstr(lpOperation),
-        GetLpcstrFromLpcwstr(lpFile),
-        GetLpcstrFromLpcwstr(lpParameters),
-        GetLpcstrFromLpcwstr(lpDirectory),
+    Log("{{"
+            "'Function': 'ShellExecuteW', "
+            "'Parameters': "
+            "{{"
+                "'lpOperation' : '{}' ,"
+                "'lpFile' : '{}' ,"
+                "'lpParameters' : '{}' ,"
+                "'lpDirectory' : '{}' ,"
+                "'nShowCmd' : '{}' ,"
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpOperation)) ? GetLpcstrFromLpcwstr(lpOperation) : "",
+        (GetLpcstrFromLpcwstr(lpFile)) ? GetLpcstrFromLpcwstr(lpFile) : "",
+        (GetLpcstrFromLpcwstr(lpParameters)) ? GetLpcstrFromLpcwstr(lpParameters) : "",
+        (GetLpcstrFromLpcwstr(lpDirectory)) ? GetLpcstrFromLpcwstr(lpDirectory) : "",
         nShowCmd
     );
 
@@ -869,7 +950,12 @@ static void (WINAPI* True_Sleep) (
 static void WINAPI Hook_Sleep(
     DWORD  dwMilliseconds
 ) {
-    Log("{{ \"Function\": \"Sleep\", \"Parameters\": {{ \"dwMilliseconds\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'Sleep', "
+            "'Parameters': {{ "
+                "'dwMilliseconds': '{}'"
+            "}}"
+        "}}"
         , dwMilliseconds
     );
 
@@ -890,7 +976,15 @@ static LPVOID WINAPI Hook_VirtualAlloc(
     DWORD   flAllocationType,
     DWORD   flProtect
 ) {
-    Log("{{ \"Function\": \"VirtualAlloc\", \"Parameters\": {{ \"lpAddress\": \"{}\", \"dwSize\": \"{}\", \"flAllocationType\": \"{}\", \"flProtect\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'VirtualAlloc', "
+            "'Parameters': {{ "
+                "'lpAddress': '{}', "
+                "'dwSize': '{}', "
+                "'flAllocationType': '{}', "
+                "'flProtect': '{}'"
+            "}}"
+        "}}"
         , lpAddress, dwSize, flAllocationType, flProtect
     );
 
@@ -913,7 +1007,16 @@ static LPVOID WINAPI Hook_VirtualAllocEx(
     DWORD   flAllocationType,
     DWORD   flProtect
 ) {
-    Log("{{ \"Function\": \"VirtualAllocEx\", \"Parameters\": {{ \"hProcess\": \"{}\", \"lpAddress\": \"{}\", \"dwSize\": \"{}\", \"flAllocationType\": \"{}\", \"flProtect\": \"{}\"}} }}"
+    Log("{{ "
+            "'Function': 'VirtualAllocEx', "
+            "'Parameters': {{ "
+                "'hProcess': '{}', "
+                "'lpAddress': '{}', "
+                "'dwSize': '{}', "
+                "'flAllocationType': '{}', "
+                "'flProtect': '{}'"
+            "}}"
+        "}}"
         , hProcess, lpAddress, dwSize, flAllocationType, flProtect
     );
 
@@ -926,7 +1029,7 @@ static LPVOID WINAPI Hook_VirtualAllocEx(
 /*****************************************************************************/
 
 #define HOOK_API(API)     DetourAttach((PVOID *) & True_##API, Hook_##API); \
-    Log("\"Registered `" #API "` \"")
+    Log("'Registered `" #API "` '")
 
 void DetourAttach_AllHooks() {
 
@@ -968,7 +1071,7 @@ void DetourAttach_AllHooks() {
     HOOK_API(RegSaveKeyA);
     HOOK_API(RegSetValueA);
     
-    // HOOK_API(ReleaseMutex); // -> Disabled as it\"s very verbose
+    // HOOK_API(ReleaseMutex); // -> Disabled as it's very verbose
 
     // shellapi.h -> ShellExecuteA
     HOOK_API(ShellExecuteA);
