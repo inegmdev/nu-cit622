@@ -772,13 +772,13 @@ void DetourAttach_AllHooks() {
     HOOK_API(FindFirstFileA);
     HOOK_API(FindNextFileA);
     // processenv.h -> GetCommandLineA
-    HOOK_API(GetCommandLineA);
+    // HOOK_API(GetCommandLineA);
     // processenv.h -> GetCommandLineW
-    HOOK_API(GetCommandLineW);
+    // HOOK_API(GetCommandLineW);
     // fileapi.h -> GetFullPathNameA 
-    HOOK_API(GetFullPathNameA);
+    // HOOK_API(GetFullPathNameA);
     // fileapi.h -> GetFullPathNameW
-    HOOK_API(GetFullPathNameW);
+    // HOOK_API(GetFullPathNameW);
     HOOK_API(GetStartupInfoW);
     HOOK_API(OpenMutexA);
     HOOK_API(OpenProcess);
