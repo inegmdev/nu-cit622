@@ -11,6 +11,7 @@ private:
 public:
 	Logger();
 	void init();
+    void deinit();
 #if 0
 	template<typename... Args>
 	void write(fmt::format_string<Args...> fmt, Args &&... args) {
