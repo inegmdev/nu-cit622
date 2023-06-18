@@ -187,10 +187,15 @@ BOOL WINAPI DetourCreateProcessWithDllsW(_In_opt_ LPCWSTR lpApplicationName,
 
     if (bRet)
     {
-        // Resume the suspended process
-        ResumeThread(processInfo.hThread);
-
         INFO_LN("DLL injected successfully.");
+
+        // Resume the suspended process
+        INFO_LN("Resume the process after injection.");
+        ResumeThread(processInfo.hThread);
+        
+        INFO_LN("Wait for the process to terminate, you can now interact with the process or wait till it's finished.");
+        WaitForSingleObject(processInfo.hProcess, INFINITE);
+        INFO_LN("Process terminated.");
 
         // Clean up the process handles
         CloseHandle(processInfo.hProcess);
@@ -200,6 +205,4 @@ BOOL WINAPI DetourCreateProcessWithDllsW(_In_opt_ LPCWSTR lpApplicationName,
     {
         ERR_LN("Failed to create process.");
     }
-
-    
 }
