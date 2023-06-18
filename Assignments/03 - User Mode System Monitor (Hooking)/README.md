@@ -66,23 +66,23 @@ Detours is widely used by developers in a variety of industries, including video
 
 * **Process API**
   * ShellExecuteA
-  * CreateProcessAsUser
+  * CreateProcessAsUser -x 
   * ExitProcess
   * GetCommandLine
-  * GetFullPathName
+  * GetFullPathName - x
   * GetStartupInfo
   * OpenProcess
 * **FileSystem API**
   * CreateFile
   * DeleteFile
-  * CreateDirectoryEx
+  * CreateDirectoryEx - x
 * **Registry API**
   * RegDeleteKey
   * RegCloseKey
-  * RegEnumKeyEx
-  * RegEnumValue
-  * RegOpenKeyEx
-  * RegSetValueEx
+  * RegEnumKeyEx - x
+  * RegEnumValue - x
+  * RegOpenKeyEx - x
+  * RegSetValueEx - x
   * RegSetValue
 
 Once you are hooking APIs, your program should print the function called, args/params
