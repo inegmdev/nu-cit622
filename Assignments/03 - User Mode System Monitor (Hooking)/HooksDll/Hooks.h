@@ -328,6 +328,11 @@ static BOOL WINAPI Hook_CreateProcessA(
 }
 
 
+
+
+/**
+ * fileapi.h -> DeleteFileA
+ */
 static BOOL(WINAPI* True_DeleteFileA) (
     LPCSTR  lpFileName
     ) = DeleteFileA;
@@ -346,6 +351,115 @@ static BOOL WINAPI Hook_DeleteFileA(
 
     return True_DeleteFileA(lpFileName);
 }
+ /* ---------------------------------- */
+
+
+/**
+ * fileapi.h -> DeleteFileW
+ */
+static BOOL(WINAPI* True_DeleteFileW) (
+    LPCWSTR   lpFileName
+    ) = DeleteFileW;
+
+static BOOL WINAPI Hook_DeleteFileW(
+    LPCWSTR   lpFileName
+) {
+    
+    CreateLpcstrFromLpcwstr(lpFileName);
+
+    Log("{{ "
+            "'Function': 'DeleteFileW', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}'"
+            "}}"
+        "}}"
+        , (GetLpcstrFromLpcwstr(lpFileName)) ? GetLpcstrFromLpcwstr(lpFileName) : "" 
+    );
+
+    ClearLpcstrFromLpcwstr(lpFileName);
+
+    return True_DeleteFileW(lpFileName);
+}
+ /* ---------------------------------- */
+
+
+/**
+ * winbase.h -> CreateDirectoryExA 
+ */
+static BOOL(WINAPI* True_CreateDirectoryExA) (
+    LPCSTR                lpTemplateDirectory,
+    LPCSTR                lpNewDirectory,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes
+) = CreateDirectoryExA;
+
+static BOOL WINAPI Hook_CreateDirectoryExA(
+    LPCSTR                lpTemplateDirectory,
+    LPCSTR                lpNewDirectory,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes
+) {
+    
+
+    Log("{{ "
+            "'Function': 'CreateDirectoryExA', "
+            "'Parameters': {{ "
+                "'lpTemplateDirectory' : '{}', "
+                "'lpNewDirectory' : '{}'"
+            "}}"
+        "}}",
+        (lpTemplateDirectory) ? lpTemplateDirectory : "",
+        (lpNewDirectory) ? lpNewDirectory : ""
+    );
+
+
+    return True_CreateDirectoryExA(
+        lpTemplateDirectory,
+        lpNewDirectory,
+        lpSecurityAttributes
+    );
+}
+ /* ---------------------------------- */
+
+
+/**
+ * winbase.h -> CreateDirectoryExW 
+ */
+static BOOL(WINAPI* True_CreateDirectoryExW) (
+    LPCWSTR                lpTemplateDirectory,
+    LPCWSTR                lpNewDirectory,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes
+) = CreateDirectoryExW;
+
+static BOOL WINAPI Hook_CreateDirectoryExW(
+    LPCWSTR                lpTemplateDirectory,
+    LPCWSTR                lpNewDirectory,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes
+) {
+    
+    CreateLpcstrFromLpcwstr(lpTemplateDirectory);
+    CreateLpcstrFromLpcwstr(lpNewDirectory);
+
+    Log("{{ "
+            "'Function': 'CreateDirectoryExW', "
+            "'Parameters': {{ "
+                "'lpTemplateDirectory' : '{}', "
+                "'lpNewDirectory' : '{}'"
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpTemplateDirectory)) ? GetLpcstrFromLpcwstr(lpTemplateDirectory) : "",
+        (GetLpcstrFromLpcwstr(lpNewDirectory)) ? GetLpcstrFromLpcwstr(lpNewDirectory) : ""
+    );
+    
+    ClearLpcstrFromLpcwstr(lpTemplateDirectory);
+    ClearLpcstrFromLpcwstr(lpNewDirectory);
+
+    return True_CreateDirectoryExW(
+        lpTemplateDirectory,
+        lpNewDirectory,
+        lpSecurityAttributes
+    );
+}
+ /* ---------------------------------- */
+
 
 /**
  * processthreadsapi.h -> ExitProcess
@@ -1033,35 +1147,46 @@ static LPVOID WINAPI Hook_VirtualAllocEx(
 
 void DetourAttach_AllHooks() {
 
+    /**
+     * File related hooks
+     */
     HOOK_API(CopyFileA);
-    
     HOOK_API(CreateFileA);
     HOOK_API(CreateFileW);
-    
+    /* fileapi.h -> DeleteFileA */
+    HOOK_API(DeleteFileA);
+    /* fileapi.h -> DeleteFileA */
+    HOOK_API(DeleteFileW);
+    /* fileapi.h -> GetFullPathNameA  */
+    HOOK_API(GetFullPathNameA);
+    /* fileapi.h -> GetFullPathNameW */
+    HOOK_API(GetFullPathNameW);
+    /* winbase.h -> CreateDirectoryExA  */
+    HOOK_API(CreateDirectoryExA);
+    /* winbase.h -> CreateDirectoryExW  */
+    HOOK_API(CreateDirectoryExW);
+
+
     HOOK_API(CreateProcessAsUserW);
     HOOK_API(CreateMutexA);
     HOOK_API(CreateProcessA);
-    HOOK_API(DeleteFileA);
+    
+
     HOOK_API(ExitProcess);
     HOOK_API(FindFirstFileA);
     HOOK_API(FindNextFileA);
 
-    // processenv.h -> GetCommandLineA
+    /* processenv.h -> GetCommandLineA */
     HOOK_API(GetCommandLineA);
-    // processenv.h -> GetCommandLineW
+    /* processenv.h -> GetCommandLineW */
     HOOK_API(GetCommandLineW);
     
-    // fileapi.h -> GetFullPathNameA 
-    HOOK_API(GetFullPathNameA);
-    // fileapi.h -> GetFullPathNameW
-    HOOK_API(GetFullPathNameW);
-    
-    // processthreadsapi.h -> GetStartupInfoW
+    /* processthreadsapi.h -> GetStartupInfoW */
     HOOK_API(GetStartupInfoW);
     
     HOOK_API(OpenMutexA);
 
-    // processthreadsapi.h -> OpenProcess
+    /* processthreadsapi.h -> OpenProcess */
     HOOK_API(OpenProcess);
 
     HOOK_API(RegCloseKey);
@@ -1071,11 +1196,11 @@ void DetourAttach_AllHooks() {
     HOOK_API(RegSaveKeyA);
     HOOK_API(RegSetValueA);
     
-    // HOOK_API(ReleaseMutex); // -> Disabled as it's very verbose
+    /* HOOK_API(ReleaseMutex); */ // -> Disabled as it's very verbose 
 
-    // shellapi.h -> ShellExecuteA
+    /* shellapi.h -> ShellExecuteA */
     HOOK_API(ShellExecuteA);
-    // shellapi.h -> ShellExecuteW
+    /* shellapi.h -> ShellExecuteW */
     HOOK_API(ShellExecuteW);
     HOOK_API(Sleep);
     HOOK_API(VirtualAlloc);

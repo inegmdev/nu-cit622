@@ -100,18 +100,18 @@ Once you are hooking APIs, your program should print the function called, args/p
 
 * [x] Integrate Detours in the solution and use one API.
 * [ ] Repeat the same thing for all of the APIs.
-  * [ ] **Process API**
+  * [x] **Process API**
     * [x] ShellExecuteA, ShellExecuteW
     * [x] CreateProcessAsUserW
     * [x] ExitProcess
     * [x] GetCommandLineA, GetCommandLineW
     * [x] GetFullPathNameA, GetFullPathNameW
     * [x] GetStartupInfoW
-    * [ ] OpenProcess
-  * [ ] **FileSystem API**
-    * [ ] CreateFile
-    * [ ] DeleteFile
-    * [ ] CreateDirectoryEx - x
+    * [x] OpenProcess
+  * [x] **FileSystem API**
+    * [x] CreateFileA, CreateFileW
+    * [x] DeleteFileA, DeleteFileW
+    * [x] CreateDirectoryExA, CreateDirectoryExW
   * [ ] **Registry API**
     * [ ] RegDeleteKey
     * [ ] RegCloseKey
