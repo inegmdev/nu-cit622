@@ -252,21 +252,27 @@ static BOOL WINAPI Hook_DeleteFileA(
     return True_DeleteFileA(lpFileName);
 }
 
-
+/**
+ * processthreadsapi.h -> ExitProcess
+ */
 static void (WINAPI* True_ExitProcess) (
     UINT  uExitCode
     ) = ExitProcess;
-
 static void WINAPI Hook_ExitProcess(
     UINT  uExitCode
 ) {
-    Log("{{ \"Function\": \"ExitProcess\", \"Parameters\": {{ \"uExitCode\": \"{}\"}} }}"
+    Log("{"
+            "'Function': 'ExitProcess', "
+            "'Parameters': { "
+                "'uExitCode': '{}' "
+            "}"
+        "}"
         , uExitCode
     );
 
     return True_ExitProcess(uExitCode);
 }
-
+/* ----------------------------------------- */
 
 static HANDLE(WINAPI* True_FindFirstFileA) (
     LPCSTR              lpFileName,
@@ -302,17 +308,44 @@ static BOOL WINAPI Hook_FindNextFileA(
 }
 
 
+/**
+ * processenv.h -> GetCommandLineA
+ */
 static LPSTR(WINAPI* True_GetCommandLineA) (
-    ) = GetCommandLineA;
+    VOID
+) = GetCommandLineA;
 
 static LPSTR WINAPI Hook_GetCommandLineA(
 ) {
-    Log("{{ \"Function\": \"GetCommandLineA\", \"Parameters\": {{}} }}"
-
+    Log("{"
+            "'Function': 'GetCommandLineA', "
+            "'Parameters': '{}' "
+        "}"
     );
 
     return True_GetCommandLineA();
 }
+/* ----------------------------------------- */
+
+
+/**
+ * processenv.h -> GetCommandLineW
+ */
+static LPWSTR (WINAPI* True_GetCommandLineW) (
+    VOID
+) = GetCommandLineW;
+
+static LPWSTR  WINAPI Hook_GetCommandLineW(
+) {
+    Log("{"
+            "'Function': 'GetCommandLineW', "
+            "'Parameters': '{}' "
+        "}"
+    );
+
+    return True_GetCommandLineW();
+}
+/* ----------------------------------------- */
 
 
 static void (WINAPI* True_GetStartupInfoW) (
@@ -654,7 +687,10 @@ void DetourAttach_AllHooks() {
     HOOK_API(ExitProcess);
     HOOK_API(FindFirstFileA);
     HOOK_API(FindNextFileA);
+    // processenv.h -> GetCommandLineA
     HOOK_API(GetCommandLineA);
+    // processenv.h -> GetCommandLineW
+    HOOK_API(GetCommandLineW);
     HOOK_API(GetStartupInfoW);
     HOOK_API(OpenMutexA);
     HOOK_API(OpenProcess);

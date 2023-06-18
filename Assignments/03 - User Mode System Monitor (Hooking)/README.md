@@ -103,8 +103,8 @@ Once you are hooking APIs, your program should print the function called, args/p
   * [ ] **Process API**
     * [x] ShellExecuteA, ShellExecuteW
     * [x] CreateProcessAsUserW
-    * [ ] ExitProcess
-    * [ ] GetCommandLine
+    * [x] ExitProcess
+    * [x] GetCommandLineA, GetCommandLineW 
     * [ ] GetFullPathName - x
     * [ ] GetStartupInfo
     * [ ] OpenProcess
