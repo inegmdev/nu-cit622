@@ -1,4 +1,4 @@
-# Assignment#2: 🕵 User Mode System Monitor (Hooking)
+# Assignment#3: 🕵 User Mode System Monitor (Hooking)
 
 ## Introduction
 
@@ -69,20 +69,20 @@ Detours is widely used by developers in a variety of industries, including video
   * CreateProcessAsUser
   * ExitProcess
   * GetCommandLine
-  * GetFullPathName - x
+  * GetFullPathName 
   * GetStartupInfo
   * OpenProcess
 * **FileSystem API**
   * CreateFile
   * DeleteFile
-  * CreateDirectoryEx - x
+  * CreateDirectoryEx 
 * **Registry API**
   * RegDeleteKey
   * RegCloseKey
-  * RegEnumKeyEx - x
-  * RegEnumValue - x
-  * RegOpenKeyEx - x
-  * RegSetValueEx - x
+  * RegEnumKeyEx 
+  * RegEnumValue 
+  * RegOpenKeyEx 
+  * RegSetValueEx 
   * RegSetValue
 
 Once you are hooking APIs, your program should print the function called, args/params
@@ -99,7 +99,7 @@ Once you are hooking APIs, your program should print the function called, args/p
 ## 📃 Tasklist
 
 * [x] Integrate Detours in the solution and use one API.
-* [ ] Repeat the same thing for all of the APIs.
+* [x] Repeat the same thing for all of the APIs.
   * [x] **Process API**
     * [x] ShellExecuteA, ShellExecuteW
     * [x] CreateProcessAsUserA, CreateProcessAsUserW
@@ -112,13 +112,13 @@ Once you are hooking APIs, your program should print the function called, args/p
     * [x] CreateFileA, CreateFileW
     * [x] DeleteFileA, DeleteFileW
     * [x] CreateDirectoryExA, CreateDirectoryExW
-  * [ ] **Registry API**
+  * [x] **Registry API**
     * [x] RegDeleteKeyA, RegDeleteKeyW
     * [x] RegCloseKey
     * [x] RegEnumKeyExA, RegEnumKeyExW
     * [x] RegEnumValueA, RegEnumValueW
     * [x] RegOpenKeyExA, RegOpenKeyExW
-    * [ ] RegSetValueExA, RegSetValueExW - x
+    * [x] RegSetValueExA, RegSetValueExW
     * [x] RegSetValueA, RegSetValueW
 * [x] Find a quick way to log/print to be able to capture and monitor all the APIs.
 
@@ -171,6 +171,22 @@ You need to build a version of `detours.lib` for your C/C++ compiler. The steps 
    > detver.h
    > syelog.h
    >
+
+## Screenshots
+
+### Detoury with Regedit
+
+![regedit-admin-detoury-1-prompt-for-logging.png](./__OUT/screenshots/regedit-trial/regedit-admin-detoury-1-prompt-for-logging.png)
+![regedit-admin-detoury-2-pid-confirmation.png](./__OUT/screenshots/regedit-trial/regedit-admin-detoury-2-pid-confirmation.png)
+![regedit-admin-detoury-3-test-key.png](./__OUT/screenshots/regedit-trial/regedit-admin-detoury-3-test-key.png)
+![regedit-admin-detoury-4-log.png](./__OUT/screenshots/regedit-trial/regedit-admin-detoury-4-log.png)
+
+### Detoury with Notepad
+
+![notepad-not-admin-detoury-1-prompt-for-logging.png](./__OUT/screenshots/notepad-trial/notepad-not-admin-detoury-1-prompt-for-logging.png)
+![notepad-not-admin-detoury-2-pid-confirmation.png](./__OUT/screenshots/notepad-trial/notepad-not-admin-detoury-2-pid-confirmation.png)
+![notepad-not-admin-detoury-3-File-Save.png](./__OUT/screenshots/notepad-trial/notepad-not-admin-detoury-3-File-Save.png)
+![notepad-not-admin-detoury-4-log.png](./__OUT/screenshots/notepad-trial/notepad-not-admin-detoury-4-log.png)
 
 ## Resources
 

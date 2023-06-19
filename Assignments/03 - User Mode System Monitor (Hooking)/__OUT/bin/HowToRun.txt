@@ -1,0 +1,8 @@
+detoury.exe <target_executable_path> hooks.x64.lib
+
+Ex:
+detoury.exe C:\Windows\notepad.exe hooks.x64.lib
+detoury.exe C:\Windows\System32\cmd.exe hooks.x64.lib
+detoury.exe C:\Windows\regedit.exe hooks.x64.lib
+
+
