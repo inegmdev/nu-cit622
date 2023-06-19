@@ -4,3 +4,6 @@
 [submodule "Assignments/03 - User Mode System Monitor (Hooking)/External/spdlog/core"]
 	path = Assignments/03 - User Mode System Monitor (Hooking)/External/spdlog/core
 	url = git@github.com:gabime/spdlog.git
+[submodule "Assignments/04 - Password and authentication credentials Attacks using Mimikatz/External/mimikatz"]
+	path = Assignments/04 - Password and authentication credentials Attacks using Mimikatz/External/mimikatz
+	url = git@github.com:gentilkiwi/mimikatz.git
