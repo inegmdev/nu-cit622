@@ -1,24 +1,28 @@
 # nu-cit622
+
 Main repo for my CIT622 OS Security course in Nile University
 
 ## [Assignment#1 : 🕵 Windows Process Analysis and Dumping](./Assignments/01%20-%20Windows%20Process%20Analysis%20and%20Dumping/README.md)
 
 This assginement provides an introduction to the Process Environment Block (**PEB**) in Windows operating systems. The **PEB** is a data structure that stores information about a process, such as environment variables and module handles. It is used by the Windows loader to set up the process's initial state and can be accessed by the process itself. The assignment involves developing a Windows process memory parser that opens the "notepad.exe" process and extracts information from its **PEB**. This includes printing basic process information, parsing the Portable Executable Header to extract NT and DOS headers, and finding the base address of loaded DLLs using the PEB. There is also a bonus task to dump the "notepad.exe" from memory to a file. The provided references include a relevant code example.
 
-__________________________________
+---
 
 ## [Assignment#2: 🕵 Basic Process Monitor (🌽Kernel Mode)](./Assignments/02%20-%20Basic%20Process%20Monitor%20(Kernel%20Mode)/README.md)
 
 Assignment#2: Basic Process Monitor (Kernel Mode)" section, the focus is on developing a Windows kernel driver, which is a software module that operates in the kernel mode of the Windows operating system. Kernel drivers have direct access to hardware resources and can execute privileged instructions. The provided code demonstrates a simple kernel driver structure with functions for driver entry and driver unload. The assignment tasks include writing a kernel driver that prints CPUID information and extending it to create a basic process monitor that logs processes being started using PsSetCreateProcessNotifyRoutine and PsSetNotifyLoadImageRoutine functions. The section also provides API documentation and a task list for the assignment deliverables.
 
-__________________________________
+---
 
-## Assignment#3: 🔗 User Mode System Monitor (Hooking)
+## [Assignment#3: 🔗 User Mode System Monitor (Hooking)](./Assignments/03%20-%20User%20Mode%20System%20Monitor%20(Hooking)/README.md)
 
-### Introduction
-__________________________________
+* Function API hooking is a technique to intercept function calls and redirect them to a custom implementation.
+* In C, function API hooking can be implemented using techniques like inline assembly, function pointers, or dynamic code generation.
+* The example provided demonstrates function API hooking using function pointers to replace the MessageBoxA function.
+* Microsoft Detours is a library for intercepting and modifying API calls in Windows applications, commonly used for debugging and adding new functionality.
 
-## Assignment#3: 🔐 Password and authentication credentials Attacks using Mimikatz
+
+## Assignment#4: 🔐 Password and authentication credentials Attacks using Mimikatz
 
 ### What is Mimikatz
 
