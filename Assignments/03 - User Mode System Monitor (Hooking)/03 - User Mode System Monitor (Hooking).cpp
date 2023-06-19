@@ -204,6 +204,10 @@ BOOL WINAPI DetourCreateProcessWithDllsW(_In_opt_ LPCWSTR lpApplicationName,
     }
     else
     {
-        ERR_LN("Failed to create process.");
+        DWORD errNum = GetLastError();
+        ERR_LN("Failed to create process. System error : (" << errNum << ").");
+        if (errNum == ERROR_ELEVATION_REQUIRED) {
+            INFO_LN("Process requires adminstrator privileges to run.");
+        }
     }
 }
