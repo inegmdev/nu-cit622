@@ -368,6 +368,9 @@ static HANDLE WINAPI Hook_CreateMutexA(
 }
 
 
+/**
+ * processthreadsapi.h -> CreateProcessA
+ */
 static BOOL(WINAPI* True_CreateProcessA) (
     LPCSTR                 lpApplicationName,
     LPSTR                  lpCommandLine,
@@ -413,7 +416,68 @@ static BOOL WINAPI Hook_CreateProcessA(
 
     return True_CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation);
 }
+ /* ---------------------------------- */
 
+
+
+/**
+ * processthreadsapi.h -> CreateProcessW
+ */
+static BOOL(WINAPI* True_CreateProcessW) (
+    LPCWSTR                lpApplicationName,
+    LPWSTR                 lpCommandLine,
+    LPSECURITY_ATTRIBUTES  lpProcessAttributes,
+    LPSECURITY_ATTRIBUTES  lpThreadAttributes,
+    BOOL                   bInheritHandles,
+    DWORD                  dwCreationFlags,
+    LPVOID                 lpEnvironment,
+    LPCWSTR                lpCurrentDirectory,
+    LPSTARTUPINFOW         lpStartupInfo,
+    LPPROCESS_INFORMATION  lpProcessInformation
+    ) = CreateProcessW;
+
+static BOOL WINAPI Hook_CreateProcessW(
+    LPCWSTR                lpApplicationName,
+    LPWSTR                 lpCommandLine,
+    LPSECURITY_ATTRIBUTES  lpProcessAttributes,
+    LPSECURITY_ATTRIBUTES  lpThreadAttributes,
+    BOOL                   bInheritHandles,
+    DWORD                  dwCreationFlags,
+    LPVOID                 lpEnvironment,
+    LPCWSTR                lpCurrentDirectory,
+    LPSTARTUPINFOW         lpStartupInfo,
+    LPPROCESS_INFORMATION  lpProcessInformation
+) {
+
+    CreateLpcstrFromLpcwstr(lpApplicationName);
+    CreateLpstrFromLpwstr(lpCommandLine);
+    CreateLpcstrFromLpcwstr(lpCurrentDirectory);
+
+    Log("{{"
+            "'Function': 'CreateProcessW', "
+            "'Parameters': {{ "
+                "'lpApplicationName': '{}', "
+                "'lpCommandLine': '{}', "
+                "'bInheritHandles': '{}', "
+                "'dwCreationFlags': '{}', "
+                "'lpCurrentDirectory': '{}'"
+            "}}"
+        "}}"
+        ,
+        (GetLpcstrFromLpcwstr(lpApplicationName)) ? GetLpcstrFromLpcwstr(lpApplicationName) : "",
+        (GetLpstrFromLpwstr(lpCommandLine)) ? GetLpstrFromLpwstr(lpCommandLine) : "",
+        bInheritHandles,
+        dwCreationFlags,
+        (GetLpcstrFromLpcwstr(lpCurrentDirectory)) ? GetLpcstrFromLpcwstr(lpCurrentDirectory) : ""
+    );
+
+    ClearLpcstrFromLpcwstr(lpApplicationName);
+    ClearLpstrFromLpwstr(lpCommandLine);
+    ClearLpcstrFromLpcwstr(lpCurrentDirectory);
+
+    return True_CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation);
+}
+ /* ---------------------------------- */
 
 
 
@@ -1176,6 +1240,119 @@ static LSTATUS WINAPI Hook_RegEnumValueW(
 /* ----------------------------------------- */
 
 
+/**
+ * winreg.h -> RegOpenKeyExA
+ */
+static LSTATUS (WINAPI* True_RegOpenKeyExA) (
+    HKEY   hKey,
+    LPCSTR lpSubKey,
+    DWORD  ulOptions,
+    REGSAM samDesired,
+    PHKEY  phkResult
+) = RegOpenKeyExA;
+
+static LSTATUS WINAPI Hook_RegOpenKeyExA(
+    HKEY   hKey,
+    LPCSTR lpSubKey,
+    DWORD  ulOptions,
+    REGSAM samDesired,
+    PHKEY  phkResult
+) {
+    Log("{{ "
+            "'Function': 'RegOpenKeyExA', "
+            "'Parameters': {{ "
+                "'lpSubKey' : '{}', "
+                "'ulOptions' : '{}', "
+                "'samDesired' : '{}{}{}{}{}{}{}{}{}{}{}{}', "
+                "'phkResult' : '{}'"
+            "}} "
+        "}}",
+        (lpSubKey) ? lpSubKey : "",
+        ulOptions,
+        (samDesired & KEY_ALL_ACCESS) ? "KEY_ALL_ACCESS | " : "",
+        (samDesired & KEY_CREATE_LINK) ? "KEY_CREATE_LINK | " : "",
+        (samDesired & KEY_CREATE_SUB_KEY) ? "KEY_CREATE_SUB_KEY | " : "",
+        (samDesired & KEY_ENUMERATE_SUB_KEYS) ? "KEY_ENUMERATE_SUB_KEYS | " : "",
+        (samDesired & KEY_EXECUTE) ? "KEY_EXECUTE | " : "",
+        (samDesired & KEY_NOTIFY) ? "KEY_NOTIFY | " : "",
+        (samDesired & KEY_QUERY_VALUE) ? "KEY_QUERY_VALUE | " : "",
+        (samDesired & KEY_READ) ? "KEY_READ | " : "",
+        (samDesired & KEY_SET_VALUE) ? "KEY_SET_VALUE | " : "",
+        (samDesired & KEY_WOW64_32KEY) ? "KEY_WOW64_32KEY | " : "",
+        (samDesired & KEY_WOW64_64KEY) ? "KEY_WOW64_64KEY | " : "",
+        (samDesired & KEY_WRITE) ? "KEY_WRITE" : ""
+    );
+
+    return True_RegOpenKeyExA(
+        hKey,
+        lpSubKey,
+        ulOptions,
+        samDesired,
+        phkResult
+    );
+}
+/* ----------------------------------------- */
+
+
+/**
+ * winreg.h -> RegOpenKeyExW
+ */
+static LSTATUS (WINAPI* True_RegOpenKeyExW) (
+    HKEY    hKey,
+    LPCWSTR lpSubKey,
+    DWORD   ulOptions,
+    REGSAM  samDesired,
+    PHKEY   phkResult
+) = RegOpenKeyExW;
+
+static LSTATUS WINAPI Hook_RegOpenKeyExW(
+    HKEY    hKey,
+    LPCWSTR lpSubKey,
+    DWORD   ulOptions,
+    REGSAM  samDesired,
+    PHKEY   phkResult
+) {
+
+    CreateLpcstrFromLpcwstr(lpSubKey);
+    
+    Log("{{ "
+            "'Function': 'RegOpenKeyExW', "
+            "'Parameters': {{ "
+                "'lpSubKey' : '{}', "
+                "'ulOptions' : '{}', "
+                "'samDesired' : '{}{}{}{}{}{}{}{}{}{}{}{}', "
+                "'phkResult' : '{}'"
+            "}} "
+        "}}",
+        (GetLpcstrFromLpcwstr(lpSubKey)) ? GetLpcstrFromLpcwstr(lpSubKey) : "",
+        ulOptions,
+        (samDesired & KEY_ALL_ACCESS) ? "KEY_ALL_ACCESS | " : "",
+        (samDesired & KEY_CREATE_LINK) ? "KEY_CREATE_LINK | " : "",
+        (samDesired & KEY_CREATE_SUB_KEY) ? "KEY_CREATE_SUB_KEY | " : "",
+        (samDesired & KEY_ENUMERATE_SUB_KEYS) ? "KEY_ENUMERATE_SUB_KEYS | " : "",
+        (samDesired & KEY_EXECUTE) ? "KEY_EXECUTE | " : "",
+        (samDesired & KEY_NOTIFY) ? "KEY_NOTIFY | " : "",
+        (samDesired & KEY_QUERY_VALUE) ? "KEY_QUERY_VALUE | " : "",
+        (samDesired & KEY_READ) ? "KEY_READ | " : "",
+        (samDesired & KEY_SET_VALUE) ? "KEY_SET_VALUE | " : "",
+        (samDesired & KEY_WOW64_32KEY) ? "KEY_WOW64_32KEY | " : "",
+        (samDesired & KEY_WOW64_64KEY) ? "KEY_WOW64_64KEY | " : "",
+        (samDesired & KEY_WRITE) ? "KEY_WRITE" : ""
+    );
+
+    ClearLpcstrFromLpcwstr(lpSubKey);
+
+    return True_RegOpenKeyExW(
+        hKey,
+        lpSubKey,
+        ulOptions,
+        samDesired,
+        phkResult
+    );
+}
+/* ----------------------------------------- */
+
+
 
 /**
  * winreg.h -> RegDeleteKeyA
@@ -1232,6 +1409,104 @@ static LSTATUS WINAPI Hook_RegDeleteKeyW(
     return True_RegDeleteKeyW(hKey, lpSubKey);
 }
 /* ----------------------------------------- */
+
+
+
+/**
+ * winreg.h -> RegSetValueExA
+ */
+static LSTATUS (WINAPI* True_RegSetValueExA) (
+    HKEY       hKey,
+    LPCSTR     lpValueName,
+    DWORD      Reserved,
+    DWORD      dwType,
+    const BYTE *lpData,
+    DWORD      cbData
+) = RegSetValueExA;
+
+static LSTATUS WINAPI Hook_RegSetValueExA(
+    HKEY       hKey,
+    LPCSTR     lpValueName,
+    DWORD      Reserved,
+    DWORD      dwType,
+    const BYTE *lpData,
+    DWORD      cbData
+) {
+    Log("{{ "
+            "'Function': 'RegSetValueExA', "
+            "'Parameters': {{ "
+                "'lpValueName' : '{}', "
+                "'dwType' : '{}', "
+                "'cbData ' : '{}'"
+            "}}"
+        "}}",
+        (lpValueName) ? lpValueName : "",
+        dwType,
+        cbData
+    );
+
+    return True_RegSetValueExA(
+        hKey,
+        lpValueName,
+        Reserved,
+        dwType,
+        lpData,
+        cbData
+    );
+}
+/* ----------------------------------------- */
+
+
+
+/**
+ * winreg.h -> RegSetValueExW
+ */
+static LSTATUS (WINAPI* True_RegSetValueExW) (
+    HKEY       hKey,
+    LPCWSTR    lpValueName,
+    DWORD      Reserved,
+    DWORD      dwType,
+    const BYTE *lpData,
+    DWORD      cbData
+) = RegSetValueExW;
+
+static LSTATUS WINAPI Hook_RegSetValueExW(
+    HKEY       hKey,
+    LPCWSTR    lpValueName,
+    DWORD      Reserved,
+    DWORD      dwType,
+    const BYTE *lpData,
+    DWORD      cbData
+) {
+
+    CreateLpcstrFromLpcwstr(lpValueName);
+
+    Log("{{ "
+            "'Function': 'RegSetValueExW', "
+            "'Parameters': {{ "
+                "'lpValueName' : '{}', "
+                "'dwType' : '{}', "
+                "'cbData ' : '{}'"
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpValueName)) ? GetLpcstrFromLpcwstr(lpValueName) : "",
+        dwType,
+        cbData
+    );
+
+    ClearLpcstrFromLpcwstr(lpValueName);
+
+    return True_RegSetValueExW(
+        hKey,
+        lpValueName,
+        Reserved,
+        dwType,
+        lpData,
+        cbData
+    );
+}
+/* ----------------------------------------- */
+
 
 
 static LSTATUS(WINAPI* True_RegDeleteValueA) (
@@ -1304,6 +1579,10 @@ static LSTATUS WINAPI Hook_RegSaveKeyA(
 }
 
 
+
+/**
+ * winreg.h -> RegSetValueA
+ */
 static LSTATUS(WINAPI* True_RegSetValueA) (
     HKEY    hKey,
     LPCSTR  lpSubKey,
@@ -1336,6 +1615,54 @@ static LSTATUS WINAPI Hook_RegSetValueA(
 
     return True_RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData);
 }
+/* ----------------------------------------- */
+
+
+
+/**
+ * winreg.h -> RegSetValueW
+ */
+static LSTATUS(WINAPI* True_RegSetValueW) (
+    HKEY    hKey,
+    LPCWSTR lpSubKey,
+    DWORD   dwType,
+    LPCWSTR lpData,
+    DWORD   cbData
+    ) = RegSetValueW;
+
+static LSTATUS WINAPI Hook_RegSetValueW(
+    HKEY    hKey,
+    LPCWSTR lpSubKey,
+    DWORD   dwType,
+    LPCWSTR lpData,
+    DWORD   cbData
+) {
+
+    CreateLpcstrFromLpcwstr(lpSubKey);
+    CreateLpcstrFromLpcwstr(lpData);
+
+    Log("{{ "
+            "'Function': 'RegSetValueW', "
+            "'Parameters': {{ "
+                "'lpSubKey': '{}', "
+                "'dwType': '{}', "
+                "'lpData': '{}', "
+                "'cbData': '{}'"
+            "}}"
+        "}}",
+        (GetLpcstrFromLpcwstr(lpSubKey)) ? GetLpcstrFromLpcwstr(lpSubKey) : "",
+        dwType,
+        (GetLpcstrFromLpcwstr(lpData)) ? GetLpcstrFromLpcwstr(lpData) : "",
+        cbData
+    );
+
+    ClearLpcstrFromLpcwstr(lpSubKey);
+    ClearLpcstrFromLpcwstr(lpData);
+
+    return True_RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData);
+}
+/* ----------------------------------------- */
+
 
 
 static BOOL(WINAPI* True_ReleaseMutex) (
@@ -1562,6 +1889,8 @@ void DetourAttach_AllHooks() {
     HOOK_API(FindFirstFileA);
     /* fileapi.h -> FindFirstFileW */
     HOOK_API(FindFirstFileW);
+    /* fileapi.h -> FindNextFileA */
+    HOOK_API(FindNextFileA);
 
 
     /**
@@ -1575,6 +1904,10 @@ void DetourAttach_AllHooks() {
     HOOK_API(CreateProcessAsUserA);
     /* processthreadsapi.h -> CreateProcessAsUserW  */
     HOOK_API(CreateProcessAsUserW);
+    /* processthreadsapi.h -> CreateProcessA */
+    HOOK_API(CreateProcessA);
+    /* processthreadsapi.h -> CreateProcessW */
+    HOOK_API(CreateProcessW);
     /* processthreadsapi.h -> ExitProcess  */
     HOOK_API(ExitProcess);
     /* processenv.h -> GetCommandLineA */
@@ -1602,34 +1935,44 @@ void DetourAttach_AllHooks() {
     HOOK_API(RegEnumValueA);
     /* winreg.h -> RegEnumValueW */
     HOOK_API(RegEnumValueW);
+    /* winreg.h -> RegOpenKeyExA */
+    HOOK_API(RegOpenKeyExA);
+    /* winreg.h -> RegOpenKeyExW */
+    HOOK_API(RegOpenKeyExW);
+    /* winreg.h -> RegSetValueA */
+    HOOK_API(RegSetValueA);
+    /* winreg.h -> RegSetValueW */
+    HOOK_API(RegSetValueW);
+    /* winreg.h -> RegSetValueExA */
+    HOOK_API(RegSetValueExA);
+    /* winreg.h -> RegSetValueExW */
+    HOOK_API(RegSetValueExW);
+    /* winreg.h -> RegDeleteValueA */
+    HOOK_API(RegDeleteValueA);
+    /* winreg.h -> RegOpenKeyA */
+    HOOK_API(RegOpenKeyA);
+    /* winreg.h -> RegSaveKeyA */
+    HOOK_API(RegSaveKeyA);
 
 
     /**
-     * 
+     * Memory
      */
-
-
-    HOOK_API(CreateMutexA);
-    HOOK_API(CreateProcessA);
-    
-
-
-    HOOK_API(FindNextFileA);
-
-    
-    
-    HOOK_API(OpenMutexA);
-
-
-
-    HOOK_API(RegDeleteValueA);
-    HOOK_API(RegOpenKeyA);
-    HOOK_API(RegSaveKeyA);
-    HOOK_API(RegSetValueA);
-    
-    /* HOOK_API(ReleaseMutex); */ // -> Disabled as it's very verbose 
-
-    HOOK_API(Sleep);
+    /* memoryapi.h -> VirtualAlloc */
     HOOK_API(VirtualAlloc);
+    /* memoryapi.h -> VirtualAllocEx */
     HOOK_API(VirtualAllocEx);
+
+
+    /**
+     * Misc
+     */
+    /* synchapi.h -> CreateMutexA */
+    HOOK_API(CreateMutexA);
+    /* synchapi.h -> OpenMutexA */
+    HOOK_API(OpenMutexA);
+    /* synchapi.h -> ReleaseMutex */ // -> Disabled as it's very verbose 
+    // HOOK_API(ReleaseMutex);
+    /* synchapi.h -> Sleep */
+    HOOK_API(Sleep);
 }

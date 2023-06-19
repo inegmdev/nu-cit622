@@ -117,9 +117,9 @@ Once you are hooking APIs, your program should print the function called, args/p
     * [x] RegCloseKey
     * [x] RegEnumKeyExA, RegEnumKeyExW
     * [x] RegEnumValueA, RegEnumValueW
-    * [ ] RegOpenKeyEx - x
-    * [ ] RegSetValueEx - x
-    * [ ] RegSetValue
+    * [x] RegOpenKeyExA, RegOpenKeyExW
+    * [ ] RegSetValueExA, RegSetValueExW - x
+    * [x] RegSetValueA, RegSetValueW
 * [x] Find a quick way to log/print to be able to capture and monitor all the APIs.
 
 ## Notes
