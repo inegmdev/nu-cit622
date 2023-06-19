@@ -102,21 +102,21 @@ Once you are hooking APIs, your program should print the function called, args/p
 * [ ] Repeat the same thing for all of the APIs.
   * [x] **Process API**
     * [x] ShellExecuteA, ShellExecuteW
-    * [x] CreateProcessAsUserW
+    * [x] CreateProcessAsUserA, CreateProcessAsUserW
     * [x] ExitProcess
     * [x] GetCommandLineA, GetCommandLineW
-    * [x] GetFullPathNameA, GetFullPathNameW
     * [x] GetStartupInfoW
     * [x] OpenProcess
   * [x] **FileSystem API**
+    * [x] GetFullPathNameA, GetFullPathNameW
     * [x] CreateFileA, CreateFileW
     * [x] DeleteFileA, DeleteFileW
     * [x] CreateDirectoryExA, CreateDirectoryExW
   * [ ] **Registry API**
-    * [ ] RegDeleteKey
-    * [ ] RegCloseKey
-    * [ ] RegEnumKeyEx - x
-    * [ ] RegEnumValue - x
+    * [x] RegDeleteKeyA, RegDeleteKeyW
+    * [x] RegCloseKey
+    * [x] RegEnumKeyExA, RegEnumKeyExW
+    * [x] RegEnumValueA, RegEnumValueW
     * [ ] RegOpenKeyEx - x
     * [ ] RegSetValueEx - x
     * [ ] RegSetValue

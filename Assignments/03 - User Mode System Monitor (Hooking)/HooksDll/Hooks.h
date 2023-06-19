@@ -163,6 +163,93 @@ static HANDLE WINAPI Hook_CreateFileW(
 
 
 /**
+ * processthreadsapi.h -> CreateProcessAsUserA
+ */
+static BOOL (WINAPI* True_CreateProcessAsUserA) (
+    HANDLE                hToken,
+    LPCSTR                lpApplicationName,
+    LPSTR                 lpCommandLine,
+    LPSECURITY_ATTRIBUTES lpProcessAttributes,
+    LPSECURITY_ATTRIBUTES lpThreadAttributes,
+    BOOL                  bInheritHandles,
+    DWORD                 dwCreationFlags,
+    LPVOID                lpEnvironment,
+    LPCSTR                lpCurrentDirectory,
+    LPSTARTUPINFOA        lpStartupInfo,
+    LPPROCESS_INFORMATION lpProcessInformation
+) = CreateProcessAsUserA;
+
+static BOOL WINAPI Hook_CreateProcessAsUserA(
+    HANDLE                hToken,
+    LPCSTR                lpApplicationName,
+    LPSTR                 lpCommandLine,
+    LPSECURITY_ATTRIBUTES lpProcessAttributes,
+    LPSECURITY_ATTRIBUTES lpThreadAttributes,
+    BOOL                  bInheritHandles,
+    DWORD                 dwCreationFlags,
+    LPVOID                lpEnvironment,
+    LPCSTR                lpCurrentDirectory,
+    LPSTARTUPINFOA        lpStartupInfo,
+    LPPROCESS_INFORMATION lpProcessInformation
+) {
+   
+    Log("{{"
+            "'Function' : 'CreateProcessAsUserA',"
+            "'Parameters' : {{"
+                "'hToken' : '{}' ,"
+                "'lpApplicationName' : '{}' ,"
+                "'lpCommandLine' : '{}' ,"
+                "'dwCreationFlags' : '{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}' ,"
+                "'lpEnvironment' : '{}' ,"
+                "'lpCurrentDirectory' : '{}' ,"
+                "'lpProcessInformation' : {{"
+                    "'dwProcessId' : '{}'"
+                "}}"
+            "}}"
+        "}}",
+        hToken,
+        (lpApplicationName) ? lpApplicationName : "" ,
+        (lpCommandLine) ? lpCommandLine : "",
+        (dwCreationFlags & CREATE_BREAKAWAY_FROM_JOB) ? "CREATE_BREAKAWAY_FROM_JOB | " : "",
+        (dwCreationFlags & CREATE_DEFAULT_ERROR_MODE) ? "CREATE_DEFAULT_ERROR_MODE | " : "",
+        (dwCreationFlags & CREATE_NEW_CONSOLE) ? "CREATE_NEW_CONSOLE | " : "",
+        (dwCreationFlags & CREATE_NEW_PROCESS_GROUP) ? "CREATE_NEW_PROCESS_GROUP | " : "",
+        (dwCreationFlags & CREATE_NO_WINDOW) ? "CREATE_NO_WINDOW | " : "",
+        (dwCreationFlags & CREATE_PROTECTED_PROCESS) ? "CREATE_PROTECTED_PROCESS | " : "",
+        (dwCreationFlags & CREATE_PRESERVE_CODE_AUTHZ_LEVEL) ? "CREATE_PRESERVE_CODE_AUTHZ_LEVEL | " : "",
+        (dwCreationFlags & CREATE_SECURE_PROCESS) ? "CREATE_SECURE_PROCESS | " : "",
+        (dwCreationFlags & CREATE_SEPARATE_WOW_VDM) ? "CREATE_SEPARATE_WOW_VDM | " : "",
+        (dwCreationFlags & CREATE_SHARED_WOW_VDM) ? "CREATE_SHARED_WOW_VDM | " : "",
+        (dwCreationFlags & CREATE_SUSPENDED) ? "CREATE_SUSPENDED | " : "",
+        (dwCreationFlags & CREATE_UNICODE_ENVIRONMENT) ? "CREATE_UNICODE_ENVIRONMENT | " : "",
+        (dwCreationFlags & DEBUG_ONLY_THIS_PROCESS) ? "DEBUG_ONLY_THIS_PROCESS | " : "",
+        (dwCreationFlags & DEBUG_PROCESS) ? "DEBUG_PROCESS | " : "",
+        (dwCreationFlags & DETACHED_PROCESS) ? "DETACHED_PROCESS | " : "",
+        (dwCreationFlags & EXTENDED_STARTUPINFO_PRESENT) ? "EXTENDED_STARTUPINFO_PRESENT | " : "",
+        (dwCreationFlags & INHERIT_PARENT_AFFINITY) ? "INHERIT_PARENT_AFFINITY" : "",
+        lpEnvironment,
+        (lpCurrentDirectory) ? lpCurrentDirectory : "",
+        lpProcessInformation->dwProcessId
+    );
+
+    return True_CreateProcessAsUserA(
+        hToken, 
+        lpApplicationName, 
+        lpCommandLine, 
+        lpProcessAttributes, 
+        lpThreadAttributes, 
+        bInheritHandles, 
+        dwCreationFlags, 
+        lpEnvironment, 
+        lpCurrentDirectory, 
+        lpStartupInfo, 
+        lpProcessInformation
+        );
+}
+/* ---------------------------------- */
+
+
+/**
  * processthreadsapi.h -> CreateProcessAsUserW
  */
 static BOOL(WINAPI* True_CreateProcessAsUserW) (
@@ -483,6 +570,10 @@ static void WINAPI Hook_ExitProcess(
 }
 /* ----------------------------------------- */
 
+
+/**
+ * fileapi.h -> FindFirstFileA
+ */
 static HANDLE(WINAPI* True_FindFirstFileA) (
     LPCSTR              lpFileName,
     LPWIN32_FIND_DATAA  lpFindFileData
@@ -503,6 +594,39 @@ static HANDLE WINAPI Hook_FindFirstFileA(
 
     return True_FindFirstFileA(lpFileName, lpFindFileData);
 }
+/* ----------------------------------------- */
+
+
+/**
+ * fileapi.h -> FindFirstFileW
+ */
+static HANDLE(WINAPI* True_FindFirstFileW) (
+    LPCWSTR             lpFileName,
+    LPWIN32_FIND_DATAW  lpFindFileData
+    ) = FindFirstFileW;
+
+static HANDLE WINAPI Hook_FindFirstFileW(
+    LPCWSTR              lpFileName,
+    LPWIN32_FIND_DATAW  lpFindFileData
+) {
+    
+    CreateLpcstrFromLpcwstr(lpFileName);
+
+    Log("{{ "
+            "'Function': 'FindFirstFileW', "
+            "'Parameters': {{ "
+                "'lpFileName': '{}'"
+            "}}"
+        "}}"
+        , (GetLpcstrFromLpcwstr(lpFileName)) ? GetLpcstrFromLpcwstr(lpFileName) : ""
+    );
+    
+    ClearLpcstrFromLpcwstr(lpFileName);
+
+    return True_FindFirstFileW(lpFileName, lpFindFileData);
+}
+/* ----------------------------------------- */
+
 
 
 static BOOL(WINAPI* True_FindNextFileA) (
@@ -802,6 +926,9 @@ static HANDLE WINAPI Hook_OpenProcess(
 /* ----------------------------------------- */
 
 
+/**
+ * winreg.h -> RegCloseKey
+ */
 static LSTATUS(WINAPI* True_RegCloseKey) (
     HKEY  hKey
     ) = RegCloseKey;
@@ -817,8 +944,242 @@ static LSTATUS WINAPI Hook_RegCloseKey(
 
     return True_RegCloseKey(hKey);
 }
+/* ----------------------------------------- */
 
 
+/**
+ * winreg.h -> RegEnumKeyExA
+ */
+static LSTATUS (WINAPI* True_RegEnumKeyExA) (
+    HKEY      hKey,
+    DWORD     dwIndex,
+    LPSTR     lpName,
+    LPDWORD   lpcchName,
+    LPDWORD   lpReserved,
+    LPSTR     lpClass,
+    LPDWORD   lpcchClass,
+    PFILETIME lpftLastWriteTime
+) = RegEnumKeyExA;
+
+static LSTATUS WINAPI Hook_RegEnumKeyExA(
+    HKEY      hKey,
+    DWORD     dwIndex,
+    LPSTR     lpName,
+    LPDWORD   lpcchName,
+    LPDWORD   lpReserved,
+    LPSTR     lpClass,
+    LPDWORD   lpcchClass,
+    PFILETIME lpftLastWriteTime
+) {
+    Log("{{ "
+            "'Function': 'RegEnumKeyExA', "
+            "'Parameters': {{ "
+                "'dwIndex' : '{}', "
+                "'lpName' : '{}', "
+                "'*lpcchName' : '{}', "
+                "'lpClass' : '{}', "
+                "'*lpcchClass' : '{}'"
+            "}} "
+        "}}",
+        dwIndex,
+        (lpName) ? lpName : "",
+        *lpcchName,
+        (lpClass)? lpClass : "",
+        *lpcchClass
+    );
+
+    return True_RegEnumKeyExA(
+        hKey,
+        dwIndex,
+        lpName,
+        lpcchName,
+        lpReserved,
+        lpClass,
+        lpcchClass,
+        lpftLastWriteTime       
+    );
+}
+/* ----------------------------------------- */
+
+
+
+/**
+ * winreg.h -> RegEnumKeyExW
+ */
+static LSTATUS (WINAPI* True_RegEnumKeyExW) (
+    HKEY      hKey,
+    DWORD     dwIndex,
+    LPWSTR    lpName,
+    LPDWORD   lpcchName,
+    LPDWORD   lpReserved,
+    LPWSTR    lpClass,
+    LPDWORD   lpcchClass,
+    PFILETIME lpftLastWriteTime
+) = RegEnumKeyExW;
+
+static LSTATUS WINAPI Hook_RegEnumKeyExW(
+    HKEY      hKey,
+    DWORD     dwIndex,
+    LPWSTR    lpName,
+    LPDWORD   lpcchName,
+    LPDWORD   lpReserved,
+    LPWSTR    lpClass,
+    LPDWORD   lpcchClass,
+    PFILETIME lpftLastWriteTime
+) {
+    
+    CreateLpstrFromLpwstr(lpName);
+    CreateLpstrFromLpwstr(lpClass);
+
+    Log("{{ "
+            "'Function': 'RegEnumKeyExW', "
+            "'Parameters': {{ "
+                "'dwIndex' : '{}', "
+                "'lpName' : '{}', "
+                "'*lpcchName' : '{}', "
+                "'lpClass' : '{}', "
+                "'*lpcchClass' : '{}'"
+            "}} "
+        "}}",
+        dwIndex,
+        (GetLpstrFromLpwstr(lpName)) ? GetLpstrFromLpwstr(lpName) : "",
+        *lpcchName,
+        (GetLpstrFromLpwstr(lpClass))? GetLpstrFromLpwstr(lpClass) : "",
+        *lpcchClass
+    );
+
+    ClearLpstrFromLpwstr(lpName);
+    ClearLpstrFromLpwstr(lpClass);
+
+    return True_RegEnumKeyExW(
+        hKey,
+        dwIndex,
+        lpName,
+        lpcchName,
+        lpReserved,
+        lpClass,
+        lpcchClass,
+        lpftLastWriteTime       
+    );
+}
+/* ----------------------------------------- */
+
+
+/**
+ * winreg.h -> RegEnumValueA
+ */
+static LSTATUS (WINAPI* True_RegEnumValueA) (
+    HKEY    hKey,
+    DWORD   dwIndex,
+    LPSTR   lpValueName,
+    LPDWORD lpcchValueName,
+    LPDWORD lpReserved,
+    LPDWORD lpType,
+    LPBYTE  lpData,
+    LPDWORD lpcbData
+) = RegEnumValueA;
+
+static LSTATUS WINAPI Hook_RegEnumValueA(
+    HKEY    hKey,
+    DWORD   dwIndex,
+    LPSTR   lpValueName,
+    LPDWORD lpcchValueName,
+    LPDWORD lpReserved,
+    LPDWORD lpType,
+    LPBYTE  lpData,
+    LPDWORD lpcbData
+) {
+    Log("{{ "
+            "'Function': 'RegEnumValueA', "
+            "'Parameters': {{ "
+                "'dwIndex' : '{}', "
+                "'lpValueName' : '{}', "
+                "'*lpcchValueName' : '{}', "
+                "'*lpcbData' : '{}'"
+            "}} "
+        "}}",
+        dwIndex,
+        (lpValueName) ? lpValueName : "",
+        *lpcchValueName,
+        *lpcbData
+    );
+
+    return True_RegEnumValueA(
+        hKey,
+        dwIndex,
+        lpValueName,
+        lpcchValueName,
+        lpReserved,
+        lpType,
+        lpData,
+        lpcbData  
+    );
+}
+/* ----------------------------------------- */
+
+
+/**
+ * winreg.h -> RegEnumValueW
+ */
+static LSTATUS (WINAPI* True_RegEnumValueW) (
+    HKEY    hKey,
+    DWORD   dwIndex,
+    LPWSTR  lpValueName,
+    LPDWORD lpcchValueName,
+    LPDWORD lpReserved,
+    LPDWORD lpType,
+    LPBYTE  lpData,
+    LPDWORD lpcbData
+) = RegEnumValueW;
+
+static LSTATUS WINAPI Hook_RegEnumValueW(
+    HKEY    hKey,
+    DWORD   dwIndex,
+    LPWSTR  lpValueName,
+    LPDWORD lpcchValueName,
+    LPDWORD lpReserved,
+    LPDWORD lpType,
+    LPBYTE  lpData,
+    LPDWORD lpcbData
+) {
+
+    CreateLpstrFromLpwstr(lpValueName);
+
+    Log("{{ "
+            "'Function': 'RegEnumValueW', "
+            "'Parameters': {{ "
+                "'dwIndex' : '{}', "
+                "'lpValueName' : '{}', "
+                "'*lpcchValueName' : '{}', "
+                "'*lpcbData' : '{}'"
+            "}} "
+        "}}",
+        dwIndex,
+        (GetLpstrFromLpwstr(lpValueName)) ? GetLpstrFromLpwstr(lpValueName) : "",
+        *lpcchValueName,
+        *lpcbData
+    );
+
+    ClearLpstrFromLpwstr(lpValueName);
+
+    return True_RegEnumValueW(
+        hKey,
+        dwIndex,
+        lpValueName,
+        lpcchValueName,
+        lpReserved,
+        lpType,
+        lpData,
+        lpcbData  
+    );
+}
+/* ----------------------------------------- */
+
+
+
+/**
+ * winreg.h -> RegDeleteKeyA
+ */
 static LSTATUS(WINAPI* True_RegDeleteKeyA) (
     HKEY    hKey,
     LPCSTR  lpSubKey
@@ -834,11 +1195,43 @@ static LSTATUS WINAPI Hook_RegDeleteKeyA(
                 "'lpSubKey': '{}'"
             "}}"
         "}}"
-        , lpSubKey
+        , (lpSubKey) ? lpSubKey : ""
     );
 
     return True_RegDeleteKeyA(hKey, lpSubKey);
 }
+/* ----------------------------------------- */
+
+
+/**
+ * winreg.h -> RegDeleteKeyW
+ */
+static LSTATUS(WINAPI* True_RegDeleteKeyW) (
+    HKEY    hKey,
+    LPCWSTR lpSubKey
+    ) = RegDeleteKeyW;
+
+static LSTATUS WINAPI Hook_RegDeleteKeyW(
+    HKEY    hKey,
+    LPCWSTR lpSubKey
+) {
+
+    CreateLpcstrFromLpcwstr(lpSubKey);
+
+    Log("{{ "
+            "'Function': 'RegDeleteKeyW', "
+            "'Parameters': {{ "
+                "'lpSubKey': '{}'"
+            "}}"
+        "}}"
+        , (GetLpcstrFromLpcwstr(lpSubKey)) ? GetLpcstrFromLpcwstr(lpSubKey) : ""
+    );
+
+    ClearLpcstrFromLpcwstr(lpSubKey);
+
+    return True_RegDeleteKeyW(hKey, lpSubKey);
+}
+/* ----------------------------------------- */
 
 
 static LSTATUS(WINAPI* True_RegDeleteValueA) (
@@ -1165,32 +1558,70 @@ void DetourAttach_AllHooks() {
     HOOK_API(CreateDirectoryExA);
     /* winbase.h -> CreateDirectoryExW  */
     HOOK_API(CreateDirectoryExW);
-
-
-    HOOK_API(CreateProcessAsUserW);
-    HOOK_API(CreateMutexA);
-    HOOK_API(CreateProcessA);
-    
-
-    HOOK_API(ExitProcess);
+    /* fileapi.h -> FindFirstFileA */
     HOOK_API(FindFirstFileA);
-    HOOK_API(FindNextFileA);
+    /* fileapi.h -> FindFirstFileW */
+    HOOK_API(FindFirstFileW);
 
+
+    /**
+     * Process
+     */
+    /* shellapi.h -> ShellExecuteA */
+    HOOK_API(ShellExecuteA);
+    /* shellapi.h -> ShellExecuteW */
+    HOOK_API(ShellExecuteW);
+    /* processthreadsapi.h -> CreateProcessAsUserA  */
+    HOOK_API(CreateProcessAsUserA);
+    /* processthreadsapi.h -> CreateProcessAsUserW  */
+    HOOK_API(CreateProcessAsUserW);
+    /* processthreadsapi.h -> ExitProcess  */
+    HOOK_API(ExitProcess);
     /* processenv.h -> GetCommandLineA */
     HOOK_API(GetCommandLineA);
     /* processenv.h -> GetCommandLineW */
     HOOK_API(GetCommandLineW);
-    
     /* processthreadsapi.h -> GetStartupInfoW */
     HOOK_API(GetStartupInfoW);
-    
-    HOOK_API(OpenMutexA);
-
     /* processthreadsapi.h -> OpenProcess */
     HOOK_API(OpenProcess);
 
-    HOOK_API(RegCloseKey);
+
+    /**
+     * Registery
+     */
+    /* winreg.h -> RegDeleteKeyA */
     HOOK_API(RegDeleteKeyA);
+    /* winreg.h -> RegDeleteKeyW */
+    HOOK_API(RegDeleteKeyW);
+    /* winreg.h -> RegCloseKey */
+    HOOK_API(RegCloseKey);
+    /* winreg.h -> RegEnumKeyExA */
+    HOOK_API(RegEnumKeyExA);
+    /* winreg.h -> RegEnumValueA */
+    HOOK_API(RegEnumValueA);
+    /* winreg.h -> RegEnumValueW */
+    HOOK_API(RegEnumValueW);
+
+
+    /**
+     * 
+     */
+
+
+    HOOK_API(CreateMutexA);
+    HOOK_API(CreateProcessA);
+    
+
+
+    HOOK_API(FindNextFileA);
+
+    
+    
+    HOOK_API(OpenMutexA);
+
+
+
     HOOK_API(RegDeleteValueA);
     HOOK_API(RegOpenKeyA);
     HOOK_API(RegSaveKeyA);
@@ -1198,10 +1629,6 @@ void DetourAttach_AllHooks() {
     
     /* HOOK_API(ReleaseMutex); */ // -> Disabled as it's very verbose 
 
-    /* shellapi.h -> ShellExecuteA */
-    HOOK_API(ShellExecuteA);
-    /* shellapi.h -> ShellExecuteW */
-    HOOK_API(ShellExecuteW);
     HOOK_API(Sleep);
     HOOK_API(VirtualAlloc);
     HOOK_API(VirtualAllocEx);
