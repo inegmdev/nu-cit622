@@ -1,3 +1,0 @@
-void ExitProcess(
-  [in] UINT uExitCode
-);

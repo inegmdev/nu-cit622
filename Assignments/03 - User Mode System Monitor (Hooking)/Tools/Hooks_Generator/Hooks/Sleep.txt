@@ -1,3 +1,0 @@
-void Sleep(
-  [in] DWORD dwMilliseconds
-);
