@@ -4,3 +4,6 @@
 [submodule "Assignments/03 - User Mode System Monitor (Hooking)/External/spdlog/core"]
 	path = Assignments/03 - User Mode System Monitor (Hooking)/External/spdlog/core
 	url = git@github.com:gabime/spdlog.git
+[submodule "Project/External/CVE-2021-3156"]
+	path = Project/External/CVE-2021-3156
+	url = https://github.com/0x7183/CVE-2021-3156.git
