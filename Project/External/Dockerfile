@@ -27,7 +27,7 @@ COPY ./sudo-1.8.31p2 /root/sudo-1.8.31p2
 
 # Compile and run the sent sudo package
 WORKDIR /root/sudo-1.8.31p2
-RUN echo "\n\n\nBuilding and installing sudo package from host" 
+RUN echo "\n\n\nBuilding and installing sudo package from host"
 RUN pwd && export CFLAGS="-ggdb" && ./configure && make && make install
 
 # Adding new user (dev) account
@@ -45,5 +45,9 @@ COPY ./exploit /home/dev/exploit
 WORKDIR /home/dev/exploit/libnss_X
 RUN gcc -shared -o X1234.so.2 -fPIC X1234.c
 WORKDIR /home/dev/exploit
+
+# Sending the debug script (starts gdb server and then stops the process at init)
+COPY ./debug /home/dev/debug
+
 # Done
 RUN echo "Done and ready for exploiting and debugging!"
