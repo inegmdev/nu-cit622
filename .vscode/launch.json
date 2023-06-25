@@ -13,7 +13,7 @@
             "pipeTransport": {
                 "debuggerPath": "/usr/bin/gdb",
                 "pipeProgram": "docker",
-                "pipeArgs": ["exec", "-i", "sudo1", "sh", "-c"],
+                "pipeArgs": ["exec", "-u", "root", "-i", "sudo1", "sh", "-c"],
                 "pipeCwd": ""
             },
             "MIMode": "gdb",
@@ -39,7 +39,7 @@
             "stopAtEntry": true,
             "cwd": "/home/dev/exploit",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "pipeTransport": {
                 "debuggerPath": "/usr/bin/gdb",
                 "pipeProgram": "docker",

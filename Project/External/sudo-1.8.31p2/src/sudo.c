@@ -134,6 +134,13 @@ __dso_public int main(int argc, char *argv[], char *envp[]);
 int
 main(int argc, char *argv[], char *envp[])
 {
+
+#define DEBUG_TRAP
+#ifdef DEBUG_TRAP
+	volatile int debugTrap = 1;
+	while(debugTrap == 1);
+#endif
+
     int nargc, ok, status = 0;
     char **nargv, **env_add;
     char **user_info, **command_info, **argv_out, **user_env_out;

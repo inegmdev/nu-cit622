@@ -15,8 +15,11 @@ stop:
 	-docker stop sudo1
 	sleep 1
 	-docker rmi sudo1
-
+build: to_be_replaced=$(shell realpath .)
 build:
+	cd ./sudo-1.8.31p2 && export CFLAGS="-ggdb" && ./configure && make
+	# Re-link the installation paths for the docker
+	sed -E "s;$(to_be_replaced);/root;g" -i $(shell grep ./sudo-1.8.31p2 -rl "$(to_be_replaced)" --include=*.la --include=*.status --include=*.log | xargs echo )
 	docker build $(DOCKER_NO_CACH) -t sudo1 .
 
 run:
@@ -29,6 +32,6 @@ root:
 	docker exec -u root -it sudo1 /bin/bash
 
 exploit:
-	docker exec -u dev -it sudo1 bash -c "cd /home/dev/exploit && python3 debug.py"
+	docker exec -u dev -it sudo1 bash -c "cd /home/dev/exploit && python3 exploit.py"
 debug:
 	docker exec -u dev -it sudo1 python3 /home/dev/debug/debug.py

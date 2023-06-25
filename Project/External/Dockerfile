@@ -28,7 +28,7 @@ COPY ./sudo-1.8.31p2 /root/sudo-1.8.31p2
 # Compile and run the sent sudo package
 WORKDIR /root/sudo-1.8.31p2
 RUN echo "\n\n\nBuilding and installing sudo package from host"
-RUN pwd && export CFLAGS="-ggdb" && ./configure && make && make install
+RUN pwd && export CFLAGS="-ggdb" && make install
 
 # Adding new user (dev) account
 RUN useradd -ms /bin/bash dev
