@@ -38,4 +38,12 @@ RUN echo 'export PS1="\[\e]0;\u@\h: \w\a\]\[\033[01;31m\]\u\[\033[00m\]:\[\033[0
 RUN echo 'export PS1="\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ "' >> /home/dev/.bashrc
 
 # Set the working home directory
-WORKDIR /home/user
+WORKDIR /home/dev
+
+# Building the exploit
+COPY ./exploit /home/dev/exploit
+WORKDIR /home/dev/exploit/libnss_X
+RUN gcc -shared -o X1234.so.2 -fPIC X1234.c
+WORKDIR /home/dev/exploit
+# Done
+RUN echo "Done and ready for exploiting and debugging!"
