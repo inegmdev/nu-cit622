@@ -382,6 +382,8 @@ tar xvzf sudo-1.9.5p2.tar.gz && cd sudo-19.5p2
    ```
    sudo ./configure && sudo make && sudo make install
    ```
+5. Updated version does not have the vulnerability, thus the exploit does not execute. 🎉🎉🎉🎉🎉🎉🎉
+   ![1687725507308](image/OperatingSystemAttacks/1687725507308.png)
 
 ## 8. Resources
 
